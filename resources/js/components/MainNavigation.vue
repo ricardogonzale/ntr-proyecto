@@ -7,7 +7,7 @@
       
     <v-app-bar dense app dark color="orange darken-2">
           
-        <v-toolbar-title class="headline font-weight-bold">BookExchange</v-toolbar-title>
+        <v-toolbar-title class="headline font-weight-bold">NTR</v-toolbar-title>
 
         <v-spacer></v-spacer>
 
