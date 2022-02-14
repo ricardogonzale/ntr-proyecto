@@ -245,7 +245,7 @@ export default {
             icon: 'mdi-book-account',
             type: 2,
             items: [
-              { title: 'Lista de Contactos', icon: 'mdi-account-box-multiple', link: '/contact' },
+              { title: 'Listar', icon: 'mdi-account-box-multiple', link: '/contact' },
               { title: 'Pruebas', icon: 'mdi-account-box-multiple', link: '/home' }
             ]
           },
@@ -254,11 +254,7 @@ export default {
             icon: 'mdi-cart-variant',
             type: 2,
             items: [
-              { title: 'Por Aprobación', icon: 'mdi-cart-outline', link: '/listorder/8' },
-              { title: 'Empaquetado', icon: 'mdi-package-variant', link: '/listpack/26' },
-              { title: 'Envio', icon: 'mdi-cube-send', link: '/listshipping/13' },
-              { title: 'Guias', icon: 'mdi-clipboard-list-outline', link: '/listguide/20' },
-              { title: 'Facturar', icon: 'mdi-beaker-check-outline', link: '/listinvoice/24' }
+              { title: 'Listar', icon: 'mdi-cart-outline', link: '/listorder/8' },
             ]
           },
       ],
