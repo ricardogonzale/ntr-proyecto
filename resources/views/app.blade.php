@@ -8,25 +8,15 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
-    
-    
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
-
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     <v-app id="app">
-        
-    <main-navigation auth="{{ auth()->check() }}"></main-navigation>
-        
-        <v-content>
-          <v-container fluid>
-            <!-- <router-view></router-view> -->
-          </v-container>
-        </v-content>
-      
+    <!-- <main-navigation-component id="login" auth="{{ auth()->check() }}"></main-navigation-component>        -->
+    <login-form-component id="login" auth="{{ auth()->check() }}"></login-form-component>
     </v-app>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>

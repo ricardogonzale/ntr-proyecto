@@ -2,10 +2,12 @@ import authApi from '../api/auth/auth.js';
 
 export default {
     state: {
+        loadpage: false,
         // the auth state of the user
         loggedIn : false,
         // current logged in user 
         user : {},
+        userdata: [],
     }, /* END OF STATE */
 
     getters: {
@@ -25,7 +27,15 @@ export default {
 
         setUser(state, user){
             state.user = user;
-        }
+        },
+
+        setloadpage: function (state, payload){
+            Vue.set(state, 'loadpage', payload.loadpage);
+         },
+
+         SET_USERDATA(state, userdata) {
+            state.userdata = userdata
+         },
     },/* END OF MUTATIONS */
 
     actions: {
@@ -66,6 +76,14 @@ export default {
                         reject(error);
                     });
             });
-        },/* END OF LOGOUT */
+        },
+        async getUserdata({ commit }) {
+            await axios.get('/getUserinfo')
+                  .then(response => {
+                     commit('SET_USERDATA', response.data)
+            })
+         },
+        
+        /* END OF LOGOUT */
     },/* END OF ACTIONS */
 }

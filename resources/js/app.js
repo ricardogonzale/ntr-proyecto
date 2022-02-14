@@ -14,22 +14,37 @@ if (token) {
 
 window.Vue = require('vue');
 
+import "moment/locale/es";
 import store from './store.js';
+import router from './router';
 import Vuetify  from 'vuetify';
-Vue.use(Vuetify);
+import Vidle from 'v-idle'
 
-Vue.component('main-navigation', require('./components/MainNavigation.vue').default);
+Vue.use(Vuetify);
+Vue.use(Vidle)
+
+const files = require.context('./', true, /\.vue$/i)
+files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+
+const theme = {
+    theme: {
+        light: {
+            primary: '#007498',
+            secondary: '#b0bec5',
+            accent: '#8c9eff',
+            error: '#b71c1c',
+          },
+        black: true,
+    },
+};
+
 
 const app = new Vue({
     el      : '#app',
-    vuetify : new Vuetify(),
+    vuetify : new Vuetify(theme),
     store,
+    router,
 });
-
-
-
-
-
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
