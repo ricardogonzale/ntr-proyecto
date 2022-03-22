@@ -193,7 +193,9 @@
                                 </v-card>
                             </v-dialog>
                             <div class="text-right mr-4 hidden-sm-and-down">
-                                <span class="font-weight-bold">Ricardo</span>
+                                <span class="font-weight-bold"
+                                    >Administrador</span
+                                >
                                 <br /><small>Admin</small>
                             </div>
                             <MenuUser-component></MenuUser-component>

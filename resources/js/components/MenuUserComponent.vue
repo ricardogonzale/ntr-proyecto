@@ -28,7 +28,7 @@
                         </v-list-item-avatar>
 
                         <v-list-item-content>
-                            <v-list-item-title>Admin(User)</v-list-item-title>
+                            <v-list-item-title>Admin</v-list-item-title>
                             <v-list-item-subtitle
                                 >Administrador</v-list-item-subtitle
                             >

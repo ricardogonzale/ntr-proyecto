@@ -2431,6 +2431,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -27652,7 +27654,7 @@ var render = function () {
                           { staticClass: "text-right mr-4 hidden-sm-and-down" },
                           [
                             _c("span", { staticClass: "font-weight-bold" }, [
-                              _vm._v("Ricardo"),
+                              _vm._v("Administrador"),
                             ]),
                             _vm._v(" "),
                             _c("br"),
@@ -27815,7 +27817,7 @@ var render = function () {
                       _c(
                         "v-list-item-content",
                         [
-                          _c("v-list-item-title", [_vm._v("Admin(User)")]),
+                          _c("v-list-item-title", [_vm._v("Admin")]),
                           _vm._v(" "),
                           _c("v-list-item-subtitle", [_vm._v("Administrador")]),
                         ],
