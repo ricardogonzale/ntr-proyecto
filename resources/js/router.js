@@ -1,22 +1,30 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router';
-import store from './store.js'
- 
-Vue.use(VueRouter)
+import Vue from "vue";
+import VueRouter from "vue-router";
+import store from "./store.js";
+
+import ListSender from "./components/sender/ListSenderComponent.vue";
+
+Vue.use(VueRouter);
 
 const router = new VueRouter({
-  // mode: 'history',
+    // mode: 'history',
+    routes: [
+        {
+            path: "/listsender",
+            name: "Lista de Envios",
+            component: ListSender,
+        },
+    ],
 });
 
 router.beforeEach((to, from, next) => {
-  store.commit('setloadpage', { loadpage: true });
-  next();
+    store.commit("setloadpage", { loadpage: true });
+    next();
 });
 router.afterEach(() => {
-  setTimeout(() => {
-    store.commit('setloadpage', { loadpage: false });
-  }, 500)
-  
-})
+    setTimeout(() => {
+        store.commit("setloadpage", { loadpage: false });
+    }, 500);
+});
 
 export default router;
