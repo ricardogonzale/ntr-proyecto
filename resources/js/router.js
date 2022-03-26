@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import store from "./store.js";
 
 import ListSender from "./components/sender/ListSenderComponent.vue";
+import ListClients from "./components/clients/ListClientsComponent.vue";
 
 Vue.use(VueRouter);
 
@@ -13,6 +14,11 @@ const router = new VueRouter({
             path: "/listsender",
             name: "Lista de Envios",
             component: ListSender,
+        },
+        {
+            path: "/listclients",
+            name: "Listar Clientes",
+            component: ListClients,
         },
     ],
 });

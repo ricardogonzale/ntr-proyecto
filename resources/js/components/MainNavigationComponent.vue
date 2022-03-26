@@ -259,7 +259,7 @@ export default {
                         {
                             title: "Listar Clientes",
                             icon: "mdi-account-box-multiple",
-                            link: "/contact",
+                            link: "/listclients",
                         },
                         {
                             title: "Registrar",
