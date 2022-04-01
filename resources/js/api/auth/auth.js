@@ -1,13 +1,13 @@
 export default {
-    login( credentials ){
-        return axios.post('/login', credentials);
+    login(credentials) {
+        return axios.post("/login", credentials);
     },
 
-    logout(){
-        return axios.post('/logout');
+    logout() {
+        return axios.post("/logout");
     },
 
-    register( credentials ){
-        return axios.post('/register', credentials);
-    }
-}
+    register(credentials) {
+        return axios.post("/newClient", credentials);
+    },
+};

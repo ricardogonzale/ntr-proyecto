@@ -18,4 +18,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/newClient', 'HomeController@registrarCliente')->name('newClient');
 Route::get('getUserinfo', 'APIController@getUserinfo')->name('API.Userinfo');

@@ -3571,6 +3571,33 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this.close();
+    },
+    register: function register() {
+      var _this3 = this;
+
+      if (this.editedIndex > -1) {
+        Object.assign(this.desserts[this.editedIndex], this.editedItem);
+      } else {
+        this.desserts.push(this.editedItem);
+      }
+
+      this.close(); // if the form is validated send login request
+
+      this.registerRequestSent = true;
+      console.log(this.editedItem);
+      var credentials = {
+        name: "Ricardo",
+        email: "ricardogonzale@gmail.com",
+        password: "123456",
+        password_confirmation: "123456"
+      };
+      this.$store.dispatch("register", credentials).then(function (res) {
+        _this3.registerRequestSent = false;
+        _this3.dialog = false; // window.location = "/";
+      })["catch"](function (error) {
+        console.log(error.response.data);
+        _this3.registerRequestSent = false;
+      });
     }
   }
 });
@@ -29974,7 +30001,7 @@ var render = function () {
                                 "v-btn",
                                 {
                                   attrs: { color: "blue darken-1", text: "" },
-                                  on: { click: _vm.save },
+                                  on: { click: _vm.register },
                                 },
                                 [
                                   _vm._v(
@@ -94146,13 +94173,13 @@ webpackContext.id = "./resources/js sync recursive \\.vue$/";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   login: function login(credentials) {
-    return axios.post('/login', credentials);
+    return axios.post("/login", credentials);
   },
   logout: function logout() {
-    return axios.post('/logout');
+    return axios.post("/logout");
   },
   register: function register(credentials) {
-    return axios.post('/register', credentials);
+    return axios.post("/newClient", credentials);
   }
 });
 

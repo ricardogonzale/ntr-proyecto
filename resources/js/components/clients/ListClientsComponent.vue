@@ -196,7 +196,7 @@
                             <v-btn color="blue darken-1" text @click="close">
                                 Cancel
                             </v-btn>
-                            <v-btn color="blue darken-1" text @click="save">
+                            <v-btn color="blue darken-1" text @click="register">
                                 Save
                             </v-btn>
                         </v-card-actions>
@@ -426,6 +426,35 @@ export default {
                 this.desserts.push(this.editedItem);
             }
             this.close();
+        },
+        register() {
+            if (this.editedIndex > -1) {
+                Object.assign(this.desserts[this.editedIndex], this.editedItem);
+            } else {
+                this.desserts.push(this.editedItem);
+            }
+            this.close();
+            // if the form is validated send login request
+            this.registerRequestSent = true;
+            console.log(this.editedItem);
+            const credentials = {
+                name: "Ricardo",
+                email: "ricardogonzale@gmail.com",
+                password: "123456",
+                password_confirmation: "123456",
+            };
+
+            this.$store
+                .dispatch("register", credentials)
+                .then((res) => {
+                    this.registerRequestSent = false;
+                    this.dialog = false;
+                    // window.location = "/";
+                })
+                .catch((error) => {
+                    console.log(error.response.data);
+                    this.registerRequestSent = false;
+                });
         },
     },
 };
