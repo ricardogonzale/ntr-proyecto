@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property string $lastaname
+ * @property int $id_user
+ * @property int $type
  * @property string $name
+ * @property string $lastaname
  * @property string $email
  * @property string $telephone
  * @property int $country
@@ -32,5 +34,5 @@ class Client extends Model
     /**
      * @var array
      */
-    protected $fillable = ['lastaname', 'name', 'email', 'telephone', 'country', 'tradename', 'logistic_address', 'cif', 'province', 'activity_memory', 'activity', 'created_at', 'updated_at'];
+    protected $fillable = ['id_user', 'type', 'name', 'lastaname', 'email', 'telephone', 'country', 'tradename', 'logistic_address', 'cif', 'province', 'activity_memory', 'activity', 'created_at', 'updated_at'];
 }

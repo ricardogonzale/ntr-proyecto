@@ -1,8 +1,8 @@
 <template>
     <v-data-table
         :headers="headers"
-        :items="desserts"
-        sort-by="apellido"
+        :items="clients"
+        sort-by="lastaname"
         class="elevation-1"
     >
         <template v-slot:top>
@@ -41,154 +41,205 @@
                         </v-toolbar>
 
                         <v-card-text class="pt-8">
-                            <v-container>
-                                <v-row>
-                                    <v-col cols="12" sm="12" md="6">
-                                        <v-row>
-                                            <v-col cols="12" sm="6" md="6">
-                                                <v-text-field
-                                                    v-model="editedItem.name"
-                                                    label="Nombre"
-                                                    outlined
-                                                ></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="6">
-                                                <v-text-field
-                                                    v-model="
-                                                        editedItem.apellido
-                                                    "
-                                                    label="Apellido"
-                                                    outlined
-                                                ></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="12" md="12">
-                                                <v-text-field
-                                                    v-model="editedItem.email"
-                                                    label="Correo electrónico"
-                                                    outlined
-                                                ></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="12" md="12">
-                                                <v-text-field
-                                                    v-model="
-                                                        editedItem.password
-                                                    "
-                                                    label="Contraseña"
-                                                    outlined
-                                                ></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="6">
-                                                <v-text-field
-                                                    v-model="
-                                                        editedItem.telephone
-                                                    "
-                                                    label="Telefono"
-                                                    outlined
-                                                ></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="6">
-                                                <v-select
-                                                    :items="country"
-                                                    label="Pais"
-                                                    v-model="editedItem.country"
-                                                    outlined
-                                                ></v-select>
-                                            </v-col>
-                                        </v-row>
-                                    </v-col>
-                                    <v-col cols="12" sm="12" md="6">
-                                        <v-row>
-                                            <v-col cols="12" sm="12" md="12">
-                                                <v-text-field
-                                                    v-model="
-                                                        editedItem.comercialName
-                                                    "
-                                                    label="Nombre comercial"
-                                                    outlined
-                                                ></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="12" md="12">
-                                                <v-text-field
-                                                    v-model="editedItem.campus"
-                                                    label="Dirección sede logística"
-                                                    outlined
-                                                ></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="6">
-                                                <v-text-field
-                                                    v-model="editedItem.cif"
-                                                    label="CIF"
-                                                    outlined
-                                                ></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="6">
-                                                <v-select
-                                                    :items="country"
-                                                    label="Provincia"
-                                                    v-model="
-                                                        editedItem.province
-                                                    "
-                                                    outlined
-                                                ></v-select>
-                                            </v-col>
-                                            <v-file-input
-                                                v-model="files"
-                                                color="deep-purple accent-4"
-                                                counter
-                                                label="Documentación entrega"
-                                                multiple
-                                                prepend-icon=""
-                                                placeholder="Documentación entrega"
-                                                append-icon="mdi-cloud-upload-outline"
-                                                outlined
-                                                :show-size="1000"
-                                            >
-                                                <template
-                                                    v-slot:selection="{
-                                                        index,
-                                                        text,
-                                                    }"
+                            <v-form
+                                ref="form"
+                                method="POST"
+                                @submit.prevent="save()"
+                            >
+                                <v-container>
+                                    <v-row>
+                                        <v-col cols="12" sm="12" md="6">
+                                            <v-row>
+                                                <v-col cols="12" sm="6" md="6">
+                                                    <v-text-field
+                                                        v-model="
+                                                            editedItem.name
+                                                        "
+                                                        label="Nombre"
+                                                        outlined
+                                                    ></v-text-field>
+                                                </v-col>
+                                                <v-col cols="12" sm="6" md="6">
+                                                    <v-text-field
+                                                        v-model="
+                                                            editedItem.lastaname
+                                                        "
+                                                        label="lastaname"
+                                                        outlined
+                                                    ></v-text-field>
+                                                </v-col>
+                                                <v-col
+                                                    cols="12"
+                                                    sm="12"
+                                                    md="12"
                                                 >
-                                                    <v-chip
-                                                        v-if="index < 2"
+                                                    <v-text-field
+                                                        v-model="
+                                                            editedItem.email
+                                                        "
+                                                        label="Correo electrónico"
+                                                        outlined
+                                                    ></v-text-field>
+                                                </v-col>
+                                                <v-col
+                                                    cols="12"
+                                                    sm="12"
+                                                    md="12"
+                                                >
+                                                    <v-text-field
+                                                        v-model="
+                                                            editedItem.password
+                                                        "
+                                                        label="Contraseña"
+                                                        outlined
+                                                    ></v-text-field>
+                                                </v-col>
+                                                <v-col cols="12" sm="6" md="6">
+                                                    <v-text-field
+                                                        v-model="
+                                                            editedItem.telephone
+                                                        "
+                                                        label="Telefono"
+                                                        outlined
+                                                    ></v-text-field>
+                                                </v-col>
+                                                <v-col cols="12" sm="6" md="6">
+                                                    <v-select
+                                                        :items="country"
+                                                        item-text="name"
+                                                        item-value="id"
+                                                        return-object
+                                                        label="Pais"
+                                                        v-model="
+                                                            editedItem.country
+                                                        "
+                                                        outlined
+                                                    ></v-select>
+                                                </v-col>
+                                            </v-row>
+                                        </v-col>
+                                        <v-col cols="12" sm="12" md="6">
+                                            <v-row>
+                                                <v-col
+                                                    cols="12"
+                                                    sm="12"
+                                                    md="12"
+                                                >
+                                                    <v-text-field
+                                                        v-model="
+                                                            editedItem.tradename
+                                                        "
+                                                        label="Nombre comercial"
+                                                        outlined
+                                                    ></v-text-field>
+                                                </v-col>
+                                                <v-col
+                                                    cols="12"
+                                                    sm="12"
+                                                    md="12"
+                                                >
+                                                    <v-text-field
+                                                        v-model="
+                                                            editedItem.logistic_address
+                                                        "
+                                                        label="Dirección sede logística"
+                                                        outlined
+                                                    ></v-text-field>
+                                                </v-col>
+                                                <v-col cols="12" sm="6" md="6">
+                                                    <v-text-field
+                                                        v-model="editedItem.cif"
+                                                        label="CIF"
+                                                        outlined
+                                                    ></v-text-field>
+                                                </v-col>
+                                                <v-col cols="12" sm="6" md="6">
+                                                    <v-select
+                                                        :items="province"
+                                                        item-text="name"
+                                                        item-value="id"
+                                                        return-object
+                                                        label="Provincia"
+                                                        v-model="
+                                                            editedItem.province
+                                                        "
+                                                        outlined
+                                                    ></v-select>
+                                                </v-col>
+                                                <v-col
+                                                    cols="12"
+                                                    sm="12"
+                                                    md="12"
+                                                >
+                                                    <v-file-input
+                                                        v-model="
+                                                            editedItem.activity_memory
+                                                        "
                                                         color="deep-purple accent-4"
-                                                        dark
-                                                        label
-                                                        small
+                                                        counter
+                                                        label="Documentación entrega"
+                                                        prepend-icon=""
+                                                        placeholder="Documentación entrega"
+                                                        append-icon="mdi-cloud-upload-outline"
+                                                        outlined
+                                                        :show-size="1000"
                                                     >
-                                                        {{ text }}
-                                                    </v-chip>
+                                                        <template
+                                                            v-slot:selection="{
+                                                                index,
+                                                                text,
+                                                            }"
+                                                        >
+                                                            <v-chip
+                                                                v-if="index < 2"
+                                                                color="deep-purple accent-4"
+                                                                dark
+                                                                label
+                                                                small
+                                                            >
+                                                                {{ text }}
+                                                            </v-chip>
 
-                                                    <span
-                                                        v-else-if="index === 2"
-                                                        class="text-overline grey--text text--darken-3 mx-2"
-                                                    >
-                                                        +
-                                                        {{ files.length - 2 }}
-                                                        Archivos(s)
-                                                    </span>
-                                                </template>
-                                            </v-file-input>
-                                        </v-row>
-                                    </v-col>
-                                    <v-col
-                                        cols="12"
-                                        sm="12"
-                                        md="12"
-                                        class="pt-4"
-                                    >
-                                        <v-select
-                                            v-model="value"
-                                            :items="items"
-                                            attach
-                                            chips
-                                            label="Selecciona la actividad de la empresa"
-                                            outlined
-                                            multiple
-                                        ></v-select>
-                                    </v-col>
-                                </v-row>
-                            </v-container>
+                                                            <span
+                                                                v-else-if="
+                                                                    index === 2
+                                                                "
+                                                                class="text-overline grey--text text--darken-3 mx-2"
+                                                            >
+                                                                +
+                                                                {{
+                                                                    files.length -
+                                                                    2
+                                                                }}
+                                                                Archivos(s)
+                                                            </span>
+                                                        </template>
+                                                    </v-file-input>
+                                                </v-col>
+                                            </v-row>
+                                        </v-col>
+                                        <v-col
+                                            cols="12"
+                                            sm="12"
+                                            md="12"
+                                            class="pt-4"
+                                        >
+                                            <v-select
+                                                v-model="value"
+                                                :items="activity"
+                                                item-text="name"
+                                                item-value="id"
+                                                return-object
+                                                attach
+                                                chips
+                                                label="Selecciona la actividad de la empresa"
+                                                outlined
+                                                multiple
+                                            ></v-select>
+                                        </v-col>
+                                    </v-row>
+                                </v-container>
+                            </v-form>
                         </v-card-text>
 
                         <v-card-actions>
@@ -196,8 +247,8 @@
                             <v-btn color="blue darken-1" text @click="close">
                                 Cancel
                             </v-btn>
-                            <v-btn color="blue darken-1" text @click="register">
-                                Save
+                            <v-btn color="blue darken-1" text @click="save">
+                                Guardar
                             </v-btn>
                         </v-card-actions>
                     </v-card>
@@ -205,8 +256,7 @@
                 <v-dialog v-model="dialogDelete" max-width="500px">
                     <v-card>
                         <v-card-title class="text-h5"
-                            >Are you sure you want to delete this
-                            item?</v-card-title
+                            >¿Deseas Eliminar este registro?</v-card-title
                         >
                         <v-card-actions>
                             <v-spacer></v-spacer>
@@ -240,58 +290,70 @@
     </v-data-table>
 </template>
 <script>
+import axios from "axios";
+
 export default {
     data: () => ({
         dialog: false,
         dialogDelete: false,
-        country: ["Foo", "Bar", "Fizz", "Buzz"],
+        country: [],
         files: [],
-        items: ["foo", "bar", "fizz", "buzz", "fizzbuzz", "foobar"],
+        province: [],
+        activity: [],
         value: [],
         headers: [
+            { text: "Id", value: "id" },
             {
                 text: "Nombre",
                 align: "start",
                 value: "name",
             },
-            { text: "Apellido", value: "apellido" },
+            { text: "Apellido", value: "lastaname" },
             { text: "Correo electrónico", value: "email" },
             { text: "Teléfono", value: "telephone" },
             { text: "Pais", value: "country" },
+            { text: "Acciones", value: "actions", sortable: false },
         ],
-        desserts: [],
         editedIndex: -1,
         editedItem: {
+            id: null,
             type: null,
             name: "",
-            apellido: "",
+            lastaname: "",
             email: "",
             password: "",
             telephone: "",
             country: "",
-            comercialName: "",
-            campus: "",
+            tradename: "",
+            logistic_address: "",
             cif: "",
             province: "",
             activity: "",
         },
         defaultItem: {
+            id: null,
             type: null,
             name: "",
-            apellido: "",
+            lastaname: "",
             email: "",
             password: "",
             telephone: "",
-            country: "",
-            comercialName: "",
-            campus: "",
+            country: null,
+            tradename: "",
+            logistic_address: "",
             cif: "",
-            province: "",
+            province: null,
+            activity_memory: [],
             activity: "",
         },
     }),
 
     computed: {
+        clients: {
+            get() {
+                return this.$store.state.clients;
+            },
+        },
         formTitle() {
             return this.editedIndex === -1 ? "Nuevo Cliente" : "Editar Cliente";
         },
@@ -312,94 +374,33 @@ export default {
 
     methods: {
         initialize() {
-            this.desserts = [
-                {
-                    name: "Frozen Yogurt",
-                    apellido: 159,
-                    email: 6.0,
-                    telephone: 24,
-                    country: 4.0,
-                },
-                {
-                    name: "Ice cream sandwich",
-                    apellido: 237,
-                    email: 9.0,
-                    telephone: 37,
-                    country: 4.3,
-                },
-                {
-                    name: "Eclair",
-                    apellido: 262,
-                    email: 16.0,
-                    telephone: 23,
-                    country: 6.0,
-                },
-                {
-                    name: "Cupcake",
-                    apellido: 305,
-                    email: 3.7,
-                    telephone: 67,
-                    country: 4.3,
-                },
-                {
-                    name: "Gingerbread",
-                    apellido: 356,
-                    email: 16.0,
-                    telephone: 49,
-                    country: 3.9,
-                },
-                {
-                    name: "Jelly bean",
-                    apellido: 375,
-                    email: 0.0,
-                    telephone: 94,
-                    country: 0.0,
-                },
-                {
-                    name: "Lollipop",
-                    apellido: 392,
-                    email: 0.2,
-                    telephone: 98,
-                    country: 0,
-                },
-                {
-                    name: "Honeycomb",
-                    apellido: 408,
-                    email: 3.2,
-                    telephone: 87,
-                    country: 6.5,
-                },
-                {
-                    name: "Donut",
-                    apellido: 452,
-                    email: 25.0,
-                    telephone: 51,
-                    country: 4.9,
-                },
-                {
-                    name: "KitKat",
-                    apellido: 518,
-                    email: 26.0,
-                    telephone: 65,
-                    country: 7,
-                },
-            ];
+            this.clients = [];
         },
 
         editItem(item) {
-            this.editedIndex = this.desserts.indexOf(item);
+            this.editedIndex = this.clients.indexOf(item);
             this.editedItem = Object.assign({}, item);
             this.dialog = true;
         },
 
         deleteItem(item) {
-            this.editedIndex = this.desserts.indexOf(item);
+            console.log(item);
+            this.editedIndex = this.clients.indexOf(item);
             this.editedItem = Object.assign({}, item);
             this.dialogDelete = true;
         },
 
         deleteItemConfirm() {
-            this.desserts.splice(this.editedIndex, 1);
+            this.clients.splice(this.editedIndex, 1);
+            this.$store
+                .dispatch("delete", this.editedItem)
+                .then((res) => {
+                    this.$store.dispatch("getClients");
+                })
+                .catch((error) => {
+                    console.log(error.response.data);
+                    this.registerRequestSent = false;
+                });
             this.closeDelete();
         },
 
@@ -418,44 +419,65 @@ export default {
                 this.editedIndex = -1;
             });
         },
-
+        getCountry: function () {
+            axios.get("/getCountry").then(
+                function (response) {
+                    this.country = response.data;
+                }.bind(this)
+            );
+        },
+        getProvince: function () {
+            axios.get("/getProvince").then(
+                function (response) {
+                    this.province = response.data;
+                }.bind(this)
+            );
+        },
+        getActivity: function () {
+            axios.get("/getActivity").then(
+                function (response) {
+                    this.activity = response.data;
+                }.bind(this)
+            );
+        },
         save() {
-            if (this.editedIndex > -1) {
-                Object.assign(this.desserts[this.editedIndex], this.editedItem);
-            } else {
-                this.desserts.push(this.editedItem);
-            }
-            this.close();
-        },
-        register() {
-            if (this.editedIndex > -1) {
-                Object.assign(this.desserts[this.editedIndex], this.editedItem);
-            } else {
-                this.desserts.push(this.editedItem);
-            }
-            this.close();
-            // if the form is validated send login request
-            this.registerRequestSent = true;
+            let formData = new FormData();
+            let rawData = { info: this.editedItem };
             console.log(this.editedItem);
-            const credentials = {
-                name: "Ricardo",
-                email: "ricardogonzale@gmail.com",
-                password: "123456",
-                password_confirmation: "123456",
-            };
+            rawData = JSON.stringify(rawData);
+            formData.append("data", rawData);
+            formData.append("activy[img]", this.editedItem.activity_memory);
 
-            this.$store
-                .dispatch("register", credentials)
-                .then((res) => {
-                    this.registerRequestSent = false;
-                    this.dialog = false;
-                    // window.location = "/";
-                })
-                .catch((error) => {
-                    console.log(error.response.data);
-                    this.registerRequestSent = false;
-                });
+            if (this.editedIndex > -1) {
+                // Object.assign(this.clients[this.editedIndex], this.editedItem);
+                this.$store
+                    .dispatch("update", formData)
+                    .then((res) => {
+                        this.$store.dispatch("getClients");
+                    })
+                    .catch((error) => {
+                        console.log(error.response.data);
+                        this.registerRequestSent = false;
+                    });
+            } else {
+                this.$store
+                    .dispatch("register", formData)
+                    .then((res) => {
+                        this.$store.dispatch("getClients");
+                    })
+                    .catch((error) => {
+                        console.log(error.response.data);
+                        this.registerRequestSent = false;
+                    });
+            }
+            this.close();
         },
+    },
+    mounted() {
+        this.$store.dispatch("getClients");
+        this.getCountry();
+        this.getProvince();
+        this.getActivity();
     },
 };
 </script>

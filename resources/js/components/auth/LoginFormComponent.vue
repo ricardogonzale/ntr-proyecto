@@ -139,7 +139,8 @@ export default {
                         window.location.href = "/home/";
                     })
                     .catch((error) => {
-                        console.log(error.response.data);
+                        console.log(error.response.data.message);
+                        alert(error.response.data.message);
                         this.errors = error.response.data.errors;
                         this.loginRequestSent = false;
                     });

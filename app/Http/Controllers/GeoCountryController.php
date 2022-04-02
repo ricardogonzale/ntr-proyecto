@@ -49,6 +49,12 @@ class GeoCountryController extends Controller
         //
     }
 
+    public function list()
+    {
+        $model = GeoCountry::all();
+        return response()->json($model);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

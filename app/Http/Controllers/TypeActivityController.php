@@ -49,6 +49,11 @@ class TypeActivityController extends Controller
         //
     }
 
+    public function list()
+    {
+        $model = TypeActivity::all();
+        return response()->json($model);
+    }
     /**
      * Show the form for editing the specified resource.
      *

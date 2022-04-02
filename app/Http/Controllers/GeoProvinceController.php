@@ -49,6 +49,12 @@ class GeoProvinceController extends Controller
         //
     }
 
+    public function list()
+    {
+        $model = GeoProvince::all();
+        return response()->json($model);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
