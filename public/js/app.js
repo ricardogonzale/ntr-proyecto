@@ -2975,22 +2975,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       logoutRequestSent: false
     };
-  },
-
+  }
   /* end of data obj */
+  ,
   methods: {
     logout: function logout() {
       var _this = this;
 
       this.logoutRequestSent = true;
-      this.$store.dispatch('logout').then(function (res) {
+      this.$store.dispatch("logout").then(function (res) {
         _this.logoutRequestSent = false;
-        window.location = '/';
+        window.location = "/";
       })["catch"](function (error) {
         console.log(error.response.data);
         _this.logoutRequestSent = false;
@@ -3155,8 +3157,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-//
-//
 //
 //
 //
@@ -29742,7 +29742,6 @@ var render = function () {
                                                           items: _vm.country,
                                                           "item-text": "name",
                                                           "item-value": "id",
-                                                          "return-object": "",
                                                           label: "Pais",
                                                           outlined: "",
                                                         },
@@ -29910,7 +29909,6 @@ var render = function () {
                                                           items: _vm.province,
                                                           "item-text": "name",
                                                           "item-value": "id",
-                                                          "return-object": "",
                                                           label: "Provincia",
                                                           outlined: "",
                                                         },
@@ -95113,6 +95111,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 commit = _ref6.commit;
                 _context.next = 3;
                 return axios.get("/getUserinfo").then(function (response) {
+                  console.log("Aqui");
+
+                  if (response.message === "Unauthenticated") {
+                    window.location = "/";
+                  }
+
                   commit("SET_USERDATA", response.data);
                 });
 

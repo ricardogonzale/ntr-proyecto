@@ -114,6 +114,10 @@ export default {
         },
         async getUserdata({ commit }) {
             await axios.get("/getUserinfo").then((response) => {
+                console.log("Aqui");
+                if (response.message === "Unauthenticated") {
+                    window.location = "/";
+                }
                 commit("SET_USERDATA", response.data);
             });
         },

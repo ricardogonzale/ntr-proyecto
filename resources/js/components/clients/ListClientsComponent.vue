@@ -108,7 +108,6 @@
                                                         :items="country"
                                                         item-text="name"
                                                         item-value="id"
-                                                        return-object
                                                         label="Pais"
                                                         v-model="
                                                             editedItem.country
@@ -158,7 +157,6 @@
                                                         :items="province"
                                                         item-text="name"
                                                         item-value="id"
-                                                        return-object
                                                         label="Provincia"
                                                         v-model="
                                                             editedItem.province
