@@ -257,9 +257,14 @@ export default {
                     type: 2,
                     items: [
                         {
-                            title: "Listar Clientes",
+                            title: "Distribuidores",
                             icon: "mdi-account-box-multiple",
                             link: "/listclients",
+                        },
+                        {
+                            title: "Transportistas",
+                            icon: "mdi-truck-check-outline",
+                            link: "/listcarriers",
                         },
                         {
                             title: "Registrar",

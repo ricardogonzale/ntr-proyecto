@@ -24,11 +24,18 @@ Route::post('/newClient', 'HomeController@registrarCliente')->name('newClient');
 Route::post('/updateClient', 'HomeController@updateCliente')->name('updateClient');
 Route::post('/deleteClient', 'HomeController@deleteCliente')->name('deleteClient');
 
+Route::post('/newCarrier', 'HomeController@registrarCarrier')->name('newCarrier');
+Route::post('/updateCarrier', 'HomeController@updateCarrier')->name('updateCarrier');
+Route::post('/deleteCarrier', 'HomeController@deleteCarrier')->name('deleteCarrier');
+
 Route::get('getCountry', 'GeoCountryController@list')->name('Country.list');
 Route::get('getProvince', 'GeoProvinceController@list')->name('Province.list');
 Route::get('getActivity', 'TypeActivityController@list')->name('getActivity.list');
+Route::get('getAvailability', 'TypeAvailabilityController@list')->name('getAvailability.list');
 
 
 Route::get('getClientlist', 'ClientController@list')->name('cliente.list');
 Route::get('getClientshow/{id}', 'ClientController@show')->name('cliente.show');
+Route::get('getCarrierlist', 'CarrierController@list')->name('carrier.list');
+Route::get('getCarriershow/{id}', 'CarrierController@show')->name('carrier.show');
 Route::get('getUserinfo', 'APIController@getUserinfo')->name('API.Userinfo');

@@ -13,6 +13,7 @@ if (token) {
 
 
 window.Vue = require('vue');
+window.Vuelidate = require('vuelidate').default;
 
 import "moment/locale/es";
 import store from './store.js';
@@ -22,6 +23,7 @@ import Vidle from 'v-idle'
 
 Vue.use(Vuetify);
 Vue.use(Vidle)
+Vue.use(Vuelidate);
 
 const files = require.context('./', true, /\.vue$/i)
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))

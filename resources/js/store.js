@@ -8,6 +8,7 @@ export default new Vuex.Store({
         loadpage: false,
         userdata: [],
         clients: [],
+        carriers: [],
     } /* END OF STATE */,
 
     mutations: {
@@ -20,6 +21,9 @@ export default new Vuex.Store({
         },
         SET_CLIENTSDATA(state, clients) {
             state.clients = clients;
+        },
+        SET_CARRIERSDATA(state, carriers) {
+            state.carriers = carriers;
         },
     } /* END OF MUTATIONS */,
 
@@ -34,7 +38,11 @@ export default new Vuex.Store({
                 commit("SET_CLIENTSDATA", response.data);
             });
         },
-
+        async getCarrier({ commit }) {
+            await axios.get("/getCarrierlist").then((response) => {
+                commit("SET_CARRIERSDATA", response.data);
+            });
+        },
         /* END OF LOGOUT */
     } /* END OF ACTIONS */,
     modules: {

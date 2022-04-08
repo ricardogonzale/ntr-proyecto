@@ -18,4 +18,16 @@ export default {
     delete(credentials) {
         return axios.post("/deleteClient", credentials);
     },
+
+    registerCarrier(credentials) {
+        return axios.post("/newCarrier", credentials);
+    },
+
+    updateCarrier(credentials) {
+        return axios.post("/updateCarrier", credentials);
+    },
+
+    deleteCarrier(credentials) {
+        return axios.post("/deleteCarrier", credentials);
+    },
 };

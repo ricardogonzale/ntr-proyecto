@@ -112,12 +112,53 @@ export default {
                     });
             });
         },
+
+        registerCarrier({ commit }, credentials) {
+            return new Promise((resolve, reject) => {
+                authApi
+                    .registerCarrier(credentials)
+                    .then((res) => {
+                        // commit('setLoggedIn', true);
+                        // set the user
+                        resolve(res);
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    });
+            });
+        },
+
+        updateCarrier({ commit }, credentials) {
+            return new Promise((resolve, reject) => {
+                authApi
+                    .updateCarrier(credentials)
+                    .then((res) => {
+                        // commit('setLoggedIn', true);
+                        // set the user
+                        resolve(res);
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    });
+            });
+        },
+
+        deleteCarrier({ commit }, credentials) {
+            return new Promise((resolve, reject) => {
+                authApi
+                    .deleteCarrier(credentials)
+                    .then((res) => {
+                        // commit('setLoggedIn', true);
+                        // set the user
+                        resolve(res);
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    });
+            });
+        },
         async getUserdata({ commit }) {
             await axios.get("/getUserinfo").then((response) => {
-                console.log("Aqui");
-                if (response.message === "Unauthenticated") {
-                    window.location = "/";
-                }
                 commit("SET_USERDATA", response.data);
             });
         },
