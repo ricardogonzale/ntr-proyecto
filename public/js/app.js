@@ -30348,7 +30348,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("v-data-table", {
     staticClass: "elevation-1",
-    attrs: { headers: _vm.headers, items: _vm.clients, "sort-by": "lastaname" },
+    attrs: { headers: _vm.headers, items: _vm.clients, "sort-by": "id" },
     scopedSlots: _vm._u(
       [
         {
@@ -30359,7 +30359,7 @@ var render = function () {
                 "v-toolbar",
                 { attrs: { flat: "" } },
                 [
-                  _c("v-toolbar-title", [_vm._v("Clientes Registrados")]),
+                  _c("v-toolbar-title", [_vm._v("Transportista Registrados")]),
                   _vm._v(" "),
                   _c("v-divider", {
                     staticClass: "mx-4",
@@ -31582,7 +31582,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("v-data-table", {
     staticClass: "elevation-1",
-    attrs: { headers: _vm.headers, items: _vm.clients, "sort-by": "lastaname" },
+    attrs: { headers: _vm.headers, items: _vm.clients, "sort-by": "id" },
     scopedSlots: _vm._u(
       [
         {
@@ -31593,7 +31593,7 @@ var render = function () {
                 "v-toolbar",
                 { attrs: { flat: "" } },
                 [
-                  _c("v-toolbar-title", [_vm._v("Clientes Registrados")]),
+                  _c("v-toolbar-title", [_vm._v("Distribuidores Registrados")]),
                   _vm._v(" "),
                   _c("v-divider", {
                     staticClass: "mx-4",
