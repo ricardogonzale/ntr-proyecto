@@ -431,7 +431,7 @@ export default {
     computed: {
         clients: {
             get() {
-                return this.$store.state.clients;
+                return this.$store.state.client.clients;
             },
         },
         formTitle() {

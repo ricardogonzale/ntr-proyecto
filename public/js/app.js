@@ -2452,10 +2452,11 @@ __webpack_require__.r(__webpack_exports__);
       overlay: false,
       showingNavigationDropdown: false,
       selectedItem: 0,
+      typeUser: null,
       items: [{
         text: "Administrativo",
         icon: "mdi-account-cog-outline",
-        type: 2,
+        type: 0,
         items: [{
           title: "Distribuidores",
           icon: "mdi-account-box-multiple",
@@ -2476,7 +2477,7 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         text: "Clientes",
         icon: "mdi-book-account",
-        type: 2,
+        type: 1,
         items: [{
           title: "Actualizar datos",
           icon: "mdi-account-sync",
@@ -2510,7 +2511,7 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         text: "Configuración",
         icon: "mdi-tools",
-        type: 2,
+        type: 0,
         items: [{
           title: "Crear usuario",
           icon: "mdi-account-plus",
@@ -2524,6 +2525,20 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   computed: {
+    userdatatype: function userdatatype() {
+      return this.$store.getters.userdatatype;
+    },
+    itemsMenu: function itemsMenu() {
+      var type = this.userdatatype;
+
+      if (type == null) {
+        return this.items;
+      }
+
+      return this.items.filter(function (i) {
+        return i.type === type;
+      });
+    },
     mini: function mini() {
       switch (this.$vuetify.breakpoint.name) {
         case "xs":
@@ -2557,11 +2572,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onidle: function onidle() {
-      this.logout(); // alert('You have been logged out');
+      this.logout();
     },
     onremind: function onremind(time) {
       // alert seconds remaining to 00:00
-      if (time === 120) {
+      if (time === 1200) {
         this.dlg_expired = true;
       } else {
         this.ntf_wait = true;
@@ -3719,7 +3734,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     clients: {
       get: function get() {
-        return this.$store.state.carriers;
+        return this.$store.state.carrier.carriers;
       }
     },
     formTitle: function formTitle() {
@@ -4368,7 +4383,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     clients: {
       get: function get() {
-        return this.$store.state.clients;
+        return this.$store.state.client.clients;
       }
     },
     formTitle: function formTitle() {
@@ -29012,7 +29027,7 @@ var render = function () {
                 1
               ),
               _vm._v(" "),
-              _vm._l(_vm.items, function (item) {
+              _vm._l(_vm.itemsMenu, function (item) {
                 return _c(
                   "v-list-group",
                   {
@@ -29301,9 +29316,9 @@ var render = function () {
                         _c("v-idle", {
                           staticStyle: { display: "none" },
                           attrs: {
-                            reminders: [120, 250],
-                            wait: 300,
-                            duration: 300,
+                            reminders: [1200, 2500],
+                            wait: 3000,
+                            duration: 3000,
                           },
                           on: { idle: _vm.onidle, remind: _vm.onremind },
                         }),
@@ -98503,10 +98518,10 @@ webpackContext.id = "./resources/js sync recursive \\.vue$/";
 
 /***/ }),
 
-/***/ "./resources/js/api/auth/auth.js":
-/*!***************************************!*\
-  !*** ./resources/js/api/auth/auth.js ***!
-  \***************************************/
+/***/ "./resources/js/api/auth.js":
+/*!**********************************!*\
+  !*** ./resources/js/api/auth.js ***!
+  \**********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -98518,24 +98533,52 @@ __webpack_require__.r(__webpack_exports__);
   },
   logout: function logout() {
     return axios.post("/logout");
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/api/carrier.js":
+/*!*************************************!*\
+  !*** ./resources/js/api/carrier.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  registerCarrier: function registerCarrier(data) {
+    return axios.post("/newCarrier", data);
   },
-  register: function register(credentials) {
-    return axios.post("/newClient", credentials);
+  updateCarrier: function updateCarrier(data) {
+    return axios.post("/updateCarrier", data);
   },
-  update: function update(credentials) {
-    return axios.post("/updateClient", credentials);
+  deleteCarrier: function deleteCarrier(data) {
+    return axios.post("/deleteCarrier", data);
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/api/client.js":
+/*!************************************!*\
+  !*** ./resources/js/api/client.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  register: function register(data) {
+    return axios.post("/newClient", data);
   },
-  "delete": function _delete(credentials) {
-    return axios.post("/deleteClient", credentials);
+  update: function update(data) {
+    return axios.post("/updateClient", data);
   },
-  registerCarrier: function registerCarrier(credentials) {
-    return axios.post("/newCarrier", credentials);
-  },
-  updateCarrier: function updateCarrier(credentials) {
-    return axios.post("/updateCarrier", credentials);
-  },
-  deleteCarrier: function deleteCarrier(credentials) {
-    return axios.post("/deleteCarrier", credentials);
+  "delete": function _delete(data) {
+    return axios.post("/deleteClient", data);
   }
 });
 
@@ -99321,7 +99364,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _api_auth_auth_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../api/auth/auth.js */ "./resources/js/api/auth/auth.js");
+/* harmony import */ var _api_auth_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../api/auth.js */ "./resources/js/api/auth.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -99346,6 +99389,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     user: function user(state) {
       return state.user;
+    },
+    userdatatype: function userdatatype(state) {
+      return state.userdata.type;
     }
   }
   /* END OF GETTERS */
@@ -99370,7 +99416,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     login: function login(_ref, credentials) {
       var commit = _ref.commit;
       return new Promise(function (resolve, reject) {
-        _api_auth_auth_js__WEBPACK_IMPORTED_MODULE_1__["default"].login(credentials).then(function (res) {
+        _api_auth_js__WEBPACK_IMPORTED_MODULE_1__["default"].login(credentials).then(function (res) {
           commit("setLoggedIn", true);
           resolve(res);
         })["catch"](function (error) {
@@ -99383,7 +99429,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     logout: function logout(_ref2) {
       var commit = _ref2.commit;
       return new Promise(function (resolve, reject) {
-        _api_auth_auth_js__WEBPACK_IMPORTED_MODULE_1__["default"].logout().then(function (res) {
+        _api_auth_js__WEBPACK_IMPORTED_MODULE_1__["default"].logout().then(function (res) {
           commit("setLoggedIn", false); // set the user
 
           resolve(res);
@@ -99394,86 +99440,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
     /* END OF LOGOUT */
     ,
-    register: function register(_ref3, credentials) {
-      var commit = _ref3.commit;
-      return new Promise(function (resolve, reject) {
-        _api_auth_auth_js__WEBPACK_IMPORTED_MODULE_1__["default"].register(credentials).then(function (res) {
-          // commit('setLoggedIn', true);
-          // set the user
-          resolve(res);
-        })["catch"](function (error) {
-          reject(error);
-        });
-      });
-    },
-    update: function update(_ref4, credentials) {
-      var commit = _ref4.commit;
-      return new Promise(function (resolve, reject) {
-        _api_auth_auth_js__WEBPACK_IMPORTED_MODULE_1__["default"].update(credentials).then(function (res) {
-          // commit('setLoggedIn', true);
-          // set the user
-          resolve(res);
-        })["catch"](function (error) {
-          reject(error);
-        });
-      });
-    },
-    "delete": function _delete(_ref5, credentials) {
-      var commit = _ref5.commit;
-      return new Promise(function (resolve, reject) {
-        _api_auth_auth_js__WEBPACK_IMPORTED_MODULE_1__["default"]["delete"](credentials).then(function (res) {
-          // commit('setLoggedIn', true);
-          // set the user
-          resolve(res);
-        })["catch"](function (error) {
-          reject(error);
-        });
-      });
-    },
-    registerCarrier: function registerCarrier(_ref6, credentials) {
-      var commit = _ref6.commit;
-      return new Promise(function (resolve, reject) {
-        _api_auth_auth_js__WEBPACK_IMPORTED_MODULE_1__["default"].registerCarrier(credentials).then(function (res) {
-          // commit('setLoggedIn', true);
-          // set the user
-          resolve(res);
-        })["catch"](function (error) {
-          reject(error);
-        });
-      });
-    },
-    updateCarrier: function updateCarrier(_ref7, credentials) {
-      var commit = _ref7.commit;
-      return new Promise(function (resolve, reject) {
-        _api_auth_auth_js__WEBPACK_IMPORTED_MODULE_1__["default"].updateCarrier(credentials).then(function (res) {
-          // commit('setLoggedIn', true);
-          // set the user
-          resolve(res);
-        })["catch"](function (error) {
-          reject(error);
-        });
-      });
-    },
-    deleteCarrier: function deleteCarrier(_ref8, credentials) {
-      var commit = _ref8.commit;
-      return new Promise(function (resolve, reject) {
-        _api_auth_auth_js__WEBPACK_IMPORTED_MODULE_1__["default"].deleteCarrier(credentials).then(function (res) {
-          // commit('setLoggedIn', true);
-          // set the user
-          resolve(res);
-        })["catch"](function (error) {
-          reject(error);
-        });
-      });
-    },
-    getUserdata: function getUserdata(_ref9) {
+    getUserdata: function getUserdata(_ref3) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         var commit;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                commit = _ref9.commit;
+                commit = _ref3.commit;
                 _context.next = 3;
                 return axios.get("/getUserinfo").then(function (response) {
                   commit("SET_USERDATA", response.data);
@@ -99489,6 +99463,194 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
     /* END OF LOGOUT */
 
+  }
+  /* END OF ACTIONS */
+
+});
+
+/***/ }),
+
+/***/ "./resources/js/modules/carrier.js":
+/*!*****************************************!*\
+  !*** ./resources/js/modules/carrier.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _api_carrier_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../api/carrier.js */ "./resources/js/api/carrier.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  state: {
+    carriers: []
+  }
+  /* END OF STATE */
+  ,
+  getters: {}
+  /* END OF GETTERS */
+  ,
+  mutations: {
+    SET_CARRIERSDATA: function SET_CARRIERSDATA(state, carriers) {
+      state.carriers = carriers;
+    }
+  }
+  /* END OF MUTATIONS */
+  ,
+  actions: {
+    getCarrier: function getCarrier(_ref) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                commit = _ref.commit;
+                _context.next = 3;
+                return axios.get("/getCarrierlist").then(function (response) {
+                  commit("SET_CARRIERSDATA", response.data);
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    registerCarrier: function registerCarrier(_ref2, data) {
+      var commit = _ref2.commit;
+      return new Promise(function (resolve, reject) {
+        _api_carrier_js__WEBPACK_IMPORTED_MODULE_1__["default"].registerCarrier(data).then(function (res) {
+          resolve(res);
+        })["catch"](function (error) {
+          reject(error);
+        });
+      });
+    },
+    updateCarrier: function updateCarrier(_ref3, data) {
+      var commit = _ref3.commit;
+      return new Promise(function (resolve, reject) {
+        _api_carrier_js__WEBPACK_IMPORTED_MODULE_1__["default"].updateCarrier(data).then(function (res) {
+          resolve(res);
+        })["catch"](function (error) {
+          reject(error);
+        });
+      });
+    },
+    deleteCarrier: function deleteCarrier(_ref4, data) {
+      var commit = _ref4.commit;
+      return new Promise(function (resolve, reject) {
+        _api_carrier_js__WEBPACK_IMPORTED_MODULE_1__["default"].deleteCarrier(data).then(function (res) {
+          resolve(res);
+        })["catch"](function (error) {
+          reject(error);
+        });
+      });
+    }
+  }
+  /* END OF ACTIONS */
+
+});
+
+/***/ }),
+
+/***/ "./resources/js/modules/client.js":
+/*!****************************************!*\
+  !*** ./resources/js/modules/client.js ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _api_client_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../api/client.js */ "./resources/js/api/client.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  state: {
+    clients: []
+  }
+  /* END OF STATE */
+  ,
+  getters: {}
+  /* END OF GETTERS */
+  ,
+  mutations: {
+    SET_CLIENTSDATA: function SET_CLIENTSDATA(state, clients) {
+      state.clients = clients;
+    }
+  }
+  /* END OF MUTATIONS */
+  ,
+  actions: {
+    getClients: function getClients(_ref) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                commit = _ref.commit;
+                _context.next = 3;
+                return axios.get("/getClientlist").then(function (response) {
+                  commit("SET_CLIENTSDATA", response.data);
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    register: function register(_ref2, data) {
+      var commit = _ref2.commit;
+      return new Promise(function (resolve, reject) {
+        _api_client_js__WEBPACK_IMPORTED_MODULE_1__["default"].register(data).then(function (res) {
+          resolve(res);
+        })["catch"](function (error) {
+          reject(error);
+        });
+      });
+    },
+    update: function update(_ref3, data) {
+      var commit = _ref3.commit;
+      return new Promise(function (resolve, reject) {
+        _api_client_js__WEBPACK_IMPORTED_MODULE_1__["default"].update(data).then(function (res) {
+          resolve(res);
+        })["catch"](function (error) {
+          reject(error);
+        });
+      });
+    },
+    "delete": function _delete(_ref4, data) {
+      var commit = _ref4.commit;
+      return new Promise(function (resolve, reject) {
+        _api_client_js__WEBPACK_IMPORTED_MODULE_1__["default"]["delete"](data).then(function (res) {
+          resolve(res);
+        })["catch"](function (error) {
+          reject(error);
+        });
+      });
+    }
   }
   /* END OF ACTIONS */
 
@@ -99561,43 +99723,27 @@ router.afterEach(function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _modules_auth_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/auth.js */ "./resources/js/modules/auth.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _modules_auth_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/auth.js */ "./resources/js/modules/auth.js");
+/* harmony import */ var _modules_carrier_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/carrier.js */ "./resources/js/modules/carrier.js");
+/* harmony import */ var _modules_client_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/client.js */ "./resources/js/modules/client.js");
 
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__["default"]);
-
-/* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
+/* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
-    loadpage: false,
-    userdata: [],
-    clients: [],
-    carriers: []
+    loadpage: false
   }
   /* END OF STATE */
   ,
   mutations: {
     setloadpage: function setloadpage(state, payload) {
-      vue__WEBPACK_IMPORTED_MODULE_1___default.a.set(state, "loadpage", payload.loadpage);
-    },
-    SET_USERDATA: function SET_USERDATA(state, userdata) {
-      state.userdata = userdata;
-    },
-    SET_CLIENTSDATA: function SET_CLIENTSDATA(state, clients) {
-      state.clients = clients;
-    },
-    SET_CARRIERSDATA: function SET_CARRIERSDATA(state, carriers) {
-      state.carriers = carriers;
+      vue__WEBPACK_IMPORTED_MODULE_0___default.a.set(state, "loadpage", payload.loadpage);
     }
   }
   /* END OF MUTATIONS */
@@ -99607,56 +99753,13 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
       return state.clients;
     }
   },
-  actions: {
-    getClients: function getClients(_ref) {
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var commit;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                commit = _ref.commit;
-                _context.next = 3;
-                return axios.get("/getClientlist").then(function (response) {
-                  commit("SET_CLIENTSDATA", response.data);
-                });
-
-              case 3:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
-    },
-    getCarrier: function getCarrier(_ref2) {
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var commit;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                commit = _ref2.commit;
-                _context2.next = 3;
-                return axios.get("/getCarrierlist").then(function (response) {
-                  commit("SET_CARRIERSDATA", response.data);
-                });
-
-              case 3:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }))();
-    }
-    /* END OF LOGOUT */
-
-  }
+  actions: {}
   /* END OF ACTIONS */
   ,
   modules: {
-    auth: _modules_auth_js__WEBPACK_IMPORTED_MODULE_3__["default"]
+    auth: _modules_auth_js__WEBPACK_IMPORTED_MODULE_2__["default"],
+    carrier: _modules_carrier_js__WEBPACK_IMPORTED_MODULE_3__["default"],
+    client: _modules_client_js__WEBPACK_IMPORTED_MODULE_4__["default"]
   }
 }));
 

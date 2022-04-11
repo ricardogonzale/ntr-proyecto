@@ -22,7 +22,7 @@ class APIController extends Controller
 
     public function getUserinfo()
     {
-        $data = ['id'=>Auth::user()->id, 'name'=>Auth::user()->name, 'email' => Auth::user()->email];
+        $data = ['id'=>Auth::user()->id, 'name'=>Auth::user()->name, 'email' => Auth::user()->email,'type'=>  Auth::user()->type];
    
         return response()->json($data);
     }

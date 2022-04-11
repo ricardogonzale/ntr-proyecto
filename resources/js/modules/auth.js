@@ -1,4 +1,4 @@
-import authApi from "../api/auth/auth.js";
+import authApi from "../api/auth.js";
 
 export default {
     state: {
@@ -17,6 +17,10 @@ export default {
 
         user(state) {
             return state.user;
+        },
+
+        userdatatype(state) {
+            return state.userdata.type;
         },
     } /* END OF GETTERS */,
 
@@ -68,95 +72,6 @@ export default {
             });
         } /* END OF LOGOUT */,
 
-        register({ commit }, credentials) {
-            return new Promise((resolve, reject) => {
-                authApi
-                    .register(credentials)
-                    .then((res) => {
-                        // commit('setLoggedIn', true);
-                        // set the user
-                        resolve(res);
-                    })
-                    .catch((error) => {
-                        reject(error);
-                    });
-            });
-        },
-
-        update({ commit }, credentials) {
-            return new Promise((resolve, reject) => {
-                authApi
-                    .update(credentials)
-                    .then((res) => {
-                        // commit('setLoggedIn', true);
-                        // set the user
-                        resolve(res);
-                    })
-                    .catch((error) => {
-                        reject(error);
-                    });
-            });
-        },
-
-        delete({ commit }, credentials) {
-            return new Promise((resolve, reject) => {
-                authApi
-                    .delete(credentials)
-                    .then((res) => {
-                        // commit('setLoggedIn', true);
-                        // set the user
-                        resolve(res);
-                    })
-                    .catch((error) => {
-                        reject(error);
-                    });
-            });
-        },
-
-        registerCarrier({ commit }, credentials) {
-            return new Promise((resolve, reject) => {
-                authApi
-                    .registerCarrier(credentials)
-                    .then((res) => {
-                        // commit('setLoggedIn', true);
-                        // set the user
-                        resolve(res);
-                    })
-                    .catch((error) => {
-                        reject(error);
-                    });
-            });
-        },
-
-        updateCarrier({ commit }, credentials) {
-            return new Promise((resolve, reject) => {
-                authApi
-                    .updateCarrier(credentials)
-                    .then((res) => {
-                        // commit('setLoggedIn', true);
-                        // set the user
-                        resolve(res);
-                    })
-                    .catch((error) => {
-                        reject(error);
-                    });
-            });
-        },
-
-        deleteCarrier({ commit }, credentials) {
-            return new Promise((resolve, reject) => {
-                authApi
-                    .deleteCarrier(credentials)
-                    .then((res) => {
-                        // commit('setLoggedIn', true);
-                        // set the user
-                        resolve(res);
-                    })
-                    .catch((error) => {
-                        reject(error);
-                    });
-            });
-        },
         async getUserdata({ commit }) {
             await axios.get("/getUserinfo").then((response) => {
                 commit("SET_USERDATA", response.data);

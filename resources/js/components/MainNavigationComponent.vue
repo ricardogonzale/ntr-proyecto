@@ -28,7 +28,7 @@
                     >
                 </v-list-item-title>
                 <v-list-group
-                    v-for="item in items"
+                    v-for="item in itemsMenu"
                     :key="item.title"
                     v-model="item.active"
                     :prepend-icon="item.icon"
@@ -146,9 +146,9 @@
                             <v-idle
                                 @idle="onidle"
                                 @remind="onremind"
-                                :reminders="[120, 250]"
-                                :wait="300"
-                                :duration="300"
+                                :reminders="[1200, 2500]"
+                                :wait="3000"
+                                :duration="3000"
                                 style="display: none"
                             />
                             <v-snackbar v-model="ntf_wait">
@@ -250,11 +250,12 @@ export default {
             overlay: false,
             showingNavigationDropdown: false,
             selectedItem: 0,
+            typeUser: null,
             items: [
                 {
                     text: "Administrativo",
                     icon: "mdi-account-cog-outline",
-                    type: 2,
+                    type: 0,
                     items: [
                         {
                             title: "Distribuidores",
@@ -281,7 +282,7 @@ export default {
                 {
                     text: "Clientes",
                     icon: "mdi-book-account",
-                    type: 2,
+                    type: 1,
                     items: [
                         {
                             title: "Actualizar datos",
@@ -325,7 +326,7 @@ export default {
                 {
                     text: "Configuración",
                     icon: "mdi-tools",
-                    type: 2,
+                    type: 0,
                     items: [
                         {
                             title: "Crear usuario",
@@ -343,6 +344,16 @@ export default {
         };
     },
     computed: {
+        userdatatype() {
+            return this.$store.getters.userdatatype;
+        },
+        itemsMenu: function () {
+            const type = this.userdatatype;
+            if (type == null) {
+                return this.items;
+            }
+            return this.items.filter((i) => i.type === type);
+        },
         mini() {
             switch (this.$vuetify.breakpoint.name) {
                 case "xs":
@@ -371,12 +382,10 @@ export default {
     methods: {
         onidle() {
             this.logout();
-
-            // alert('You have been logged out');
         },
         onremind(time) {
             // alert seconds remaining to 00:00
-            if (time === 120) {
+            if (time === 1200) {
                 this.dlg_expired = true;
             } else {
                 this.ntf_wait = true;

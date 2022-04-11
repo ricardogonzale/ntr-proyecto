@@ -529,7 +529,7 @@ export default {
     computed: {
         clients: {
             get() {
-                return this.$store.state.carriers;
+                return this.$store.state.carrier.carriers;
             },
         },
         formTitle() {
