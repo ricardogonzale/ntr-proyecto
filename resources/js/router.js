@@ -5,6 +5,7 @@ import store from "./store.js";
 import ListSender from "./components/sender/ListSenderComponent.vue";
 import ListClients from "./components/clients/ListClientsComponent.vue";
 import ListCarriers from "./components/carriers/ListCarriersComponent.vue";
+import UpdateDataCarriers from "./components/carriers/UpdateDataCarriersComponent.vue";
 
 Vue.use(VueRouter);
 
@@ -25,6 +26,11 @@ const router = new VueRouter({
             path: "/listcarriers",
             name: "Listar Transportistas",
             component: ListCarriers,
+        },
+        {
+            path: "/updatedatacarrier",
+            name: "Actualizar Transportista",
+            component: UpdateDataCarriers,
         },
     ],
 });

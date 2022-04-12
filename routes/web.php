@@ -27,6 +27,7 @@ Route::post('/deleteClient', 'HomeController@deleteCliente')->name('deleteClient
 Route::post('/newCarrier', 'HomeController@registrarCarrier')->name('newCarrier');
 Route::post('/updateCarrier', 'HomeController@updateCarrier')->name('updateCarrier');
 Route::post('/deleteCarrier', 'HomeController@deleteCarrier')->name('deleteCarrier');
+Route::post('/dataCarrier', 'HomeController@dataCarrier')->name('dataCarrier');
 
 Route::get('getCountry', 'GeoCountryController@list')->name('Country.list');
 Route::get('getProvince', 'GeoProvinceController@list')->name('Province.list');

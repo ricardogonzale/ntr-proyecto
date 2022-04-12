@@ -10,4 +10,7 @@ export default {
     deleteCarrier(data) {
         return axios.post("/deleteCarrier", data);
     },
+    dataCarrier(data) {
+        return axios.post("/dataCarrier", data);
+    },
 };

@@ -3,11 +3,19 @@ import carrierApi from "../api/carrier.js";
 export default {
     state: {
         carriers: [],
+        dataCarrier: [],
     } /* END OF STATE */,
 
-    getters: {} /* END OF GETTERS */,
+    getters: {
+        getDataCarrier: (state) => {
+            return state.dataCarrier;
+        },
+    } /* END OF GETTERS */,
 
     mutations: {
+        SET_CARRIERS(state, carriers) {
+            state.carriers = carriers;
+        },
         SET_CARRIERSDATA(state, carriers) {
             state.carriers = carriers;
         },
@@ -16,7 +24,20 @@ export default {
     actions: {
         async getCarrier({ commit }) {
             await axios.get("/getCarrierlist").then((response) => {
-                commit("SET_CARRIERSDATA", response.data);
+                commit("SET_CARRIERS", response.data);
+            });
+        },
+
+        getDataCarrier({ commit }, data) {
+            return new Promise((resolve, reject) => {
+                carrierApi
+                    .dataCarrier(data)
+                    .then((res) => {
+                        commit("SET_CARRIERSDATA", res.data);
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    });
             });
         },
 

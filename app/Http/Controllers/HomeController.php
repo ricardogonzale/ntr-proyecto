@@ -93,6 +93,13 @@ class HomeController extends Controller
         return $carrier;
     }
 
+    protected function dataCarrier()
+    {
+        $dataUser = Carrier::where('id_user', '=', Auth::user()->id)->get();
+        return response()->json($dataUser[0]);
+    }
+
+    
     protected function registrarCarrier(Request $data)
     {
         $contact = $data->all();

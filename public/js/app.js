@@ -2498,7 +2498,7 @@ __webpack_require__.r(__webpack_exports__);
         items: [{
           title: "Actualizar datos",
           icon: "mdi-account-sync",
-          link: "/contact"
+          link: "/updatedatacarrier"
         }, {
           title: "Bucar envios",
           icon: "mdi-truck-delivery",
@@ -3905,6 +3905,575 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.$store.dispatch("getCarrier");
+    this.getCountry();
+    this.getProvince();
+    this.getActivity();
+    this.getAvailability();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/carriers/UpdateDataCarriersComponent.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/carriers/UpdateDataCarriersComponent.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuelidate */ "./node_modules/vuelidate/lib/index.js");
+/* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vuelidate__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mixins: [vuelidate__WEBPACK_IMPORTED_MODULE_2__["validationMixin"]],
+  validations: {
+    editedItem: {
+      name: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"],
+        maxLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["maxLength"])(255)
+      },
+      lastaname: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"],
+        maxLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["maxLength"])(255)
+      },
+      email: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"],
+        email: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["email"]
+      },
+      password: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"],
+        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["minLength"])(8)
+      },
+      country: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
+      },
+      province: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
+      },
+      availability: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
+      }
+    }
+  },
+  data: function data() {
+    return {
+      dialog: false,
+      dialogDelete: false,
+      country: [],
+      files: [],
+      province: [],
+      availability: [],
+      product_type: [],
+      value: [],
+      headers: [{
+        text: "Id",
+        value: "id"
+      }, {
+        text: "Nombre",
+        align: "start",
+        value: "name"
+      }, {
+        text: "Apellido",
+        value: "lastaname"
+      }, {
+        text: "Correo electrónico",
+        value: "email"
+      }, {
+        text: "Teléfono",
+        value: "telephone"
+      }, {
+        text: "Pais",
+        value: "country"
+      }, {
+        text: "Acciones",
+        value: "actions",
+        sortable: false
+      }],
+      editedIndex: -1,
+      editedItem: {
+        id: null,
+        name: "",
+        lastaname: "",
+        email: "",
+        password: "",
+        telephone: "",
+        country: "",
+        tradename: "",
+        logistic_address: "",
+        agency_description: "",
+        web_site: "",
+        cif: "",
+        province: "",
+        documentation: "",
+        availability: "",
+        product_type: ""
+      },
+      defaultItem: {
+        id: null,
+        name: "",
+        lastaname: "",
+        email: "",
+        password: "",
+        telephone: "",
+        country: null,
+        tradename: "",
+        logo: [],
+        logistic_address: "",
+        agency_description: "",
+        web_site: "",
+        cif: "",
+        province: null,
+        documentation: "",
+        documents_support: [],
+        availability: "",
+        product_type: ""
+      }
+    };
+  },
+  computed: {
+    clients: {
+      get: function get() {
+        return this.$store.state.carrier.carriers;
+      }
+    },
+    formTitle: function formTitle() {
+      return this.editedIndex === -1 ? "Nuevo Transportista" : "Editar Transportista";
+    },
+    nameErrors: function nameErrors() {
+      var errors = [];
+      if (!this.$v.editedItem.name.$dirty) return errors;
+      !this.$v.editedItem.name.required && errors.push("Este campo es obligatorio.");
+      !this.$v.editedItem.name.maxLength && errors.push("El campo no debe contener más 255 digitos.");
+      return errors;
+    },
+    lastanameErrors: function lastanameErrors() {
+      var errors = [];
+      if (!this.$v.editedItem.lastaname.$dirty) return errors;
+      !this.$v.editedItem.lastaname.required && errors.push("Este campo es obligatorio.");
+      !this.$v.editedItem.lastaname.maxLength && errors.push("El campo no debe contener más 255 digitos.");
+      return errors;
+    },
+    emailErrors: function emailErrors() {
+      var errors = [];
+      if (!this.$v.editedItem.email.$dirty) return errors;
+      !this.$v.editedItem.email.email && errors.push("El formato del correo electrónico es invalido.");
+      !this.$v.editedItem.email.required && errors.push("E-mail es obligatorio");
+      return errors;
+    },
+    passwordErrors: function passwordErrors() {
+      var errors = [];
+      if (!this.$v.editedItem.password.$dirty) return errors;
+      !this.$v.editedItem.password.minLength && errors.push("La contraseña no debe contener menos de 8 digitos");
+      !this.$v.editedItem.password.required && errors.push("Este campo es obligatorio.");
+      return errors;
+    },
+    countryErrors: function countryErrors() {
+      var errors = [];
+      if (!this.$v.editedItem.country.$dirty) return errors;
+      !this.$v.editedItem.country.required && errors.push("Este campo es obligatorio");
+      return errors;
+    },
+    provinceErrors: function provinceErrors() {
+      var errors = [];
+      if (!this.$v.editedItem.province.$dirty) return errors;
+      !this.$v.editedItem.province.required && errors.push("Este campo es obligatorio");
+      return errors;
+    },
+    availabilityErrors: function availabilityErrors() {
+      var errors = [];
+      if (!this.$v.editedItem.availability.$dirty) return errors;
+      !this.$v.editedItem.availability.required && errors.push("Este campo es obligatorio");
+      return errors;
+    }
+  },
+  watch: {
+    dialog: function dialog(val) {
+      val || this.close();
+    },
+    dialogDelete: function dialogDelete(val) {
+      val || this.closeDelete();
+    }
+  },
+  created: function created() {
+    this.initialize();
+  },
+  methods: {
+    initialize: function initialize() {
+      this.clients = [];
+    },
+    editItem: function editItem(item) {
+      this.editedIndex = this.clients.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialog = true;
+    },
+    deleteItem: function deleteItem(item) {
+      console.log(item);
+      this.editedIndex = this.clients.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialogDelete = true;
+    },
+    deleteItemConfirm: function deleteItemConfirm() {
+      var _this = this;
+
+      this.clients.splice(this.editedIndex, 1);
+      this.$store.dispatch("deleteCarrier", this.editedItem).then(function (res) {
+        _this.$store.dispatch("getCarrier");
+      })["catch"](function (error) {
+        console.log(error.response.data);
+        _this.registerRequestSent = false;
+      });
+      this.closeDelete();
+    },
+    close: function close() {
+      var _this2 = this;
+
+      this.$v.$reset();
+      this.dialog = false;
+      this.$nextTick(function () {
+        _this2.editedItem = Object.assign({}, _this2.defaultItem);
+        _this2.editedIndex = -1;
+      });
+    },
+    closeDelete: function closeDelete() {
+      var _this3 = this;
+
+      this.dialogDelete = false;
+      this.$nextTick(function () {
+        _this3.editedItem = Object.assign({}, _this3.defaultItem);
+        _this3.editedIndex = -1;
+      });
+    },
+    getCountry: function getCountry() {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/getCountry").then(function (response) {
+        this.country = response.data;
+      }.bind(this));
+    },
+    getProvince: function getProvince() {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/getProvince").then(function (response) {
+        this.province = response.data;
+      }.bind(this));
+    },
+    getAvailability: function getAvailability() {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/getAvailability").then(function (response) {
+        this.availability = response.data;
+      }.bind(this));
+    },
+    getActivity: function getActivity() {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/getActivity").then(function (response) {
+        this.product_type = response.data;
+      }.bind(this));
+    },
+    save: function save() {
+      var _this4 = this;
+
+      this.$v.$touch();
+
+      if (this.$v.$invalid) {
+        return;
+      }
+
+      var formData = new FormData();
+      var rawData = {
+        info: this.editedItem
+      };
+      console.log(this.editedItem);
+      rawData = JSON.stringify(rawData);
+      formData.append("data", rawData);
+      formData.append("logo[img]", this.editedItem.logo);
+      formData.append("documents_support[img]", this.editedItem.documents_support);
+      this.$store.dispatch("updateCarrier", formData).then(function (res) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/dataCarrier").then(function (response) {
+          _this4.editedItem = response.data;
+        });
+      })["catch"](function (error) {
+        console.log(error.response.data);
+        _this4.registerRequestSent = false;
+      });
+      this.close();
+    }
+  },
+  mounted: function mounted() {
+    var _this5 = this;
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/dataCarrier").then(function (response) {
+      _this5.editedItem = response.data;
+    });
     this.getCountry();
     this.getProvince();
     this.getActivity();
@@ -31572,6 +32141,738 @@ var render = function () {
       true
     ),
   })
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/carriers/UpdateDataCarriersComponent.vue?vue&type=template&id=eb1be6f4&":
+/*!***************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/carriers/UpdateDataCarriersComponent.vue?vue&type=template&id=eb1be6f4& ***!
+  \***************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-card",
+    [
+      _c(
+        "v-toolbar",
+        { attrs: { color: "primary", dark: "" } },
+        [_vm._v(_vm._s(_vm.formTitle) + "\n        "), _c("v-spacer")],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-card-text",
+        { staticClass: "pt-8" },
+        [
+          _c(
+            "v-form",
+            {
+              ref: "form",
+              attrs: { method: "POST" },
+              on: {
+                submit: function ($event) {
+                  $event.preventDefault()
+                  return _vm.save()
+                },
+              },
+            },
+            [
+              _c(
+                "v-container",
+                [
+                  _c(
+                    "v-row",
+                    [
+                      _c(
+                        "v-col",
+                        { attrs: { cols: "12", sm: "12", md: "6" } },
+                        [
+                          _c(
+                            "v-row",
+                            [
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", sm: "12", md: "12" } },
+                                [_c("h6", [_vm._v("PERSONA DE CONTACTO")])]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", sm: "6", md: "6" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      label: "Nombre",
+                                      required: "",
+                                      "error-messages": _vm.nameErrors,
+                                      outlined: "",
+                                    },
+                                    on: {
+                                      input: function ($event) {
+                                        return _vm.$v.editedItem.name.$touch()
+                                      },
+                                      blur: function ($event) {
+                                        return _vm.$v.editedItem.name.$touch()
+                                      },
+                                    },
+                                    model: {
+                                      value: _vm.editedItem.name,
+                                      callback: function ($$v) {
+                                        _vm.$set(_vm.editedItem, "name", $$v)
+                                      },
+                                      expression: "editedItem.name",
+                                    },
+                                  }),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", sm: "6", md: "6" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      label: "Apellidos",
+                                      required: "",
+                                      "error-messages": _vm.lastanameErrors,
+                                      outlined: "",
+                                    },
+                                    on: {
+                                      input: function ($event) {
+                                        return _vm.$v.editedItem.name.$touch()
+                                      },
+                                      blur: function ($event) {
+                                        return _vm.$v.editedItem.name.$touch()
+                                      },
+                                    },
+                                    model: {
+                                      value: _vm.editedItem.lastaname,
+                                      callback: function ($$v) {
+                                        _vm.$set(
+                                          _vm.editedItem,
+                                          "lastaname",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "editedItem.lastaname",
+                                    },
+                                  }),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", sm: "12", md: "12" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      label: "Correo electrónico",
+                                      required: "",
+                                      "error-messages": _vm.emailErrors,
+                                      outlined: "",
+                                    },
+                                    on: {
+                                      input: function ($event) {
+                                        return _vm.$v.editedItem.email.$touch()
+                                      },
+                                      blur: function ($event) {
+                                        return _vm.$v.editedItem.email.$touch()
+                                      },
+                                    },
+                                    model: {
+                                      value: _vm.editedItem.email,
+                                      callback: function ($$v) {
+                                        _vm.$set(_vm.editedItem, "email", $$v)
+                                      },
+                                      expression: "editedItem.email",
+                                    },
+                                  }),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", sm: "12", md: "12" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      label: "Contraseña",
+                                      required: "",
+                                      "error-messages": _vm.passwordErrors,
+                                      outlined: "",
+                                    },
+                                    on: {
+                                      input: function ($event) {
+                                        return _vm.$v.editedItem.password.$touch()
+                                      },
+                                      blur: function ($event) {
+                                        return _vm.$v.editedItem.password.$touch()
+                                      },
+                                    },
+                                    model: {
+                                      value: _vm.editedItem.password,
+                                      callback: function ($$v) {
+                                        _vm.$set(
+                                          _vm.editedItem,
+                                          "password",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "editedItem.password",
+                                    },
+                                  }),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", sm: "6", md: "6" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: { label: "Telefono", outlined: "" },
+                                    model: {
+                                      value: _vm.editedItem.telephone,
+                                      callback: function ($$v) {
+                                        _vm.$set(
+                                          _vm.editedItem,
+                                          "telephone",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "editedItem.telephone",
+                                    },
+                                  }),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", sm: "6", md: "6" } },
+                                [
+                                  _c("v-select", {
+                                    attrs: {
+                                      items: _vm.country,
+                                      "item-text": "name",
+                                      "item-value": "id",
+                                      label: "Pais",
+                                      required: "",
+                                      "error-messages": _vm.countryErrors,
+                                      outlined: "",
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        return _vm.$v.editedItem.country.$touch()
+                                      },
+                                      blur: function ($event) {
+                                        return _vm.$v.editedItem.country.$touch()
+                                      },
+                                    },
+                                    model: {
+                                      value: _vm.editedItem.country,
+                                      callback: function ($$v) {
+                                        _vm.$set(_vm.editedItem, "country", $$v)
+                                      },
+                                      expression: "editedItem.country",
+                                    },
+                                  }),
+                                ],
+                                1
+                              ),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-col",
+                        { attrs: { cols: "12", sm: "12", md: "6" } },
+                        [
+                          _c(
+                            "v-row",
+                            [
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", sm: "12", md: "12" } },
+                                [_c("h6", [_vm._v("COMPAÑÍA DISTRIBUIDORA")])]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", sm: "12", md: "6" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      label: "Nombre comercial",
+                                      outlined: "",
+                                    },
+                                    model: {
+                                      value: _vm.editedItem.tradename,
+                                      callback: function ($$v) {
+                                        _vm.$set(
+                                          _vm.editedItem,
+                                          "tradename",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "editedItem.tradename",
+                                    },
+                                  }),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", sm: "12", md: "6" } },
+                                [
+                                  _c("v-file-input", {
+                                    attrs: {
+                                      color: "deep-purple accent-4",
+                                      counter: "",
+                                      label: "Logotipo",
+                                      "prepend-icon": "",
+                                      placeholder: "Logotipo",
+                                      "append-icon": "mdi-cloud-upload-outline",
+                                      outlined: "",
+                                      "show-size": 1000,
+                                    },
+                                    scopedSlots: _vm._u([
+                                      {
+                                        key: "selection",
+                                        fn: function (ref) {
+                                          var index = ref.index
+                                          var text = ref.text
+                                          return [
+                                            index < 2
+                                              ? _c(
+                                                  "v-chip",
+                                                  {
+                                                    attrs: {
+                                                      color:
+                                                        "deep-purple accent-4",
+                                                      dark: "",
+                                                      label: "",
+                                                      small: "",
+                                                    },
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "\n                                            " +
+                                                        _vm._s(text) +
+                                                        "\n                                        "
+                                                    ),
+                                                  ]
+                                                )
+                                              : index === 2
+                                              ? _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "text-overline grey--text text--darken-3 mx-2",
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "\n                                            +\n                                            " +
+                                                        _vm._s(
+                                                          _vm.files.length - 2
+                                                        ) +
+                                                        "\n                                            Archivos(s)\n                                        "
+                                                    ),
+                                                  ]
+                                                )
+                                              : _vm._e(),
+                                          ]
+                                        },
+                                      },
+                                    ]),
+                                    model: {
+                                      value: _vm.editedItem.logo,
+                                      callback: function ($$v) {
+                                        _vm.$set(_vm.editedItem, "logo", $$v)
+                                      },
+                                      expression: "editedItem.logo",
+                                    },
+                                  }),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", md: "12" } },
+                                [
+                                  _c("v-textarea", {
+                                    attrs: {
+                                      outlined: "",
+                                      label: "Descripción agencia",
+                                      placeholder: "Descripción agencia",
+                                      rows: "2",
+                                    },
+                                    model: {
+                                      value: _vm.editedItem.agency_description,
+                                      callback: function ($$v) {
+                                        _vm.$set(
+                                          _vm.editedItem,
+                                          "agency_description",
+                                          $$v
+                                        )
+                                      },
+                                      expression:
+                                        "editedItem.agency_description",
+                                    },
+                                  }),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", sm: "12", md: "6" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      label: "Dirección sede logística",
+                                      outlined: "",
+                                    },
+                                    model: {
+                                      value: _vm.editedItem.logistic_address,
+                                      callback: function ($$v) {
+                                        _vm.$set(
+                                          _vm.editedItem,
+                                          "logistic_address",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "editedItem.logistic_address",
+                                    },
+                                  }),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", sm: "12", md: "6" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      label: "Paginas web",
+                                      outlined: "",
+                                    },
+                                    model: {
+                                      value: _vm.editedItem.web_site,
+                                      callback: function ($$v) {
+                                        _vm.$set(
+                                          _vm.editedItem,
+                                          "web_site",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "editedItem.web_site",
+                                    },
+                                  }),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", sm: "6", md: "6" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: { label: "CIF", outlined: "" },
+                                    model: {
+                                      value: _vm.editedItem.cif,
+                                      callback: function ($$v) {
+                                        _vm.$set(_vm.editedItem, "cif", $$v)
+                                      },
+                                      expression: "editedItem.cif",
+                                    },
+                                  }),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", sm: "6", md: "6" } },
+                                [
+                                  _c("v-select", {
+                                    attrs: {
+                                      items: _vm.province,
+                                      "item-text": "name",
+                                      "item-value": "id",
+                                      label: "Provincia",
+                                      required: "",
+                                      "error-messages": _vm.provinceErrors,
+                                      outlined: "",
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        return _vm.$v.editedItem.province.$touch()
+                                      },
+                                      blur: function ($event) {
+                                        return _vm.$v.editedItem.province.$touch()
+                                      },
+                                    },
+                                    model: {
+                                      value: _vm.editedItem.province,
+                                      callback: function ($$v) {
+                                        _vm.$set(
+                                          _vm.editedItem,
+                                          "province",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "editedItem.province",
+                                    },
+                                  }),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", sm: "12", md: "6" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      label: "Dirección sede logística",
+                                      outlined: "",
+                                    },
+                                    model: {
+                                      value: _vm.editedItem.documentation,
+                                      callback: function ($$v) {
+                                        _vm.$set(
+                                          _vm.editedItem,
+                                          "documentation",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "editedItem.documentation",
+                                    },
+                                  }),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", sm: "12", md: "6" } },
+                                [
+                                  _c("v-file-input", {
+                                    attrs: {
+                                      color: "deep-purple accent-4",
+                                      counter: "",
+                                      label: "Documentación entrega",
+                                      "prepend-icon": "",
+                                      placeholder: "Documentación entrega",
+                                      "append-icon": "mdi-cloud-upload-outline",
+                                      outlined: "",
+                                      "show-size": 1000,
+                                    },
+                                    scopedSlots: _vm._u([
+                                      {
+                                        key: "selection",
+                                        fn: function (ref) {
+                                          var index = ref.index
+                                          var text = ref.text
+                                          return [
+                                            index < 2
+                                              ? _c(
+                                                  "v-chip",
+                                                  {
+                                                    attrs: {
+                                                      color:
+                                                        "deep-purple accent-4",
+                                                      dark: "",
+                                                      label: "",
+                                                      small: "",
+                                                    },
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "\n                                            " +
+                                                        _vm._s(text) +
+                                                        "\n                                        "
+                                                    ),
+                                                  ]
+                                                )
+                                              : index === 2
+                                              ? _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "text-overline grey--text text--darken-3 mx-2",
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "\n                                            +\n                                            " +
+                                                        _vm._s(
+                                                          _vm.files.length - 2
+                                                        ) +
+                                                        "\n                                            Archivos(s)\n                                        "
+                                                    ),
+                                                  ]
+                                                )
+                                              : _vm._e(),
+                                          ]
+                                        },
+                                      },
+                                    ]),
+                                    model: {
+                                      value: _vm.editedItem.documents_support,
+                                      callback: function ($$v) {
+                                        _vm.$set(
+                                          _vm.editedItem,
+                                          "documents_support",
+                                          $$v
+                                        )
+                                      },
+                                      expression:
+                                        "editedItem.documents_support",
+                                    },
+                                  }),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", sm: "12", md: "12" } },
+                                [
+                                  _c("v-select", {
+                                    attrs: {
+                                      items: _vm.availability,
+                                      "item-text": "name",
+                                      "item-value": "id",
+                                      label: "Disponibilidad",
+                                      required: "",
+                                      "error-messages": _vm.availabilityErrors,
+                                      outlined: "",
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        return _vm.$v.editedItem.availability.$touch()
+                                      },
+                                      blur: function ($event) {
+                                        return _vm.$v.editedItem.availability.$touch()
+                                      },
+                                    },
+                                    model: {
+                                      value: _vm.editedItem.availability,
+                                      callback: function ($$v) {
+                                        _vm.$set(
+                                          _vm.editedItem,
+                                          "availability",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "editedItem.availability",
+                                    },
+                                  }),
+                                ],
+                                1
+                              ),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-col",
+                        {
+                          staticClass: "pt-4",
+                          attrs: { cols: "12", sm: "12", md: "12" },
+                        },
+                        [
+                          _c("v-select", {
+                            attrs: {
+                              items: _vm.product_type,
+                              "item-text": "name",
+                              "item-value": "id",
+                              "return-object": "",
+                              attach: "",
+                              chips: "",
+                              label: "Selecciona la actividad de la empresa",
+                              outlined: "",
+                              multiple: "",
+                            },
+                            model: {
+                              value: _vm.value,
+                              callback: function ($$v) {
+                                _vm.value = $$v
+                              },
+                              expression: "value",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-card-actions",
+        [
+          _c("v-spacer"),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            {
+              attrs: { color: "blue darken-1", text: "" },
+              on: { click: _vm.close },
+            },
+            [_vm._v(" Cancel ")]
+          ),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            {
+              attrs: { color: "blue darken-1", text: "" },
+              on: { click: _vm.save },
+            },
+            [_vm._v(" Guardar ")]
+          ),
+        ],
+        1
+      ),
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -98492,6 +99793,7 @@ var map = {
 	"./components/auth/LogoutButtonComponent.vue": "./resources/js/components/auth/LogoutButtonComponent.vue",
 	"./components/auth/RegisterButtonComponent.vue": "./resources/js/components/auth/RegisterButtonComponent.vue",
 	"./components/carriers/ListCarriersComponent.vue": "./resources/js/components/carriers/ListCarriersComponent.vue",
+	"./components/carriers/UpdateDataCarriersComponent.vue": "./resources/js/components/carriers/UpdateDataCarriersComponent.vue",
 	"./components/clients/ListClientsComponent.vue": "./resources/js/components/clients/ListClientsComponent.vue",
 	"./components/sender/ListSenderComponent.vue": "./resources/js/components/sender/ListSenderComponent.vue"
 };
@@ -98556,6 +99858,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   deleteCarrier: function deleteCarrier(data) {
     return axios.post("/deleteCarrier", data);
+  },
+  dataCarrier: function dataCarrier(data) {
+    return axios.post("/dataCarrier", data);
   }
 });
 
@@ -99197,6 +100502,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/carriers/UpdateDataCarriersComponent.vue":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/carriers/UpdateDataCarriersComponent.vue ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _UpdateDataCarriersComponent_vue_vue_type_template_id_eb1be6f4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateDataCarriersComponent.vue?vue&type=template&id=eb1be6f4& */ "./resources/js/components/carriers/UpdateDataCarriersComponent.vue?vue&type=template&id=eb1be6f4&");
+/* harmony import */ var _UpdateDataCarriersComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateDataCarriersComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/carriers/UpdateDataCarriersComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _UpdateDataCarriersComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _UpdateDataCarriersComponent_vue_vue_type_template_id_eb1be6f4___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _UpdateDataCarriersComponent_vue_vue_type_template_id_eb1be6f4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/carriers/UpdateDataCarriersComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/carriers/UpdateDataCarriersComponent.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/components/carriers/UpdateDataCarriersComponent.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateDataCarriersComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./UpdateDataCarriersComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/carriers/UpdateDataCarriersComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateDataCarriersComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/carriers/UpdateDataCarriersComponent.vue?vue&type=template&id=eb1be6f4&":
+/*!*********************************************************************************************************!*\
+  !*** ./resources/js/components/carriers/UpdateDataCarriersComponent.vue?vue&type=template&id=eb1be6f4& ***!
+  \*********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateDataCarriersComponent_vue_vue_type_template_id_eb1be6f4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./UpdateDataCarriersComponent.vue?vue&type=template&id=eb1be6f4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/carriers/UpdateDataCarriersComponent.vue?vue&type=template&id=eb1be6f4&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateDataCarriersComponent_vue_vue_type_template_id_eb1be6f4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateDataCarriersComponent_vue_vue_type_template_id_eb1be6f4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/clients/ListClientsComponent.vue":
 /*!******************************************************************!*\
   !*** ./resources/js/components/clients/ListClientsComponent.vue ***!
@@ -99491,14 +100865,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
-    carriers: []
+    carriers: [],
+    dataCarrier: []
   }
   /* END OF STATE */
   ,
-  getters: {}
+  getters: {
+    getDataCarrier: function getDataCarrier(state) {
+      return state.dataCarrier;
+    }
+  }
   /* END OF GETTERS */
   ,
   mutations: {
+    SET_CARRIERS: function SET_CARRIERS(state, carriers) {
+      state.carriers = carriers;
+    },
     SET_CARRIERSDATA: function SET_CARRIERSDATA(state, carriers) {
       state.carriers = carriers;
     }
@@ -99516,7 +100898,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 commit = _ref.commit;
                 _context.next = 3;
                 return axios.get("/getCarrierlist").then(function (response) {
-                  commit("SET_CARRIERSDATA", response.data);
+                  commit("SET_CARRIERS", response.data);
                 });
 
               case 3:
@@ -99527,8 +100909,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    registerCarrier: function registerCarrier(_ref2, data) {
+    getDataCarrier: function getDataCarrier(_ref2, data) {
       var commit = _ref2.commit;
+      return new Promise(function (resolve, reject) {
+        _api_carrier_js__WEBPACK_IMPORTED_MODULE_1__["default"].dataCarrier(data).then(function (res) {
+          commit("SET_CARRIERSDATA", res.data);
+        })["catch"](function (error) {
+          reject(error);
+        });
+      });
+    },
+    registerCarrier: function registerCarrier(_ref3, data) {
+      var commit = _ref3.commit;
       return new Promise(function (resolve, reject) {
         _api_carrier_js__WEBPACK_IMPORTED_MODULE_1__["default"].registerCarrier(data).then(function (res) {
           resolve(res);
@@ -99537,8 +100929,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         });
       });
     },
-    updateCarrier: function updateCarrier(_ref3, data) {
-      var commit = _ref3.commit;
+    updateCarrier: function updateCarrier(_ref4, data) {
+      var commit = _ref4.commit;
       return new Promise(function (resolve, reject) {
         _api_carrier_js__WEBPACK_IMPORTED_MODULE_1__["default"].updateCarrier(data).then(function (res) {
           resolve(res);
@@ -99547,8 +100939,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         });
       });
     },
-    deleteCarrier: function deleteCarrier(_ref4, data) {
-      var commit = _ref4.commit;
+    deleteCarrier: function deleteCarrier(_ref5, data) {
+      var commit = _ref5.commit;
       return new Promise(function (resolve, reject) {
         _api_carrier_js__WEBPACK_IMPORTED_MODULE_1__["default"].deleteCarrier(data).then(function (res) {
           resolve(res);
@@ -99674,6 +101066,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_sender_ListSenderComponent_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/sender/ListSenderComponent.vue */ "./resources/js/components/sender/ListSenderComponent.vue");
 /* harmony import */ var _components_clients_ListClientsComponent_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/clients/ListClientsComponent.vue */ "./resources/js/components/clients/ListClientsComponent.vue");
 /* harmony import */ var _components_carriers_ListCarriersComponent_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/carriers/ListCarriersComponent.vue */ "./resources/js/components/carriers/ListCarriersComponent.vue");
+/* harmony import */ var _components_carriers_UpdateDataCarriersComponent_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/carriers/UpdateDataCarriersComponent.vue */ "./resources/js/components/carriers/UpdateDataCarriersComponent.vue");
+
 
 
 
@@ -99695,6 +101089,10 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: "/listcarriers",
     name: "Listar Transportistas",
     component: _components_carriers_ListCarriersComponent_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+  }, {
+    path: "/updatedatacarrier",
+    name: "Actualizar Transportista",
+    component: _components_carriers_UpdateDataCarriersComponent_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
   }]
 });
 router.beforeEach(function (to, from, next) {
