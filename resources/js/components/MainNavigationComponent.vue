@@ -312,6 +312,16 @@ export default {
                             link: "/updatedatacarrier",
                         },
                         {
+                            title: "Conductores",
+                            icon: "mdi-card-account-details-outline",
+                            link: "/listdrivers",
+                        },
+                        {
+                            title: "Vehiculos",
+                            icon: "mdi-truck-cargo-container",
+                            link: "/listvehicles",
+                        },
+                        {
                             title: "Bucar envios",
                             icon: "mdi-truck-delivery",
                             link: "/listorder/8",

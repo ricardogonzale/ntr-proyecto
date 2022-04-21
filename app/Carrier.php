@@ -24,6 +24,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property boolean $
 availability
  * @property string $product_type
+ * @property boolean $complete_profile
+ * @property boolean $approve_profile
  * @property string $created_at
  * @property string $updated_at
  */
@@ -40,5 +42,5 @@ class Carrier extends Model
      * @var array
      */
     protected $fillable = ['id_user', 'name', 'lastaname', 'email', 'telephone', 'country', 'tradename', 'logo', 'logistic_address', 'agency_description', 'web_site', 'cif', 'province', 'documentation', 'documents_support', '
-availability', 'product_type', 'created_at', 'updated_at'];
+availability', 'product_type', 'complete_profile', 'approve_profile', 'created_at', 'updated_at'];
 }

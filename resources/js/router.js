@@ -6,6 +6,8 @@ import ListSender from "./components/sender/ListSenderComponent.vue";
 import ListClients from "./components/clients/ListClientsComponent.vue";
 import ListCarriers from "./components/carriers/ListCarriersComponent.vue";
 import UpdateDataCarriers from "./components/carriers/UpdateDataCarriersComponent.vue";
+import ListDrivers from "./components/drivers/ListDriversComponent.vue";
+import ListVehicle from "./components/vehicle/ListVehicleComponent.vue";
 
 Vue.use(VueRouter);
 
@@ -31,6 +33,16 @@ const router = new VueRouter({
             path: "/updatedatacarrier",
             name: "Actualizar Transportista",
             component: UpdateDataCarriers,
+        },
+        {
+            path: "/listdrivers",
+            name: "Conductores",
+            component: ListDrivers,
+        },
+        {
+            path: "/listvehicles",
+            name: "Vehiculos",
+            component: ListVehicle,
         },
     ],
 });

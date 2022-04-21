@@ -1,16 +1,16 @@
 <template>
     <v-data-table
         :headers="headers"
-        :items="clients"
+        :items="drivers"
         sort-by="id"
         class="elevation-1"
     >
         <template v-slot:top>
             <v-toolbar flat>
-                <v-toolbar-title>Distribuidores Registrados</v-toolbar-title>
+                <v-toolbar-title>Conductores</v-toolbar-title>
                 <v-divider class="mx-4" inset vertical></v-divider>
                 <v-spacer></v-spacer>
-                <v-dialog v-model="dialog" max-width="800px">
+                <v-dialog v-model="dialog" max-width="400px">
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn
                             color="primary"
@@ -19,7 +19,7 @@
                             v-bind="attrs"
                             v-on="on"
                         >
-                            Registrar Distribuidor
+                            Registrar Conductor
                         </v-btn>
                     </template>
                     <v-card>
@@ -36,22 +36,25 @@
                             >
                                 <v-container>
                                     <v-row>
-                                        <v-col cols="12" sm="12" md="6">
+                                        <v-col cols="12" sm="12" md="12">
                                             <v-row>
                                                 <v-col
                                                     cols="12"
                                                     sm="12"
                                                     md="12"
                                                 >
-                                                    <h6>PERSONA DE CONTACTO</h6>
+                                                    <h6>DATOS</h6>
                                                 </v-col>
-                                                <v-col cols="12" sm="6" md="6">
+                                                <v-col
+                                                    cols="12"
+                                                    sm="12"
+                                                    md="12"
+                                                >
                                                     <v-text-field
                                                         v-model="
                                                             editedItem.name
                                                         "
                                                         label="Nombre"
-                                                        :counter="255"
                                                         required
                                                         @input="
                                                             $v.editedItem.name.$touch()
@@ -65,13 +68,16 @@
                                                         outlined
                                                     ></v-text-field>
                                                 </v-col>
-                                                <v-col cols="12" sm="6" md="6">
+                                                <v-col
+                                                    cols="12"
+                                                    sm="12"
+                                                    md="12"
+                                                >
                                                     <v-text-field
                                                         v-model="
                                                             editedItem.lastaname
                                                         "
                                                         label="Apellidos"
-                                                        :counter="255"
                                                         required
                                                         @input="
                                                             $v.editedItem.lastaname.$touch()
@@ -82,6 +88,24 @@
                                                         :error-messages="
                                                             lastanameErrors
                                                         "
+                                                        outlined
+                                                    ></v-text-field>
+                                                </v-col>
+                                                <v-col cols="12" sm="12" md="6">
+                                                    <v-text-field
+                                                        v-model="
+                                                            editedItem.birthday
+                                                        "
+                                                        label="Fecha de Nacimiento"
+                                                        outlined
+                                                    ></v-text-field>
+                                                </v-col>
+                                                <v-col cols="12" sm="12" md="6">
+                                                    <v-text-field
+                                                        v-model="
+                                                            editedItem.telephone
+                                                        "
+                                                        label="Teléfono"
                                                         outlined
                                                     ></v-text-field>
                                                 </v-col>
@@ -133,173 +157,45 @@
                                                 </v-col>
                                                 <v-col cols="12" sm="6" md="6">
                                                     <v-text-field
-                                                        v-model="
-                                                            editedItem.telephone
-                                                        "
-                                                        label="Telefono"
-                                                        outlined
-                                                    ></v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" sm="6" md="6">
-                                                    <v-select
-                                                        :items="country"
-                                                        item-text="name"
-                                                        item-value="id"
-                                                        label="Pais"
-                                                        v-model="
-                                                            editedItem.country
-                                                        "
-                                                        required
-                                                        @change="
-                                                            $v.editedItem.country.$touch()
-                                                        "
-                                                        @blur="
-                                                            $v.editedItem.country.$touch()
-                                                        "
-                                                        :error-messages="
-                                                            countryErrors
-                                                        "
-                                                        outlined
-                                                    ></v-select>
-                                                </v-col>
-                                            </v-row>
-                                        </v-col>
-                                        <v-col cols="12" sm="12" md="6">
-                                            <v-row>
-                                                <v-col
-                                                    cols="12"
-                                                    sm="12"
-                                                    md="12"
-                                                >
-                                                    <h6>
-                                                        COMPAÑÍA DISTRIBUIDORA
-                                                    </h6>
-                                                </v-col>
-                                                <v-col
-                                                    cols="12"
-                                                    sm="12"
-                                                    md="12"
-                                                >
-                                                    <v-text-field
-                                                        v-model="
-                                                            editedItem.tradename
-                                                        "
-                                                        label="Nombre comercial"
-                                                        outlined
-                                                    ></v-text-field>
-                                                </v-col>
-                                                <v-col
-                                                    cols="12"
-                                                    sm="12"
-                                                    md="12"
-                                                >
-                                                    <v-text-field
-                                                        v-model="
-                                                            editedItem.logistic_address
-                                                        "
-                                                        label="Dirección sede logística"
-                                                        outlined
-                                                    ></v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" sm="6" md="6">
-                                                    <v-text-field
-                                                        v-model="editedItem.cif"
+                                                        v-model="editedItem.dni"
                                                         label="CIF"
                                                         outlined
                                                     ></v-text-field>
                                                 </v-col>
                                                 <v-col cols="12" sm="6" md="6">
                                                     <v-select
-                                                        :items="province"
+                                                        :items="type_card"
                                                         item-text="name"
                                                         item-value="id"
-                                                        label="Provincia"
+                                                        label="Tipo de carnet de conducir"
                                                         v-model="
-                                                            editedItem.province
+                                                            editedItem.type_card
                                                         "
                                                         required
                                                         @change="
-                                                            $v.editedItem.province.$touch()
+                                                            $v.editedItem.type_card.$touch()
                                                         "
                                                         @blur="
-                                                            $v.editedItem.province.$touch()
+                                                            $v.editedItem.type_card.$touch()
                                                         "
                                                         :error-messages="
-                                                            provinceErrors
+                                                            typeCardErrors
                                                         "
                                                         outlined
                                                     ></v-select>
                                                 </v-col>
-                                                <v-col
-                                                    cols="12"
-                                                    sm="12"
-                                                    md="12"
-                                                >
-                                                    <v-file-input
-                                                        v-model="
-                                                            editedItem.activity_memory
-                                                        "
-                                                        color="deep-purple accent-4"
-                                                        counter
-                                                        label="Cargar memoria de actividad"
-                                                        prepend-icon=""
-                                                        placeholder="Cargar memoria de actividad"
-                                                        append-icon="mdi-cloud-upload-outline"
+                                                <v-col cols="12" md="12">
+                                                    <v-textarea
                                                         outlined
-                                                        :show-size="1000"
-                                                    >
-                                                        <template
-                                                            v-slot:selection="{
-                                                                index,
-                                                                text,
-                                                            }"
-                                                        >
-                                                            <v-chip
-                                                                v-if="index < 2"
-                                                                color="deep-purple accent-4"
-                                                                dark
-                                                                label
-                                                                small
-                                                            >
-                                                                {{ text }}
-                                                            </v-chip>
-
-                                                            <span
-                                                                v-else-if="
-                                                                    index === 2
-                                                                "
-                                                                class="text-overline grey--text text--darken-3 mx-2"
-                                                            >
-                                                                +
-                                                                {{
-                                                                    files.length -
-                                                                    2
-                                                                }}
-                                                                Archivos(s)
-                                                            </span>
-                                                        </template>
-                                                    </v-file-input>
+                                                        v-model="
+                                                            editedItem.observations
+                                                        "
+                                                        label="Observaciones"
+                                                        placeholder="Observaciones"
+                                                        rows="2"
+                                                    ></v-textarea>
                                                 </v-col>
                                             </v-row>
-                                        </v-col>
-                                        <v-col
-                                            cols="12"
-                                            sm="12"
-                                            md="12"
-                                            class="pt-4"
-                                        >
-                                            <v-select
-                                                v-model="value"
-                                                :items="activity"
-                                                item-text="name"
-                                                item-value="id"
-                                                return-object
-                                                attach
-                                                chips
-                                                label="Selecciona la actividad de la empresa"
-                                                outlined
-                                                multiple
-                                            ></v-select>
                                         </v-col>
                                     </v-row>
                                 </v-container>
@@ -371,17 +267,14 @@ export default {
             lastaname: { required, maxLength: maxLength(255) },
             email: { required, email },
             password: { required, minLength: minLength(8) },
-            country: { required },
-            province: { required },
+            type_card: { required },
         },
     },
     data: () => ({
         dialog: false,
         dialogDelete: false,
-        country: [],
+        type_card: [],
         files: [],
-        province: [],
-        activity: [],
         value: [],
         headers: [
             { text: "Id", value: "id" },
@@ -390,54 +283,51 @@ export default {
                 align: "start",
                 value: "name",
             },
-            { text: "Apellidos", value: "lastaname" },
+            { text: "Apellido", value: "lastaname" },
             { text: "Correo electrónico", value: "email" },
             { text: "Teléfono", value: "telephone" },
-            { text: "Pais", value: "country" },
+            { text: "DNI", value: "dni" },
             { text: "Acciones", value: "actions", sortable: false },
         ],
         editedIndex: -1,
         editedItem: {
             id: null,
+            id_carrier: null,
             name: "",
             lastaname: "",
             email: "",
             password: "",
             telephone: "",
-            country: "",
-            tradename: "",
-            logistic_address: "",
-            cif: "",
-            province: "",
-            activity: "",
+            type_card: "",
+            dni: "",
+            birthday: "",
+            observations: "",
         },
         defaultItem: {
             id: null,
+            id_carrier: null,
             name: "",
             lastaname: "",
             email: "",
             password: "",
             telephone: "",
-            country: null,
-            tradename: "",
-            logistic_address: "",
-            cif: "",
-            province: null,
-            activity_memory: [],
-            activity: "",
+            type_card: "",
+            dni: "",
+            birthday: "",
+            observations: "",
         },
     }),
 
     computed: {
-        clients: {
+        drivers: {
             get() {
-                return this.$store.state.client.clients;
+                return this.$store.state.driver.drivers;
             },
         },
         formTitle() {
             return this.editedIndex === -1
-                ? "Nuevo Distribuidor"
-                : "Editar Distribuidor";
+                ? "Nuevo Conductor"
+                : "Editar Conductor";
         },
         nameErrors() {
             const errors = [];
@@ -477,17 +367,10 @@ export default {
                 errors.push("Este campo es obligatorio.");
             return errors;
         },
-        countryErrors() {
+        typeCardErrors() {
             const errors = [];
-            if (!this.$v.editedItem.country.$dirty) return errors;
-            !this.$v.editedItem.country.required &&
-                errors.push("Este campo es obligatorio");
-            return errors;
-        },
-        provinceErrors() {
-            const errors = [];
-            if (!this.$v.editedItem.province.$dirty) return errors;
-            !this.$v.editedItem.province.required &&
+            if (!this.$v.editedItem.type_card.$dirty) return errors;
+            !this.$v.editedItem.type_card.required &&
                 errors.push("Este campo es obligatorio");
             return errors;
         },
@@ -508,28 +391,28 @@ export default {
 
     methods: {
         initialize() {
-            this.clients = [];
+            this.drivers = [];
         },
 
         editItem(item) {
-            this.editedIndex = this.clients.indexOf(item);
+            this.editedIndex = this.drivers.indexOf(item);
             this.editedItem = Object.assign({}, item);
             this.dialog = true;
         },
 
         deleteItem(item) {
             console.log(item);
-            this.editedIndex = this.clients.indexOf(item);
+            this.editedIndex = this.drivers.indexOf(item);
             this.editedItem = Object.assign({}, item);
             this.dialogDelete = true;
         },
 
         deleteItemConfirm() {
-            this.clients.splice(this.editedIndex, 1);
+            this.drivers.splice(this.editedIndex, 1);
             this.$store
-                .dispatch("delete", this.editedItem)
+                .dispatch("deleteDriver", this.editedItem)
                 .then((res) => {
-                    this.$store.dispatch("getClients");
+                    this.$store.dispatch("getDriver");
                 })
                 .catch((error) => {
                     console.log(error.response.data);
@@ -557,21 +440,7 @@ export default {
         getCountry: function () {
             axios.get("/getCountry").then(
                 function (response) {
-                    this.country = response.data;
-                }.bind(this)
-            );
-        },
-        getProvince: function () {
-            axios.get("/getProvince").then(
-                function (response) {
-                    this.province = response.data;
-                }.bind(this)
-            );
-        },
-        getActivity: function () {
-            axios.get("/getActivity").then(
-                function (response) {
-                    this.activity = response.data;
+                    this.type_card = response.data;
                 }.bind(this)
             );
         },
@@ -585,14 +454,13 @@ export default {
             console.log(this.editedItem);
             rawData = JSON.stringify(rawData);
             formData.append("data", rawData);
-            formData.append("activy[img]", this.editedItem.activity_memory);
 
             if (this.editedIndex > -1) {
-                // Object.assign(this.clients[this.editedIndex], this.editedItem);
+                // Object.assign(this.drivers[this.editedIndex], this.editedItem);
                 this.$store
-                    .dispatch("update", formData)
+                    .dispatch("updateDriver", formData)
                     .then((res) => {
-                        this.$store.dispatch("getClients");
+                        this.$store.dispatch("getDriver");
                     })
                     .catch((error) => {
                         console.log(error.response.data);
@@ -600,9 +468,9 @@ export default {
                     });
             } else {
                 this.$store
-                    .dispatch("register", formData)
+                    .dispatch("newDriver", formData)
                     .then((res) => {
-                        this.$store.dispatch("getClients");
+                        this.$store.dispatch("getDriver");
                     })
                     .catch((error) => {
                         console.log(error.response.data);
@@ -613,10 +481,8 @@ export default {
         },
     },
     mounted() {
-        this.$store.dispatch("getClients");
+        this.$store.dispatch("getDriver");
         this.getCountry();
-        this.getProvince();
-        this.getActivity();
     },
 };
 </script>

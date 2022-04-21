@@ -72,10 +72,10 @@
                                                         label="Apellidos"
                                                         required
                                                         @input="
-                                                            $v.editedItem.name.$touch()
+                                                            $v.editedItem.lastaname.$touch()
                                                         "
                                                         @blur="
-                                                            $v.editedItem.name.$touch()
+                                                            $v.editedItem.lastaname.$touch()
                                                         "
                                                         :error-messages="
                                                             lastanameErrors

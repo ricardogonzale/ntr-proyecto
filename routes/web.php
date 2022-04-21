@@ -33,10 +33,15 @@ Route::get('getCountry', 'GeoCountryController@list')->name('Country.list');
 Route::get('getProvince', 'GeoProvinceController@list')->name('Province.list');
 Route::get('getActivity', 'TypeActivityController@list')->name('getActivity.list');
 Route::get('getAvailability', 'TypeAvailabilityController@list')->name('getAvailability.list');
-
+Route::get('getTypeVehicle', 'TypeVehicleController@list')->name('getTypeVehicle.list');
 
 Route::get('getClientlist', 'ClientController@list')->name('cliente.list');
 Route::get('getClientshow/{id}', 'ClientController@show')->name('cliente.show');
 Route::get('getCarrierlist', 'CarrierController@list')->name('carrier.list');
 Route::get('getCarriershow/{id}', 'CarrierController@show')->name('carrier.show');
 Route::get('getUserinfo', 'APIController@getUserinfo')->name('API.Userinfo');
+
+Route::get('getDriverlist', 'DriverController@list')->name('driver.list');
+Route::post('/newDriver', 'DriverController@create')->name('newDriver');
+Route::post('/updateDriver', 'DriverController@update')->name('updateDriver');
+Route::post('/deleteDriver', 'DriverController@destroy')->name('deleteDriver');
