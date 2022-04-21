@@ -1,13 +1,13 @@
 <template>
     <v-data-table
         :headers="headers"
-        :items="vehicles"
+        :items="certifications"
         sort-by="id"
         class="elevation-1"
     >
         <template v-slot:top>
             <v-toolbar flat>
-                <h2>Listado de Vehículos</h2>
+                <h2>Listado de Certificaciones</h2>
             </v-toolbar>
             <v-toolbar flat>
                 <v-dialog v-model="dialog" max-width="400px">
@@ -22,7 +22,7 @@
                             v-on="on"
                             style="border-radius: 30px; text-transform: none"
                         >
-                            Nuevo Vehículo
+                            Nuevo Certificado
                         </v-btn>
                     </template>
                     <v-card>
@@ -46,124 +46,82 @@
                                                     sm="12"
                                                     md="12"
                                                 >
-                                                    <h6>DATOS DEL VEHÍCULO</h6>
+                                                    <h6>
+                                                        DATOS DEL CERTIFICADO
+                                                    </h6>
                                                 </v-col>
-                                                <v-col cols="12" sm="6" md="6">
-                                                    <v-select
-                                                        :items="type_vehicle"
-                                                        item-text="name"
-                                                        item-value="id"
-                                                        label="Tipo de Vehículo"
-                                                        v-model="
-                                                            editedItem.type_vehicle
-                                                        "
-                                                        required
-                                                        @change="
-                                                            $v.editedItem.type_vehicle.$touch()
-                                                        "
-                                                        @blur="
-                                                            $v.editedItem.type_vehicle.$touch()
-                                                        "
-                                                        :error-messages="
-                                                            typeVehicleErrors
-                                                        "
-                                                        outlined
-                                                    ></v-select>
-                                                </v-col>
-                                                <v-col cols="12" sm="6" md="6">
+                                                <v-col
+                                                    cols="12"
+                                                    sm="12"
+                                                    md="12"
+                                                >
                                                     <v-text-field
                                                         v-model="
-                                                            editedItem.mark
+                                                            editedItem.title
                                                         "
-                                                        label="Marca"
+                                                        label="Titulo"
                                                         required
                                                         @input="
-                                                            $v.editedItem.mark.$touch()
+                                                            $v.editedItem.title.$touch()
                                                         "
                                                         @blur="
-                                                            $v.editedItem.mark.$touch()
+                                                            $v.editedItem.title.$touch()
                                                         "
                                                         :error-messages="
-                                                            markErrors
+                                                            titleErrors
                                                         "
                                                         outlined
                                                     ></v-text-field>
                                                 </v-col>
-                                                <v-col cols="12" sm="6" md="6">
-                                                    <v-text-field
+                                                <v-col
+                                                    cols="12"
+                                                    sm="12"
+                                                    md="12"
+                                                >
+                                                    <v-file-input
                                                         v-model="
-                                                            editedItem.modelo
+                                                            editedItem.file_path
                                                         "
-                                                        label="Modelo"
-                                                        required
-                                                        @input="
-                                                            $v.editedItem.modelo.$touch()
-                                                        "
-                                                        @blur="
-                                                            $v.editedItem.modelo.$touch()
-                                                        "
-                                                        :error-messages="
-                                                            modeloErrors
-                                                        "
+                                                        color="deep-purple accent-4"
+                                                        counter
+                                                        label="Archivo"
+                                                        prepend-icon=""
+                                                        placeholder="Archivo"
+                                                        append-icon="mdi-cloud-upload-outline"
                                                         outlined
-                                                    ></v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" sm="12" md="6">
-                                                    <v-text-field
-                                                        v-model="
-                                                            editedItem.type_load
-                                                        "
-                                                        label="Tipo de Carga"
-                                                        outlined
-                                                    ></v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" sm="12" md="6">
-                                                    <v-text-field
-                                                        v-model="
-                                                            editedItem.tuition
-                                                        "
-                                                        label="Matrícula"
-                                                        required
-                                                        @input="
-                                                            $v.editedItem.tuition.$touch()
-                                                        "
-                                                        @blur="
-                                                            $v.editedItem.tuition.$touch()
-                                                        "
-                                                        :error-messages="
-                                                            tuitionErrors
-                                                        "
-                                                        outlined
-                                                    ></v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" sm="6" md="6">
-                                                    <v-text-field
-                                                        v-model="
-                                                            editedItem.year
-                                                        "
-                                                        label="Año"
-                                                        @input="
-                                                            $v.editedItem.year.$touch()
-                                                        "
-                                                        @blur="
-                                                            $v.editedItem.year.$touch()
-                                                        "
-                                                        :error-messages="
-                                                            yearErrors
-                                                        "
-                                                        outlined
-                                                    ></v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" md="12">
-                                                    <v-textarea
-                                                        outlined
-                                                        v-model="
-                                                            editedItem.observations
-                                                        "
-                                                        label="Observaciones"
-                                                        placeholder="Observaciones"
-                                                        rows="2"
-                                                    ></v-textarea>
+                                                        :show-size="1000"
+                                                    >
+                                                        <template
+                                                            v-slot:selection="{
+                                                                index,
+                                                                text,
+                                                            }"
+                                                        >
+                                                            <v-chip
+                                                                v-if="index < 2"
+                                                                color="deep-purple accent-4"
+                                                                dark
+                                                                label
+                                                                small
+                                                            >
+                                                                {{ text }}
+                                                            </v-chip>
+
+                                                            <span
+                                                                v-else-if="
+                                                                    index === 2
+                                                                "
+                                                                class="text-overline grey--text text--darken-3 mx-2"
+                                                            >
+                                                                +
+                                                                {{
+                                                                    files.length -
+                                                                    2
+                                                                }}
+                                                                Archivos(s)
+                                                            </span>
+                                                        </template>
+                                                    </v-file-input>
                                                 </v-col>
                                             </v-row>
                                         </v-col>
@@ -206,13 +164,13 @@
                             v-if="editedItem.active == 1"
                             class="py-4 text-center"
                         >
-                            ¿Deseas desactivar este Vehículo?
+                            ¿Deseas desactivar este Certificado?
                         </h3>
                         <h3
                             v-if="editedItem.active == 0"
                             class="py-4 text-center"
                         >
-                            ¿Deseas activar este Vehículo?
+                            ¿Deseas activar este Certificado?
                         </h3>
                         <v-card-actions>
                             <v-spacer></v-spacer>
@@ -257,19 +215,14 @@
     </v-data-table>
 </template>
 <script>
-import axios from "axios";
 import { validationMixin } from "vuelidate";
-import { required, maxLength, minLength } from "vuelidate/lib/validators";
+import { required, maxLength } from "vuelidate/lib/validators";
 
 export default {
     mixins: [validationMixin],
     validations: {
         editedItem: {
-            mark: { required, maxLength: maxLength(255) },
-            modelo: { required, maxLength: maxLength(255) },
-            year: { required },
-            tuition: { required, minLength: minLength(7) },
-            type_vehicle: { required },
+            title: { required, maxLength: maxLength(255) },
         },
     },
     data: () => ({
@@ -282,13 +235,11 @@ export default {
         headers: [
             { text: "Id", value: "id" },
             {
-                text: "Tipo Vehículo",
+                text: "Titulo",
                 align: "start",
-                value: "type_vehicle",
+                value: "title",
             },
-            { text: "Marca", value: "mark" },
-            { text: "Modelo", value: "modelo" },
-            { text: "Matrícula", value: "tuition" },
+            { text: "Archivo", value: "file_path" },
             { text: "Activo", value: "active" },
             { text: "Acciones", value: "actions", sortable: false },
         ],
@@ -296,79 +247,37 @@ export default {
         editedItem: {
             id: null,
             id_carrier: null,
-            type_vehicle: "",
-            mark: "",
-            modelo: "",
-            type_load: "",
-            tuition: "",
-            year: "",
-            observations: "",
-            active: "",
+            title: "",
+            file_path: [],
+            active: 1,
         },
         defaultItem: {
             id: null,
             id_carrier: null,
-            type_vehicle: "",
-            mark: "",
-            modelo: "",
-            type_load: "",
-            tuition: "",
-            year: "",
-            observations: "",
+            title: "",
+            file_path: [],
             active: 1,
         },
     }),
 
     computed: {
-        vehicles: {
+        certifications: {
             get() {
-                return this.$store.state.vehicle.vehicles;
+                return this.$store.state.certification.certifications;
             },
         },
         formTitle() {
             return this.editedIndex === -1
-                ? "Nuevo Vehículo"
-                : "Editar Vehículo";
+                ? "Nuevo Certificado"
+                : "Editar Certificado";
         },
-        markErrors() {
+        titleErrors() {
             const errors = [];
-            if (!this.$v.editedItem.mark.$dirty) return errors;
-            !this.$v.editedItem.mark.required &&
+            if (!this.$v.editedItem.title.$dirty) return errors;
+            !this.$v.editedItem.title.required &&
                 errors.push("Este campo es obligatorio.");
-            !this.$v.editedItem.mark.maxLength &&
+            !this.$v.editedItem.title.maxLength &&
                 errors.push("El campo no debe contener más 255 digitos.");
-            return errors;
-        },
-        modeloErrors() {
-            const errors = [];
-            if (!this.$v.editedItem.modelo.$dirty) return errors;
-            !this.$v.editedItem.modelo.required &&
-                errors.push("Este campo es obligatorio.");
-            !this.$v.editedItem.modelo.maxLength &&
-                errors.push("El campo no debe contener más 255 digitos.");
-            return errors;
-        },
-        yearErrors() {
-            const errors = [];
-            if (!this.$v.editedItem.year.$dirty) return errors;
-            !this.$v.editedItem.year.required &&
-                errors.push("Año es obligatorio");
-            return errors;
-        },
-        tuitionErrors() {
-            const errors = [];
-            if (!this.$v.editedItem.tuition.$dirty) return errors;
-            !this.$v.editedItem.tuition.minLength &&
-                errors.push("La matrícula no debe contener menos de 7 digitos");
-            !this.$v.editedItem.tuition.required &&
-                errors.push("Este campo es obligatorio.");
-            return errors;
-        },
-        typeVehicleErrors() {
-            const errors = [];
-            if (!this.$v.editedItem.type_vehicle.$dirty) return errors;
-            !this.$v.editedItem.type_vehicle.required &&
-                errors.push("Este campo es obligatorio");
             return errors;
         },
     },
@@ -388,31 +297,31 @@ export default {
 
     methods: {
         initialize() {
-            this.vehicles = [];
+            this.certifications = [];
         },
         getColorActivate(active) {
             if (active == 1) return "green";
             else return "red";
         },
         editItem(item) {
-            this.editedIndex = this.vehicles.indexOf(item);
+            this.editedIndex = this.certifications.indexOf(item);
             this.editedItem = Object.assign({}, item);
             this.dialog = true;
         },
 
         deleteItem(item) {
             console.log(item);
-            this.editedIndex = this.vehicles.indexOf(item);
+            this.editedIndex = this.certifications.indexOf(item);
             this.editedItem = Object.assign({}, item);
             this.dialogDelete = true;
         },
 
         deleteItemConfirm() {
-            this.vehicles.splice(this.editedIndex, 1);
+            this.certifications.splice(this.editedIndex, 1);
             this.$store
-                .dispatch("deleteVehicle", this.editedItem)
+                .dispatch("deleteCertification", this.editedItem)
                 .then((res) => {
-                    this.$store.dispatch("getVehicle");
+                    this.$store.dispatch("getCertification");
                 })
                 .catch((error) => {
                     console.log(error.response.data);
@@ -423,16 +332,16 @@ export default {
 
         activateItem(item) {
             console.log(item);
-            this.editedIndex = this.vehicles.indexOf(item);
+            this.editedIndex = this.certifications.indexOf(item);
             this.editedItem = Object.assign({}, item);
             this.dialogActivate = true;
         },
 
         activateVehicle() {
             this.$store
-                .dispatch("activateVehicle", this.editedItem)
+                .dispatch("activateCertification", this.editedItem)
                 .then((res) => {
-                    this.$store.dispatch("getVehicle");
+                    this.$store.dispatch("getCertification");
                 })
                 .catch((error) => {
                     console.log(error.response.data);
@@ -466,13 +375,6 @@ export default {
             });
         },
 
-        getTypeVehicle: function () {
-            axios.get("/getTypeVehicle").then(
-                function (response) {
-                    this.type_vehicle = response.data;
-                }.bind(this)
-            );
-        },
         save() {
             this.$v.$touch();
             if (this.$v.$invalid) {
@@ -483,13 +385,14 @@ export default {
             console.log(this.editedItem);
             rawData = JSON.stringify(rawData);
             formData.append("data", rawData);
+            formData.append("file_path[img]", this.editedItem.file_path);
 
             if (this.editedIndex > -1) {
                 // Object.assign(this.drivers[this.editedIndex], this.editedItem);
                 this.$store
-                    .dispatch("updateVehicle", formData)
+                    .dispatch("updateCertification", formData)
                     .then((res) => {
-                        this.$store.dispatch("getVehicle");
+                        this.$store.dispatch("getCertification");
                     })
                     .catch((error) => {
                         console.log(error.response.data);
@@ -497,9 +400,9 @@ export default {
                     });
             } else {
                 this.$store
-                    .dispatch("newVehicle", formData)
+                    .dispatch("newCertification", formData)
                     .then((res) => {
-                        this.$store.dispatch("getVehicle");
+                        this.$store.dispatch("getCertification");
                     })
                     .catch((error) => {
                         console.log(error.response.data);
@@ -510,8 +413,7 @@ export default {
         },
     },
     mounted() {
-        this.$store.dispatch("getVehicle");
-        this.getTypeVehicle();
+        this.$store.dispatch("getCertification");
     },
 };
 </script>

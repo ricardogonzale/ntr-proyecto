@@ -322,6 +322,11 @@ export default {
                             link: "/listvehicles",
                         },
                         {
+                            title: "Certificaciones",
+                            icon: "mdi-certificate-outline",
+                            link: "/listcertifications",
+                        },
+                        {
                             title: "Bucar envios",
                             icon: "mdi-truck-delivery",
                             link: "/listorder/8",

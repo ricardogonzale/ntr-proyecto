@@ -52,3 +52,10 @@ Route::post('/newVehicle', 'VehicleController@create')->name('newVehicle');
 Route::post('/updateVehicle', 'VehicleController@edit')->name('updateVehicle');
 Route::post('/deleteVehicle', 'VehicleController@destroy')->name('deleteVehicle');
 Route::post('/activateVehicle', 'VehicleController@activate')->name('activateVehicle');
+
+
+Route::get('getCertificationlist', 'CertificationController@list')->name('certification.list');
+Route::post('/newCertification', 'CertificationController@create')->name('newCertification');
+Route::post('/updateCertification', 'CertificationController@edit')->name('updateCertification');
+Route::post('/deleteCertification', 'CertificationController@destroy')->name('deleteCertification');
+Route::post('/activateCertification', 'CertificationController@activate')->name('activateCertification');

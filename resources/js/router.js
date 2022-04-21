@@ -8,6 +8,7 @@ import ListCarriers from "./components/carriers/ListCarriersComponent.vue";
 import UpdateDataCarriers from "./components/carriers/UpdateDataCarriersComponent.vue";
 import ListDrivers from "./components/drivers/ListDriversComponent.vue";
 import ListVehicle from "./components/vehicle/ListVehicleComponent.vue";
+import ListCertification from "./components/certifications/ListCertificationComponent.vue";
 
 Vue.use(VueRouter);
 
@@ -43,6 +44,11 @@ const router = new VueRouter({
             path: "/listvehicles",
             name: "Vehiculos",
             component: ListVehicle,
+        },
+        {
+            path: "/listcertifications",
+            name: "Certificaciones",
+            component: ListCertification,
         },
     ],
 });

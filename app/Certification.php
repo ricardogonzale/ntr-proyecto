@@ -6,8 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
+ * @property int $id_carrier
  * @property string $title
+ * @property string $file_path
  * @property string $date_certification
+ * @property boolean $active
  * @property string $created_at
  * @property string $updated_at
  */
@@ -23,5 +26,5 @@ class Certification extends Model
     /**
      * @var array
      */
-    protected $fillable = ['title', 'date_certification', 'created_at', 'updated_at'];
+    protected $fillable = ['id_carrier', 'title', 'file_path', 'date_certification', 'active', 'created_at', 'updated_at'];
 }

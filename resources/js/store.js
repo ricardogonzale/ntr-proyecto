@@ -7,6 +7,7 @@ import carrier from "./modules/carrier.js";
 import client from "./modules/client.js";
 import driver from "./modules/driver.js";
 import vehicle from "./modules/vehicle.js";
+import certification from "./modules/certification.js";
 
 export default new Vuex.Store({
     state: {
@@ -31,5 +32,6 @@ export default new Vuex.Store({
         client,
         driver,
         vehicle,
+        certification,
     },
 });
