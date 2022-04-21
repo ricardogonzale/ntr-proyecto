@@ -7,7 +7,7 @@
     >
         <template v-slot:top>
             <v-toolbar flat>
-                <v-toolbar-title>Listado de Conductores</v-toolbar-title>
+                <h2>Listado de Conductores</h2>
             </v-toolbar>
             <v-toolbar flat>
                 <v-dialog v-model="dialog" max-width="400px">

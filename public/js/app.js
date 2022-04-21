@@ -35085,12 +35085,9 @@ var render = function () {
           key: "top",
           fn: function () {
             return [
-              _c(
-                "v-toolbar",
-                { attrs: { flat: "" } },
-                [_c("v-toolbar-title", [_vm._v("Listado de Conductores")])],
-                1
-              ),
+              _c("v-toolbar", { attrs: { flat: "" } }, [
+                _c("h2", [_vm._v("Listado de Conductores")]),
+              ]),
               _vm._v(" "),
               _c(
                 "v-toolbar",
@@ -36902,12 +36899,9 @@ var render = function () {
           key: "top",
           fn: function () {
             return [
-              _c(
-                "v-toolbar",
-                { attrs: { flat: "" } },
-                [_c("v-toolbar-title", [_vm._v("Listado de Vehículos")])],
-                1
-              ),
+              _c("v-toolbar", { attrs: { flat: "" } }, [
+                _c("h2", [_vm._v("Listado de Vehículos")]),
+              ]),
               _vm._v(" "),
               _c(
                 "v-toolbar",

@@ -7,7 +7,7 @@
     >
         <template v-slot:top>
             <v-toolbar flat>
-                <v-toolbar-title>Listado de Vehículos</v-toolbar-title>
+                <h2>Listado de Vehículos</h2>
             </v-toolbar>
             <v-toolbar flat>
                 <v-dialog v-model="dialog" max-width="400px">
@@ -244,7 +244,7 @@
                 </v-dialog>
             </v-toolbar>
         </template>
-        <template v-slot:item.active="{ item }">
+        <template v-slot:[`item.active`]="{ item }">
             <v-icon
                 :color="getColorActivate(item.active)"
                 dark
