@@ -62,7 +62,7 @@
             <template v-slot:append>
                 <div class="pa-2">
                     <v-btn small @click="logout">
-                        <v-icon right color="primary"> mdi-exit-to-app </v-icon>
+                        <v-icon right color="orange"> mdi-exit-to-app </v-icon>
                     </v-btn>
                 </div>
             </template>

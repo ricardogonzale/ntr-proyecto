@@ -3630,6 +3630,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -4861,6 +4864,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -5399,6 +5407,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5431,6 +5476,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       dialog: false,
       dialogDelete: false,
+      dialogActivate: false,
       type_card: [],
       files: [],
       value: [],
@@ -5454,6 +5500,9 @@ __webpack_require__.r(__webpack_exports__);
         text: "DNI",
         value: "dni"
       }, {
+        text: "Activo",
+        value: "active"
+      }, {
         text: "Acciones",
         value: "actions",
         sortable: false
@@ -5470,7 +5519,8 @@ __webpack_require__.r(__webpack_exports__);
         type_card: "",
         dni: "",
         birthday: "",
-        observations: ""
+        observations: "",
+        active: ""
       },
       defaultItem: {
         id: null,
@@ -5483,7 +5533,8 @@ __webpack_require__.r(__webpack_exports__);
         type_card: "",
         dni: "",
         birthday: "",
-        observations: ""
+        observations: "",
+        active: 1
       }
     };
   },
@@ -5546,6 +5597,9 @@ __webpack_require__.r(__webpack_exports__);
     initialize: function initialize() {
       this.drivers = [];
     },
+    getColorActivate: function getColorActivate(active) {
+      if (active == 1) return "green";else return "red";
+    },
     editItem: function editItem(item) {
       this.editedIndex = this.drivers.indexOf(item);
       this.editedItem = Object.assign({}, item);
@@ -5569,23 +5623,49 @@ __webpack_require__.r(__webpack_exports__);
       });
       this.closeDelete();
     },
-    close: function close() {
+    activateItem: function activateItem(item) {
+      console.log(item);
+      this.editedIndex = this.drivers.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialogActivate = true;
+    },
+    activateVehicle: function activateVehicle() {
       var _this2 = this;
+
+      this.$store.dispatch("activateDriver", this.editedItem).then(function (res) {
+        _this2.$store.dispatch("getDriver");
+      })["catch"](function (error) {
+        console.log(error.response.data);
+        _this2.registerRequestSent = false;
+      });
+      this.closeActivate();
+    },
+    close: function close() {
+      var _this3 = this;
 
       this.$v.$reset();
       this.dialog = false;
       this.$nextTick(function () {
-        _this2.editedItem = Object.assign({}, _this2.defaultItem);
-        _this2.editedIndex = -1;
+        _this3.editedItem = Object.assign({}, _this3.defaultItem);
+        _this3.editedIndex = -1;
       });
     },
     closeDelete: function closeDelete() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.dialogDelete = false;
       this.$nextTick(function () {
-        _this3.editedItem = Object.assign({}, _this3.defaultItem);
-        _this3.editedIndex = -1;
+        _this4.editedItem = Object.assign({}, _this4.defaultItem);
+        _this4.editedIndex = -1;
+      });
+    },
+    closeActivate: function closeActivate() {
+      var _this5 = this;
+
+      this.dialogActivate = false;
+      this.$nextTick(function () {
+        _this5.editedItem = Object.assign({}, _this5.defaultItem);
+        _this5.editedIndex = -1;
       });
     },
     getCountry: function getCountry() {
@@ -5594,7 +5674,7 @@ __webpack_require__.r(__webpack_exports__);
       }.bind(this));
     },
     save: function save() {
-      var _this4 = this;
+      var _this6 = this;
 
       this.$v.$touch();
 
@@ -5613,17 +5693,17 @@ __webpack_require__.r(__webpack_exports__);
       if (this.editedIndex > -1) {
         // Object.assign(this.drivers[this.editedIndex], this.editedItem);
         this.$store.dispatch("updateDriver", formData).then(function (res) {
-          _this4.$store.dispatch("getDriver");
+          _this6.$store.dispatch("getDriver");
         })["catch"](function (error) {
           console.log(error.response.data);
-          _this4.registerRequestSent = false;
+          _this6.registerRequestSent = false;
         });
       } else {
         this.$store.dispatch("newDriver", formData).then(function (res) {
-          _this4.$store.dispatch("getDriver");
+          _this6.$store.dispatch("getDriver");
         })["catch"](function (error) {
           console.log(error.response.data);
-          _this4.registerRequestSent = false;
+          _this6.registerRequestSent = false;
         });
       }
 
@@ -6257,17 +6337,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuelidate__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -30730,7 +30799,7 @@ var render = function () {
                         [
                           _c(
                             "v-icon",
-                            { attrs: { right: "", color: "primary" } },
+                            { attrs: { right: "", color: "orange" } },
                             [_vm._v(" mdi-exit-to-app ")]
                           ),
                         ],
@@ -31400,14 +31469,14 @@ var render = function () {
                   _c(
                     "v-btn",
                     {
-                      attrs: { color: "primary", small: "", text: "" },
+                      attrs: { color: "orange", small: "", text: "" },
                       on: { click: _vm.logout },
                     },
                     [
                       _vm._v(
                         "\n                    Salir\n                    "
                       ),
-                      _c("v-icon", { attrs: { right: "", color: "primary" } }, [
+                      _c("v-icon", { attrs: { right: "", color: "orange" } }, [
                         _vm._v(" mdi-exit-to-app "),
                       ]),
                     ],
@@ -32153,19 +32222,14 @@ var render = function () {
           key: "top",
           fn: function () {
             return [
+              _c("v-toolbar", { attrs: { flat: "" } }, [
+                _c("h2", [_vm._v("Transportista Registrados")]),
+              ]),
+              _vm._v(" "),
               _c(
                 "v-toolbar",
                 { attrs: { flat: "" } },
                 [
-                  _c("v-toolbar-title", [_vm._v("Transportista Registrados")]),
-                  _vm._v(" "),
-                  _c("v-divider", {
-                    staticClass: "mx-4",
-                    attrs: { inset: "", vertical: "" },
-                  }),
-                  _vm._v(" "),
-                  _c("v-spacer"),
-                  _vm._v(" "),
                   _c(
                     "v-dialog",
                     {
@@ -32183,7 +32247,16 @@ var render = function () {
                                   _vm._b(
                                     {
                                       staticClass: "mb-2",
-                                      attrs: { color: "primary", dark: "" },
+                                      staticStyle: {
+                                        "border-radius": "30px",
+                                        "text-transform": "none",
+                                      },
+                                      attrs: {
+                                        color: "orange",
+                                        dark: "",
+                                        small: "",
+                                        rounded: "",
+                                      },
                                     },
                                     "v-btn",
                                     attrs,
@@ -32216,7 +32289,7 @@ var render = function () {
                         [
                           _c(
                             "v-toolbar",
-                            { attrs: { color: "primary", dark: "" } },
+                            { attrs: { color: "orange", dark: "" } },
                             [
                               _vm._v(
                                 _vm._s(_vm.formTitle) +
@@ -32278,6 +32351,8 @@ var render = function () {
                                                           "PERSONA DE CONTACTO"
                                                         ),
                                                       ]),
+                                                      _vm._v(" "),
+                                                      _c("br"),
                                                     ]
                                                   ),
                                                   _vm._v(" "),
@@ -32605,10 +32680,10 @@ var render = function () {
                                                     },
                                                     [
                                                       _c("h6", [
-                                                        _vm._v(
-                                                          "\n                                                    COMPAÑÍA DISTRIBUIDORA\n                                                "
-                                                        ),
+                                                        _vm._v("AGENCIA"),
                                                       ]),
+                                                      _vm._v(" "),
+                                                      _c("br"),
                                                     ]
                                                   ),
                                                   _vm._v(" "),
@@ -33211,7 +33286,7 @@ var render = function () {
                               _c(
                                 "v-btn",
                                 {
-                                  attrs: { color: "blue darken-1", text: "" },
+                                  attrs: { color: "warning", small: "" },
                                   on: { click: _vm.close },
                                 },
                                 [
@@ -33224,7 +33299,7 @@ var render = function () {
                               _c(
                                 "v-btn",
                                 {
-                                  attrs: { color: "blue darken-1", text: "" },
+                                  attrs: { color: "warning", small: "" },
                                   on: { click: _vm.save },
                                 },
                                 [
@@ -33246,7 +33321,7 @@ var render = function () {
                   _c(
                     "v-dialog",
                     {
-                      attrs: { "max-width": "500px" },
+                      attrs: { "max-width": "300px" },
                       model: {
                         value: _vm.dialogDelete,
                         callback: function ($$v) {
@@ -33259,8 +33334,10 @@ var render = function () {
                       _c(
                         "v-card",
                         [
-                          _c("v-card-title", { staticClass: "text-h5" }, [
-                            _vm._v("¿Deseas Eliminar este registro?"),
+                          _c("h3", { staticClass: "py-4 text-center" }, [
+                            _vm._v(
+                              "\n                        ¿Deseas Eliminar este registro?\n                    "
+                            ),
                           ]),
                           _vm._v(" "),
                           _c(
@@ -33271,7 +33348,7 @@ var render = function () {
                               _c(
                                 "v-btn",
                                 {
-                                  attrs: { color: "blue darken-1", text: "" },
+                                  attrs: { color: "warning", small: "" },
                                   on: { click: _vm.closeDelete },
                                 },
                                 [_vm._v("Cancel")]
@@ -33280,7 +33357,7 @@ var render = function () {
                               _c(
                                 "v-btn",
                                 {
-                                  attrs: { color: "blue darken-1", text: "" },
+                                  attrs: { color: "warning", small: "" },
                                   on: { click: _vm.deleteItemConfirm },
                                 },
                                 [_vm._v("OK")]
@@ -33309,30 +33386,41 @@ var render = function () {
             var item = ref.item
             return [
               _c(
-                "v-icon",
+                "v-chip",
                 {
-                  staticClass: "mr-2",
-                  attrs: { small: "" },
+                  attrs: { small: "", color: "warning", dark: "" },
                   on: {
                     click: function ($event) {
                       return _vm.editItem(item)
                     },
                   },
                 },
-                [_vm._v("\n            mdi-pencil\n        ")]
+                [
+                  _c("v-icon", { staticClass: "mr-2", attrs: { small: "" } }, [
+                    _vm._v(" mdi-pencil "),
+                  ]),
+                  _vm._v("\n            Editar\n        "),
+                ],
+                1
               ),
               _vm._v(" "),
               _c(
-                "v-icon",
+                "v-chip",
                 {
-                  attrs: { small: "" },
+                  attrs: { small: "", color: "warning", dark: "" },
                   on: {
                     click: function ($event) {
                       return _vm.deleteItem(item)
                     },
                   },
                 },
-                [_vm._v(" mdi-delete ")]
+                [
+                  _c("v-icon", { staticClass: "mr-2", attrs: { small: "" } }, [
+                    _vm._v(" mdi-delete "),
+                  ]),
+                  _vm._v(" Eliminar\n        "),
+                ],
+                1
               ),
             ]
           },
@@ -33343,7 +33431,10 @@ var render = function () {
             return [
               _c(
                 "v-btn",
-                { attrs: { color: "primary" }, on: { click: _vm.initialize } },
+                {
+                  attrs: { color: "warning", small: "" },
+                  on: { click: _vm.initialize },
+                },
                 [_vm._v(" Reset ")]
               ),
             ]
@@ -33383,7 +33474,7 @@ var render = function () {
     [
       _c(
         "v-toolbar",
-        { attrs: { color: "primary", dark: "" } },
+        { attrs: { color: "orange", dark: "" } },
         [_vm._v(_vm._s(_vm.formTitle) + "\n        "), _c("v-spacer")],
         1
       ),
@@ -34067,7 +34158,7 @@ var render = function () {
           _c(
             "v-btn",
             {
-              attrs: { color: "blue darken-1", text: "" },
+              attrs: { small: "", color: "warning" },
               on: { click: _vm.close },
             },
             [_vm._v(" Cancel ")]
@@ -34075,10 +34166,7 @@ var render = function () {
           _vm._v(" "),
           _c(
             "v-btn",
-            {
-              attrs: { color: "blue darken-1", text: "" },
-              on: { click: _vm.save },
-            },
+            { attrs: { color: "warning", small: "" }, on: { click: _vm.save } },
             [_vm._v(" Guardar ")]
           ),
         ],
@@ -34119,19 +34207,14 @@ var render = function () {
           key: "top",
           fn: function () {
             return [
+              _c("v-toolbar", { attrs: { flat: "" } }, [
+                _c("h2", [_vm._v("Distribuidores Registrados")]),
+              ]),
+              _vm._v(" "),
               _c(
                 "v-toolbar",
                 { attrs: { flat: "" } },
                 [
-                  _c("v-toolbar-title", [_vm._v("Distribuidores Registrados")]),
-                  _vm._v(" "),
-                  _c("v-divider", {
-                    staticClass: "mx-4",
-                    attrs: { inset: "", vertical: "" },
-                  }),
-                  _vm._v(" "),
-                  _c("v-spacer"),
-                  _vm._v(" "),
                   _c(
                     "v-dialog",
                     {
@@ -34149,7 +34232,16 @@ var render = function () {
                                   _vm._b(
                                     {
                                       staticClass: "mb-2",
-                                      attrs: { color: "primary", dark: "" },
+                                      staticStyle: {
+                                        "border-radius": "30px",
+                                        "text-transform": "none",
+                                      },
+                                      attrs: {
+                                        color: "orange",
+                                        dark: "",
+                                        small: "",
+                                        rounded: "",
+                                      },
                                     },
                                     "v-btn",
                                     attrs,
@@ -34182,7 +34274,7 @@ var render = function () {
                         [
                           _c(
                             "v-toolbar",
-                            { attrs: { color: "primary", dark: "" } },
+                            { attrs: { color: "orange", dark: "" } },
                             [
                               _vm._v(
                                 _vm._s(_vm.formTitle) +
@@ -34244,6 +34336,8 @@ var render = function () {
                                                           "PERSONA DE CONTACTO"
                                                         ),
                                                       ]),
+                                                      _vm._v(" "),
+                                                      _c("br"),
                                                     ]
                                                   ),
                                                   _vm._v(" "),
@@ -34577,6 +34671,8 @@ var render = function () {
                                                           "\n                                                    COMPAÑÍA DISTRIBUIDORA\n                                                "
                                                         ),
                                                       ]),
+                                                      _vm._v(" "),
+                                                      _c("br"),
                                                     ]
                                                   ),
                                                   _vm._v(" "),
@@ -34909,7 +35005,7 @@ var render = function () {
                               _c(
                                 "v-btn",
                                 {
-                                  attrs: { color: "blue darken-1", text: "" },
+                                  attrs: { color: "warning", small: "" },
                                   on: { click: _vm.close },
                                 },
                                 [
@@ -34922,7 +35018,7 @@ var render = function () {
                               _c(
                                 "v-btn",
                                 {
-                                  attrs: { color: "blue darken-1", text: "" },
+                                  attrs: { color: "warning", small: "" },
                                   on: { click: _vm.save },
                                 },
                                 [
@@ -34944,7 +35040,7 @@ var render = function () {
                   _c(
                     "v-dialog",
                     {
-                      attrs: { "max-width": "500px" },
+                      attrs: { "max-width": "300px" },
                       model: {
                         value: _vm.dialogDelete,
                         callback: function ($$v) {
@@ -34957,8 +35053,10 @@ var render = function () {
                       _c(
                         "v-card",
                         [
-                          _c("v-card-title", { staticClass: "text-h5" }, [
-                            _vm._v("¿Deseas Eliminar este registro?"),
+                          _c("h3", { staticClass: "py-4 text-center" }, [
+                            _vm._v(
+                              "\n                        ¿Deseas Eliminar este registro?\n                    "
+                            ),
                           ]),
                           _vm._v(" "),
                           _c(
@@ -34969,7 +35067,7 @@ var render = function () {
                               _c(
                                 "v-btn",
                                 {
-                                  attrs: { color: "blue darken-1", text: "" },
+                                  attrs: { color: "warning", small: "" },
                                   on: { click: _vm.closeDelete },
                                 },
                                 [_vm._v("Cancel")]
@@ -34978,7 +35076,7 @@ var render = function () {
                               _c(
                                 "v-btn",
                                 {
-                                  attrs: { color: "blue darken-1", text: "" },
+                                  attrs: { color: "warning", small: "" },
                                   on: { click: _vm.deleteItemConfirm },
                                 },
                                 [_vm._v("OK")]
@@ -35007,30 +35105,41 @@ var render = function () {
             var item = ref.item
             return [
               _c(
-                "v-icon",
+                "v-chip",
                 {
-                  staticClass: "mr-2",
-                  attrs: { small: "" },
+                  attrs: { small: "", color: "warning", dark: "" },
                   on: {
                     click: function ($event) {
                       return _vm.editItem(item)
                     },
                   },
                 },
-                [_vm._v("\n            mdi-pencil\n        ")]
+                [
+                  _c("v-icon", { staticClass: "mr-2", attrs: { small: "" } }, [
+                    _vm._v(" mdi-pencil "),
+                  ]),
+                  _vm._v("\n            Editar\n        "),
+                ],
+                1
               ),
               _vm._v(" "),
               _c(
-                "v-icon",
+                "v-chip",
                 {
-                  attrs: { small: "" },
+                  attrs: { small: "", color: "warning", dark: "" },
                   on: {
                     click: function ($event) {
                       return _vm.deleteItem(item)
                     },
                   },
                 },
-                [_vm._v(" mdi-delete ")]
+                [
+                  _c("v-icon", { staticClass: "mr-2", attrs: { small: "" } }, [
+                    _vm._v(" mdi-delete "),
+                  ]),
+                  _vm._v(" Eliminar\n        "),
+                ],
+                1
               ),
             ]
           },
@@ -35041,7 +35150,10 @@ var render = function () {
             return [
               _c(
                 "v-btn",
-                { attrs: { color: "primary" }, on: { click: _vm.initialize } },
+                {
+                  attrs: { color: "warning", small: "" },
+                  on: { click: _vm.initialize },
+                },
                 [_vm._v(" Reset ")]
               ),
             ]
@@ -35152,7 +35264,7 @@ var render = function () {
                         [
                           _c(
                             "v-toolbar",
-                            { attrs: { color: "primary", dark: "" } },
+                            { attrs: { color: "orange", dark: "" } },
                             [
                               _vm._v(
                                 _vm._s(_vm.formTitle) +
@@ -35647,7 +35759,7 @@ var render = function () {
                               _c(
                                 "v-btn",
                                 {
-                                  attrs: { color: "blue darken-1", text: "" },
+                                  attrs: { color: "warning", small: "" },
                                   on: { click: _vm.close },
                                 },
                                 [
@@ -35660,7 +35772,7 @@ var render = function () {
                               _c(
                                 "v-btn",
                                 {
-                                  attrs: { color: "blue darken-1", text: "" },
+                                  attrs: { color: "warning", small: "" },
                                   on: { click: _vm.save },
                                 },
                                 [
@@ -35707,7 +35819,7 @@ var render = function () {
                               _c(
                                 "v-btn",
                                 {
-                                  attrs: { color: "blue darken-1", text: "" },
+                                  attrs: { color: "warning", small: "" },
                                   on: { click: _vm.closeDelete },
                                 },
                                 [_vm._v("Cancel")]
@@ -35716,10 +35828,82 @@ var render = function () {
                               _c(
                                 "v-btn",
                                 {
-                                  attrs: { color: "blue darken-1", text: "" },
+                                  attrs: { color: "warning", small: "" },
                                   on: { click: _vm.deleteItemConfirm },
                                 },
                                 [_vm._v("OK")]
+                              ),
+                              _vm._v(" "),
+                              _c("v-spacer"),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-dialog",
+                    {
+                      attrs: { "max-width": "300px" },
+                      model: {
+                        value: _vm.dialogActivate,
+                        callback: function ($$v) {
+                          _vm.dialogActivate = $$v
+                        },
+                        expression: "dialogActivate",
+                      },
+                    },
+                    [
+                      _c(
+                        "v-card",
+                        [
+                          _vm.editedItem.active == 1
+                            ? _c("h3", { staticClass: "py-4 text-center" }, [
+                                _vm._v(
+                                  "\n                        ¿Deseas desactivar este Vehículo?\n                    "
+                                ),
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.editedItem.active == 0
+                            ? _c("h3", { staticClass: "py-4 text-center" }, [
+                                _vm._v(
+                                  "\n                        ¿Deseas activar este Vehículo?\n                    "
+                                ),
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c(
+                            "v-card-actions",
+                            [
+                              _c("v-spacer"),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { small: "", color: "warning" },
+                                  on: { click: _vm.closeActivate },
+                                },
+                                [_vm._v("No")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    small: "",
+                                    color:
+                                      _vm.editedItem.active == 0
+                                        ? "success"
+                                        : "error",
+                                  },
+                                  on: { click: _vm.activateVehicle },
+                                },
+                                [_vm._v("Si")]
                               ),
                               _vm._v(" "),
                               _c("v-spacer"),
@@ -35740,6 +35924,26 @@ var render = function () {
           proxy: true,
         },
         {
+          key: "item.active",
+          fn: function (ref) {
+            var item = ref.item
+            return [
+              _c(
+                "v-icon",
+                {
+                  attrs: { color: _vm.getColorActivate(item.active), dark: "" },
+                  on: {
+                    click: function ($event) {
+                      return _vm.activateItem(item)
+                    },
+                  },
+                },
+                [_vm._v("\n            mdi-check-circle-outline\n        ")]
+              ),
+            ]
+          },
+        },
+        {
           key: "item.actions",
           fn: function (ref) {
             var item = ref.item
@@ -35747,7 +35951,7 @@ var render = function () {
               _c(
                 "v-chip",
                 {
-                  attrs: { color: "orange", dark: "" },
+                  attrs: { small: "", color: "warning", dark: "" },
                   on: {
                     click: function ($event) {
                       return _vm.editItem(item)
@@ -35766,7 +35970,7 @@ var render = function () {
               _c(
                 "v-chip",
                 {
-                  attrs: { color: "orange", dark: "" },
+                  attrs: { small: "", color: "warning", dark: "" },
                   on: {
                     click: function ($event) {
                       return _vm.deleteItem(item)
@@ -35790,7 +35994,10 @@ var render = function () {
             return [
               _c(
                 "v-btn",
-                { attrs: { color: "primary" }, on: { click: _vm.initialize } },
+                {
+                  attrs: { small: "", color: "warning" },
+                  on: { click: _vm.initialize },
+                },
                 [_vm._v(" Reset ")]
               ),
             ]
@@ -36966,7 +37173,7 @@ var render = function () {
                         [
                           _c(
                             "v-toolbar",
-                            { attrs: { color: "primary", dark: "" } },
+                            { attrs: { color: "orange", dark: "" } },
                             [
                               _vm._v(
                                 _vm._s(_vm.formTitle) +
@@ -37390,7 +37597,7 @@ var render = function () {
                               _c(
                                 "v-btn",
                                 {
-                                  attrs: { color: "blue darken-1", text: "" },
+                                  attrs: { small: "", color: "warning" },
                                   on: { click: _vm.close },
                                 },
                                 [
@@ -37403,7 +37610,7 @@ var render = function () {
                               _c(
                                 "v-btn",
                                 {
-                                  attrs: { color: "blue darken-1", text: "" },
+                                  attrs: { small: "", color: "warning" },
                                   on: { click: _vm.save },
                                 },
                                 [
@@ -37452,7 +37659,7 @@ var render = function () {
                               _c(
                                 "v-btn",
                                 {
-                                  attrs: { color: "blue darken-1", text: "" },
+                                  attrs: { small: "", color: "warning" },
                                   on: { click: _vm.closeDelete },
                                 },
                                 [_vm._v("Cancel")]
@@ -37461,7 +37668,7 @@ var render = function () {
                               _c(
                                 "v-btn",
                                 {
-                                  attrs: { color: "red darken-1", text: "" },
+                                  attrs: { small: "", color: "red" },
                                   on: { click: _vm.deleteItemConfirm },
                                 },
                                 [_vm._v("OK")]
@@ -37518,7 +37725,7 @@ var render = function () {
                               _c(
                                 "v-btn",
                                 {
-                                  attrs: { color: "blue darken-1", text: "" },
+                                  attrs: { small: "", color: "warning" },
                                   on: { click: _vm.closeActivate },
                                 },
                                 [_vm._v("No")]
@@ -37528,11 +37735,11 @@ var render = function () {
                                 "v-btn",
                                 {
                                   attrs: {
+                                    small: "",
                                     color:
                                       _vm.editedItem.active == 0
-                                        ? "green darken-1"
-                                        : "red darken-1",
-                                    text: "",
+                                        ? "success"
+                                        : "error",
                                   },
                                   on: { click: _vm.activateVehicle },
                                 },
@@ -37584,7 +37791,7 @@ var render = function () {
               _c(
                 "v-chip",
                 {
-                  attrs: { color: "orange", dark: "" },
+                  attrs: { small: "", color: "orange", dark: "" },
                   on: {
                     click: function ($event) {
                       return _vm.editItem(item)
@@ -37603,7 +37810,7 @@ var render = function () {
               _c(
                 "v-chip",
                 {
-                  attrs: { color: "orange", dark: "" },
+                  attrs: { small: "", color: "orange", dark: "" },
                   on: {
                     click: function ($event) {
                       return _vm.deleteItem(item)
@@ -37627,7 +37834,10 @@ var render = function () {
             return [
               _c(
                 "v-btn",
-                { attrs: { color: "primary" }, on: { click: _vm.initialize } },
+                {
+                  attrs: { small: "", color: "orange" },
+                  on: { click: _vm.initialize },
+                },
                 [_vm._v(" Reset ")]
               ),
             ]
@@ -102645,6 +102855,9 @@ __webpack_require__.r(__webpack_exports__);
   deleteDriver: function deleteDriver(data) {
     return axios.post("/deleteDriver", data);
   },
+  activateDriver: function activateDriver(data) {
+    return axios.post("/activateDriver", data);
+  },
   dataCarrier: function dataCarrier(data) {
     return axios.post("/dataCarrier", data);
   }
@@ -104127,6 +104340,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var commit = _ref5.commit;
       return new Promise(function (resolve, reject) {
         _api_driver_js__WEBPACK_IMPORTED_MODULE_1__["default"].deleteDriver(data).then(function (res) {
+          resolve(res);
+        })["catch"](function (error) {
+          reject(error);
+        });
+      });
+    },
+    activateDriver: function activateDriver(_ref6, data) {
+      var commit = _ref6.commit;
+      return new Promise(function (resolve, reject) {
+        _api_driver_js__WEBPACK_IMPORTED_MODULE_1__["default"].activateDriver(data).then(function (res) {
           resolve(res);
         })["catch"](function (error) {
           reject(error);

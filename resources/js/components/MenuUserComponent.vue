@@ -43,9 +43,9 @@
 
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="primary" small text @click="logout">
+                    <v-btn color="orange" small text @click="logout">
                         Salir
-                        <v-icon right color="primary"> mdi-exit-to-app </v-icon>
+                        <v-icon right color="orange"> mdi-exit-to-app </v-icon>
                     </v-btn>
                 </v-card-actions>
             </v-card>

@@ -79,5 +79,18 @@ export default {
                     });
             });
         },
+
+        activateDriver({ commit }, data) {
+            return new Promise((resolve, reject) => {
+                driverApi
+                    .activateDriver(data)
+                    .then((res) => {
+                        resolve(res);
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    });
+            });
+        },
     },
 };

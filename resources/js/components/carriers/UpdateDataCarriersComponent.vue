@@ -1,6 +1,6 @@
 <template>
     <v-card>
-        <v-toolbar color="primary" dark
+        <v-toolbar color="orange" dark
             >{{ formTitle }}
             <v-spacer></v-spacer>
         </v-toolbar>
@@ -259,8 +259,8 @@
 
         <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="close"> Cancel </v-btn>
-            <v-btn color="blue darken-1" text @click="save"> Guardar </v-btn>
+            <v-btn small color="warning" @click="close"> Cancel </v-btn>
+            <v-btn color="warning" small @click="save"> Guardar </v-btn>
         </v-card-actions>
     </v-card>
 </template>

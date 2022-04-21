@@ -110,6 +110,10 @@ class DriverController extends Controller
         return $driver;
     }
 
+    public function activate(Request $id)
+    {
+        $activate = Driver::where('id', $id['id'])->update(array('active' => $id['active']==1?0:1));
+    }
     /**
      * Remove the specified resource from storage.
      *

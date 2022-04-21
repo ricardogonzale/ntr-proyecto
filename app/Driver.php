@@ -16,8 +16,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $email
  * @property string $telephone
  * @property string $observations
+ * @property boolean $active
  * @property string $created_at
- * @property string $update_at
+ * @property string $updated_at
  */
 class Driver extends Model
 {
@@ -31,5 +32,5 @@ class Driver extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_carrier', 'id_user', 'name', 'lastaname', 'date_birth', 'dni', 'type_card', 'email', 'telephone', 'observations', 'created_at', 'update_at'];
+    protected $fillable = ['id_carrier', 'id_user', 'name', 'lastaname', 'date_birth', 'dni', 'type_card', 'email', 'telephone', 'observations', 'active', 'created_at', 'updated_at'];
 }

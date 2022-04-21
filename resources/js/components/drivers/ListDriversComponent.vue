@@ -26,7 +26,7 @@
                         </v-btn>
                     </template>
                     <v-card>
-                        <v-toolbar color="primary" dark
+                        <v-toolbar color="orange" dark
                             >{{ formTitle }}
                             <v-spacer></v-spacer>
                         </v-toolbar>
@@ -207,10 +207,10 @@
 
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn color="blue darken-1" text @click="close">
+                            <v-btn color="warning" small @click="close">
                                 Cancel
                             </v-btn>
-                            <v-btn color="blue darken-1" text @click="save">
+                            <v-btn color="warning" small @click="save">
                                 Guardar
                             </v-btn>
                         </v-card-actions>
@@ -223,15 +223,12 @@
                         >
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn
-                                color="blue darken-1"
-                                text
-                                @click="closeDelete"
+                            <v-btn color="warning" small @click="closeDelete"
                                 >Cancel</v-btn
                             >
                             <v-btn
-                                color="blue darken-1"
-                                text
+                                color="warning"
+                                small
                                 @click="deleteItemConfirm"
                                 >OK</v-btn
                             >
@@ -239,19 +236,59 @@
                         </v-card-actions>
                     </v-card>
                 </v-dialog>
+                <v-dialog v-model="dialogActivate" max-width="300px">
+                    <v-card>
+                        <h3
+                            v-if="editedItem.active == 1"
+                            class="py-4 text-center"
+                        >
+                            ¿Deseas desactivar este Vehículo?
+                        </h3>
+                        <h3
+                            v-if="editedItem.active == 0"
+                            class="py-4 text-center"
+                        >
+                            ¿Deseas activar este Vehículo?
+                        </h3>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn small color="warning" @click="closeActivate"
+                                >No</v-btn
+                            >
+                            <v-btn
+                                small
+                                :color="
+                                    editedItem.active == 0 ? 'success' : 'error'
+                                "
+                                @click="activateVehicle"
+                                >Si</v-btn
+                            >
+                            <v-spacer></v-spacer>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
             </v-toolbar>
         </template>
+        <template v-slot:[`item.active`]="{ item }">
+            <v-icon
+                :color="getColorActivate(item.active)"
+                dark
+                @click="activateItem(item)"
+            >
+                mdi-check-circle-outline
+            </v-icon>
+        </template>
         <template v-slot:[`item.actions`]="{ item }">
-            <v-chip color="orange" dark @click="editItem(item)">
+            <v-chip small color="warning" dark @click="editItem(item)">
                 <v-icon small class="mr-2"> mdi-pencil </v-icon>
                 Editar
             </v-chip>
-            <v-chip color="orange" dark @click="deleteItem(item)">
+            <v-chip small color="warning" dark @click="deleteItem(item)">
                 <v-icon small class="mr-2"> mdi-delete </v-icon> Eliminar
             </v-chip>
         </template>
         <template v-slot:no-data>
-            <v-btn color="primary" @click="initialize"> Reset </v-btn>
+            <v-btn small color="warning" @click="initialize"> Reset </v-btn>
         </template>
     </v-data-table>
 </template>
@@ -279,6 +316,7 @@ export default {
     data: () => ({
         dialog: false,
         dialogDelete: false,
+        dialogActivate: false,
         type_card: [],
         files: [],
         value: [],
@@ -293,6 +331,7 @@ export default {
             { text: "Correo electrónico", value: "email" },
             { text: "Teléfono", value: "telephone" },
             { text: "DNI", value: "dni" },
+            { text: "Activo", value: "active" },
             { text: "Acciones", value: "actions", sortable: false },
         ],
         editedIndex: -1,
@@ -308,6 +347,7 @@ export default {
             dni: "",
             birthday: "",
             observations: "",
+            active: "",
         },
         defaultItem: {
             id: null,
@@ -321,6 +361,7 @@ export default {
             dni: "",
             birthday: "",
             observations: "",
+            active: 1,
         },
     }),
 
@@ -399,7 +440,10 @@ export default {
         initialize() {
             this.drivers = [];
         },
-
+        getColorActivate(active) {
+            if (active == 1) return "green";
+            else return "red";
+        },
         editItem(item) {
             this.editedIndex = this.drivers.indexOf(item);
             this.editedItem = Object.assign({}, item);
@@ -427,6 +471,26 @@ export default {
             this.closeDelete();
         },
 
+        activateItem(item) {
+            console.log(item);
+            this.editedIndex = this.drivers.indexOf(item);
+            this.editedItem = Object.assign({}, item);
+            this.dialogActivate = true;
+        },
+
+        activateVehicle() {
+            this.$store
+                .dispatch("activateDriver", this.editedItem)
+                .then((res) => {
+                    this.$store.dispatch("getDriver");
+                })
+                .catch((error) => {
+                    console.log(error.response.data);
+                    this.registerRequestSent = false;
+                });
+            this.closeActivate();
+        },
+
         close() {
             this.$v.$reset();
             this.dialog = false;
@@ -443,6 +507,15 @@ export default {
                 this.editedIndex = -1;
             });
         },
+
+        closeActivate() {
+            this.dialogActivate = false;
+            this.$nextTick(() => {
+                this.editedItem = Object.assign({}, this.defaultItem);
+                this.editedIndex = -1;
+            });
+        },
+
         getCountry: function () {
             axios.get("/getCountry").then(
                 function (response) {

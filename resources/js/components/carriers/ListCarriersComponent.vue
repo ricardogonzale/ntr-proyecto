@@ -7,23 +7,26 @@
     >
         <template v-slot:top>
             <v-toolbar flat>
-                <v-toolbar-title>Transportista Registrados</v-toolbar-title>
-                <v-divider class="mx-4" inset vertical></v-divider>
-                <v-spacer></v-spacer>
+                <h2>Transportista Registrados</h2>
+            </v-toolbar>
+            <v-toolbar flat>
                 <v-dialog v-model="dialog" max-width="800px">
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn
-                            color="primary"
+                            color="orange"
                             dark
+                            small
+                            rounded
                             class="mb-2"
                             v-bind="attrs"
                             v-on="on"
+                            style="border-radius: 30px; text-transform: none"
                         >
                             Registrar Transportista
                         </v-btn>
                     </template>
                     <v-card>
-                        <v-toolbar color="primary" dark
+                        <v-toolbar color="orange" dark
                             >{{ formTitle }}
                             <v-spacer></v-spacer>
                         </v-toolbar>
@@ -44,6 +47,7 @@
                                                     md="12"
                                                 >
                                                     <h6>PERSONA DE CONTACTO</h6>
+                                                    <br />
                                                 </v-col>
                                                 <v-col cols="12" sm="6" md="6">
                                                     <v-text-field
@@ -169,9 +173,8 @@
                                                     sm="12"
                                                     md="12"
                                                 >
-                                                    <h6>
-                                                        COMPAÑÍA DISTRIBUIDORA
-                                                    </h6>
+                                                    <h6>AGENCIA</h6>
+                                                    <br />
                                                 </v-col>
                                                 <v-col cols="12" sm="12" md="6">
                                                     <v-text-field
@@ -395,31 +398,28 @@
 
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn color="blue darken-1" text @click="close">
+                            <v-btn color="warning" small @click="close">
                                 Cancel
                             </v-btn>
-                            <v-btn color="blue darken-1" text @click="save">
+                            <v-btn color="warning" small @click="save">
                                 Guardar
                             </v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-dialog>
-                <v-dialog v-model="dialogDelete" max-width="500px">
+                <v-dialog v-model="dialogDelete" max-width="300px">
                     <v-card>
-                        <v-card-title class="text-h5"
-                            >¿Deseas Eliminar este registro?</v-card-title
-                        >
+                        <h3 class="py-4 text-center">
+                            ¿Deseas Eliminar este registro?
+                        </h3>
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn
-                                color="blue darken-1"
-                                text
-                                @click="closeDelete"
+                            <v-btn color="warning" small @click="closeDelete"
                                 >Cancel</v-btn
                             >
                             <v-btn
-                                color="blue darken-1"
-                                text
+                                color="warning"
+                                small
                                 @click="deleteItemConfirm"
                                 >OK</v-btn
                             >
@@ -430,13 +430,16 @@
             </v-toolbar>
         </template>
         <template v-slot:[`item.actions`]="{ item }">
-            <v-icon small class="mr-2" @click="editItem(item)">
-                mdi-pencil
-            </v-icon>
-            <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+            <v-chip small color="warning" dark @click="editItem(item)">
+                <v-icon small class="mr-2"> mdi-pencil </v-icon>
+                Editar
+            </v-chip>
+            <v-chip small color="warning" dark @click="deleteItem(item)">
+                <v-icon small class="mr-2"> mdi-delete </v-icon> Eliminar
+            </v-chip>
         </template>
         <template v-slot:no-data>
-            <v-btn color="primary" @click="initialize"> Reset </v-btn>
+            <v-btn color="warning" small @click="initialize"> Reset </v-btn>
         </template>
     </v-data-table>
 </template>

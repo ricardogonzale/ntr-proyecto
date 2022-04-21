@@ -26,7 +26,7 @@
                         </v-btn>
                     </template>
                     <v-card>
-                        <v-toolbar color="primary" dark
+                        <v-toolbar color="orange" dark
                             >{{ formTitle }}
                             <v-spacer></v-spacer>
                         </v-toolbar>
@@ -174,10 +174,10 @@
 
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn color="blue darken-1" text @click="close">
+                            <v-btn small color="warning" @click="close">
                                 Cancel
                             </v-btn>
-                            <v-btn color="blue darken-1" text @click="save">
+                            <v-btn small color="warning" @click="save">
                                 Guardar
                             </v-btn>
                         </v-card-actions>
@@ -190,16 +190,10 @@
                         </h3>
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn
-                                color="blue darken-1"
-                                text
-                                @click="closeDelete"
+                            <v-btn small color="warning" @click="closeDelete"
                                 >Cancel</v-btn
                             >
-                            <v-btn
-                                color="red darken-1"
-                                text
-                                @click="deleteItemConfirm"
+                            <v-btn small color="red" @click="deleteItemConfirm"
                                 >OK</v-btn
                             >
                             <v-spacer></v-spacer>
@@ -222,19 +216,14 @@
                         </h3>
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn
-                                color="blue darken-1"
-                                text
-                                @click="closeActivate"
+                            <v-btn small color="warning" @click="closeActivate"
                                 >No</v-btn
                             >
                             <v-btn
+                                small
                                 :color="
-                                    editedItem.active == 0
-                                        ? 'green darken-1'
-                                        : 'red darken-1'
+                                    editedItem.active == 0 ? 'success' : 'error'
                                 "
-                                text
                                 @click="activateVehicle"
                                 >Si</v-btn
                             >
@@ -254,16 +243,16 @@
             </v-icon>
         </template>
         <template v-slot:[`item.actions`]="{ item }">
-            <v-chip color="orange" dark @click="editItem(item)">
+            <v-chip small color="orange" dark @click="editItem(item)">
                 <v-icon small class="mr-2"> mdi-pencil </v-icon>
                 Editar
             </v-chip>
-            <v-chip color="orange" dark @click="deleteItem(item)">
+            <v-chip small color="orange" dark @click="deleteItem(item)">
                 <v-icon small class="mr-2"> mdi-delete </v-icon> Eliminar
             </v-chip>
         </template>
         <template v-slot:no-data>
-            <v-btn color="primary" @click="initialize"> Reset </v-btn>
+            <v-btn small color="orange" @click="initialize"> Reset </v-btn>
         </template>
     </v-data-table>
 </template>
