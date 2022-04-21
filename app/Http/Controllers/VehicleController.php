@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Vehicle;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class VehicleController extends Controller
@@ -27,8 +29,7 @@ class VehicleController extends Controller
         $contact = $data->all();
         $contact['data'] = json_decode($contact['data'],true);
         $contact['data']['info']['id_carrier'] = Auth::user()->id;
-
-        $client = Vehicle::updateOrCreate(['id_carrier' => $contact['data']['info']['id_carrier']],$contact['data']['info']);
+        $vehicle = Vehicle::create($contact['data']['info']);
         return $vehicle;
     }
 
@@ -66,9 +67,12 @@ class VehicleController extends Controller
      * @param  \App\Vehicle  $vehicle
      * @return \Illuminate\Http\Response
      */
-    public function edit(Vehicle $vehicle)
+    public function edit(Request $vehicle)
     {
-        //
+        $driver = $vehicle->all();
+        $driver['data'] = json_decode($driver['data'],true);
+        $driver = Vehicle::updateOrCreate(['id' => $driver['data']['info']['id']],$driver['data']['info']);
+        return $driver;
     }
 
     /**
@@ -89,8 +93,13 @@ class VehicleController extends Controller
      * @param  \App\Vehicle  $vehicle
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Vehicle $vehicle)
+    public function activate(Request $id)
     {
-        //
+        $activate = Vehicle::where('id', $id['id'])->update(array('active' => $id['active']==1?0:1));
+    }
+
+    public function destroy(Request $id)
+    {
+        $deletedClient = Vehicle::where('id', $id['id'])->delete();
     }
 }

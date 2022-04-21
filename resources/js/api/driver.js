@@ -10,6 +10,7 @@ export default {
     deleteDriver(data) {
         return axios.post("/deleteDriver", data);
     },
+
     dataCarrier(data) {
         return axios.post("/dataCarrier", data);
     },

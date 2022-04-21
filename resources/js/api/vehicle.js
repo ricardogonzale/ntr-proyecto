@@ -1,16 +1,21 @@
 export default {
-    newDriver(data) {
+    newVehicle(data) {
         return axios.post("/newVehicle", data);
     },
 
-    updateDriver(data) {
+    updateVehicle(data) {
         return axios.post("/updateVehicle", data);
     },
 
-    deleteDriver(data) {
+    deleteVehicle(data) {
         return axios.post("/deleteVehicle", data);
     },
-    dataCarrier(data) {
+
+    activateVehicle(data) {
+        return axios.post("/activateVehicle", data);
+    },
+
+    dataVehicle(data) {
         return axios.post("/dataVehicle", data);
     },
 };

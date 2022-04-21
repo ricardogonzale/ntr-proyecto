@@ -48,5 +48,6 @@ Route::post('/deleteDriver', 'DriverController@destroy')->name('deleteDriver');
 
 Route::get('getVehiclelist', 'VehicleController@list')->name('vehicle.list');
 Route::post('/newVehicle', 'VehicleController@create')->name('newVehicle');
-Route::post('/updateVehicle', 'VehicleController@update')->name('updateVehicle');
+Route::post('/updateVehicle', 'VehicleController@edit')->name('updateVehicle');
 Route::post('/deleteVehicle', 'VehicleController@destroy')->name('deleteVehicle');
+Route::post('/activateVehicle', 'VehicleController@activate')->name('activateVehicle');

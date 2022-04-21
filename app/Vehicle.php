@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $number_axes
  * @property string $observations
  * @property string $ubication
+ * @property boolean $active
  * @property string $created_at
  * @property string $updated_at
  */
@@ -29,14 +30,7 @@ class Vehicle extends Model
     protected $table = 'vehicle';
 
     /**
-     * Indicates if the IDs are auto-incrementing.
-     * 
-     * @var bool
-     */
-    public $incrementing = false;
-
-    /**
      * @var array
      */
-    protected $fillable = ['id_carrier', 'type_vehicle', 'mark', 'modelo', 'type_load', 'tuition', 'year', 'number_axes', 'observations', 'ubication', 'created_at', 'updated_at'];
+    protected $fillable = ['id_carrier', 'type_vehicle', 'mark', 'modelo', 'type_load', 'tuition', 'year', 'number_axes', 'observations', 'ubication', 'active', 'created_at', 'updated_at'];
 }

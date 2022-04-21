@@ -5393,6 +5393,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6469,6 +6475,57 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6500,6 +6557,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       dialog: false,
       dialogDelete: false,
+      dialogActivate: false,
       type_vehicle: [],
       files: [],
       value: [],
@@ -6520,6 +6578,9 @@ __webpack_require__.r(__webpack_exports__);
         text: "Matrícula",
         value: "tuition"
       }, {
+        text: "Activo",
+        value: "active"
+      }, {
         text: "Acciones",
         value: "actions",
         sortable: false
@@ -6534,7 +6595,8 @@ __webpack_require__.r(__webpack_exports__);
         type_load: "",
         tuition: "",
         year: "",
-        observations: ""
+        observations: "",
+        active: ""
       },
       defaultItem: {
         id: null,
@@ -6545,14 +6607,15 @@ __webpack_require__.r(__webpack_exports__);
         type_load: "",
         tuition: "",
         year: "",
-        observations: ""
+        observations: "",
+        active: 1
       }
     };
   },
   computed: {
-    drivers: {
+    vehicles: {
       get: function get() {
-        return this.$store.state.driver.drivers;
+        return this.$store.state.vehicle.vehicles;
       }
     },
     formTitle: function formTitle() {
@@ -6605,48 +6668,77 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     initialize: function initialize() {
-      this.drivers = [];
+      this.vehicles = [];
+    },
+    getColorActivate: function getColorActivate(active) {
+      if (active == 1) return "green";else return "red";
     },
     editItem: function editItem(item) {
-      this.editedIndex = this.drivers.indexOf(item);
+      this.editedIndex = this.vehicles.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
     deleteItem: function deleteItem(item) {
       console.log(item);
-      this.editedIndex = this.drivers.indexOf(item);
+      this.editedIndex = this.vehicles.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
     },
     deleteItemConfirm: function deleteItemConfirm() {
       var _this = this;
 
-      this.drivers.splice(this.editedIndex, 1);
-      this.$store.dispatch("deleteDriver", this.editedItem).then(function (res) {
-        _this.$store.dispatch("getDriver");
+      this.vehicles.splice(this.editedIndex, 1);
+      this.$store.dispatch("deleteVehicle", this.editedItem).then(function (res) {
+        _this.$store.dispatch("getVehicle");
       })["catch"](function (error) {
         console.log(error.response.data);
         _this.registerRequestSent = false;
       });
       this.closeDelete();
     },
-    close: function close() {
+    activateItem: function activateItem(item) {
+      console.log(item);
+      this.editedIndex = this.vehicles.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialogActivate = true;
+    },
+    activateVehicle: function activateVehicle() {
       var _this2 = this;
+
+      this.$store.dispatch("activateVehicle", this.editedItem).then(function (res) {
+        _this2.$store.dispatch("getVehicle");
+      })["catch"](function (error) {
+        console.log(error.response.data);
+        _this2.registerRequestSent = false;
+      });
+      this.closeActivate();
+    },
+    close: function close() {
+      var _this3 = this;
 
       this.$v.$reset();
       this.dialog = false;
       this.$nextTick(function () {
-        _this2.editedItem = Object.assign({}, _this2.defaultItem);
-        _this2.editedIndex = -1;
+        _this3.editedItem = Object.assign({}, _this3.defaultItem);
+        _this3.editedIndex = -1;
       });
     },
     closeDelete: function closeDelete() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.dialogDelete = false;
       this.$nextTick(function () {
-        _this3.editedItem = Object.assign({}, _this3.defaultItem);
-        _this3.editedIndex = -1;
+        _this4.editedItem = Object.assign({}, _this4.defaultItem);
+        _this4.editedIndex = -1;
+      });
+    },
+    closeActivate: function closeActivate() {
+      var _this5 = this;
+
+      this.dialogActivate = false;
+      this.$nextTick(function () {
+        _this5.editedItem = Object.assign({}, _this5.defaultItem);
+        _this5.editedIndex = -1;
       });
     },
     getTypeVehicle: function getTypeVehicle() {
@@ -6655,7 +6747,7 @@ __webpack_require__.r(__webpack_exports__);
       }.bind(this));
     },
     save: function save() {
-      var _this4 = this;
+      var _this6 = this;
 
       this.$v.$touch();
 
@@ -6673,26 +6765,25 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.editedIndex > -1) {
         // Object.assign(this.drivers[this.editedIndex], this.editedItem);
-        this.$store.dispatch("updateDriver", formData).then(function (res) {
-          _this4.$store.dispatch("getDriver");
+        this.$store.dispatch("updateVehicle", formData).then(function (res) {
+          _this6.$store.dispatch("getVehicle");
         })["catch"](function (error) {
           console.log(error.response.data);
-          _this4.registerRequestSent = false;
+          _this6.registerRequestSent = false;
         });
       } else {
-        this.$store.dispatch("newDriver", formData).then(function (res) {
-          _this4.$store.dispatch("getDriver");
+        this.$store.dispatch("newVehicle", formData).then(function (res) {
+          _this6.$store.dispatch("getVehicle");
         })["catch"](function (error) {
           console.log(error.response.data);
-          _this4.registerRequestSent = false;
+          _this6.registerRequestSent = false;
         });
-      }
+      } // this.close();
 
-      this.close();
     }
   },
   mounted: function mounted() {
-    this.$store.dispatch("getDriver");
+    this.$store.dispatch("getVehicle");
     this.getTypeVehicle();
   }
 });
@@ -34997,16 +35088,14 @@ var render = function () {
               _c(
                 "v-toolbar",
                 { attrs: { flat: "" } },
+                [_c("v-toolbar-title", [_vm._v("Listado de Conductores")])],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-toolbar",
+                { attrs: { flat: "" } },
                 [
-                  _c("v-toolbar-title", [_vm._v("Conductores")]),
-                  _vm._v(" "),
-                  _c("v-divider", {
-                    staticClass: "mx-4",
-                    attrs: { inset: "", vertical: "" },
-                  }),
-                  _vm._v(" "),
-                  _c("v-spacer"),
-                  _vm._v(" "),
                   _c(
                     "v-dialog",
                     {
@@ -35024,7 +35113,16 @@ var render = function () {
                                   _vm._b(
                                     {
                                       staticClass: "mb-2",
-                                      attrs: { color: "primary", dark: "" },
+                                      staticStyle: {
+                                        "border-radius": "30px",
+                                        "text-transform": "none",
+                                      },
+                                      attrs: {
+                                        color: "orange",
+                                        dark: "",
+                                        small: "",
+                                        rounded: "",
+                                      },
                                     },
                                     "v-btn",
                                     attrs,
@@ -35650,30 +35748,41 @@ var render = function () {
             var item = ref.item
             return [
               _c(
-                "v-icon",
+                "v-chip",
                 {
-                  staticClass: "mr-2",
-                  attrs: { small: "" },
+                  attrs: { color: "orange", dark: "" },
                   on: {
                     click: function ($event) {
                       return _vm.editItem(item)
                     },
                   },
                 },
-                [_vm._v("\n            mdi-pencil\n        ")]
+                [
+                  _c("v-icon", { staticClass: "mr-2", attrs: { small: "" } }, [
+                    _vm._v(" mdi-pencil "),
+                  ]),
+                  _vm._v("\n            Editar\n        "),
+                ],
+                1
               ),
               _vm._v(" "),
               _c(
-                "v-icon",
+                "v-chip",
                 {
-                  attrs: { small: "" },
+                  attrs: { color: "orange", dark: "" },
                   on: {
                     click: function ($event) {
                       return _vm.deleteItem(item)
                     },
                   },
                 },
-                [_vm._v(" mdi-delete ")]
+                [
+                  _c("v-icon", { staticClass: "mr-2", attrs: { small: "" } }, [
+                    _vm._v(" mdi-delete "),
+                  ]),
+                  _vm._v(" Eliminar\n        "),
+                ],
+                1
               ),
             ]
           },
@@ -36786,7 +36895,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("v-data-table", {
     staticClass: "elevation-1",
-    attrs: { headers: _vm.headers, items: _vm.drivers, "sort-by": "id" },
+    attrs: { headers: _vm.headers, items: _vm.vehicles, "sort-by": "id" },
     scopedSlots: _vm._u(
       [
         {
@@ -36796,16 +36905,14 @@ var render = function () {
               _c(
                 "v-toolbar",
                 { attrs: { flat: "" } },
+                [_c("v-toolbar-title", [_vm._v("Listado de Vehículos")])],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-toolbar",
+                { attrs: { flat: "" } },
                 [
-                  _c("v-toolbar-title", [_vm._v("Vehículos")]),
-                  _vm._v(" "),
-                  _c("v-divider", {
-                    staticClass: "mx-4",
-                    attrs: { inset: "", vertical: "" },
-                  }),
-                  _vm._v(" "),
-                  _c("v-spacer"),
-                  _vm._v(" "),
                   _c(
                     "v-dialog",
                     {
@@ -36823,7 +36930,16 @@ var render = function () {
                                   _vm._b(
                                     {
                                       staticClass: "mb-2",
-                                      attrs: { color: "primary", dark: "" },
+                                      staticStyle: {
+                                        "border-radius": "30px",
+                                        "text-transform": "none",
+                                      },
+                                      attrs: {
+                                        color: "orange",
+                                        dark: "",
+                                        small: "",
+                                        rounded: "",
+                                      },
                                     },
                                     "v-btn",
                                     attrs,
@@ -36833,7 +36949,7 @@ var render = function () {
                                 ),
                                 [
                                   _vm._v(
-                                    "\n                        Registrar Vehículo\n                    "
+                                    "\n                        Nuevo Vehículo\n                    "
                                   ),
                                 ]
                               ),
@@ -37315,7 +37431,7 @@ var render = function () {
                   _c(
                     "v-dialog",
                     {
-                      attrs: { "max-width": "500px" },
+                      attrs: { "max-width": "300px" },
                       model: {
                         value: _vm.dialogDelete,
                         callback: function ($$v) {
@@ -37328,8 +37444,10 @@ var render = function () {
                       _c(
                         "v-card",
                         [
-                          _c("v-card-title", { staticClass: "text-h5" }, [
-                            _vm._v("¿Deseas Eliminar este registro?"),
+                          _c("h3", { staticClass: "py-4 text-center" }, [
+                            _vm._v(
+                              "\n                        ¿Deseas Eliminar este registro?\n                    "
+                            ),
                           ]),
                           _vm._v(" "),
                           _c(
@@ -37349,10 +37467,82 @@ var render = function () {
                               _c(
                                 "v-btn",
                                 {
-                                  attrs: { color: "blue darken-1", text: "" },
+                                  attrs: { color: "red darken-1", text: "" },
                                   on: { click: _vm.deleteItemConfirm },
                                 },
                                 [_vm._v("OK")]
+                              ),
+                              _vm._v(" "),
+                              _c("v-spacer"),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-dialog",
+                    {
+                      attrs: { "max-width": "300px" },
+                      model: {
+                        value: _vm.dialogActivate,
+                        callback: function ($$v) {
+                          _vm.dialogActivate = $$v
+                        },
+                        expression: "dialogActivate",
+                      },
+                    },
+                    [
+                      _c(
+                        "v-card",
+                        [
+                          _vm.editedItem.active == 1
+                            ? _c("h3", { staticClass: "py-4 text-center" }, [
+                                _vm._v(
+                                  "\n                        ¿Deseas desactivar este Vehículo?\n                    "
+                                ),
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.editedItem.active == 0
+                            ? _c("h3", { staticClass: "py-4 text-center" }, [
+                                _vm._v(
+                                  "\n                        ¿Deseas activar este Vehículo?\n                    "
+                                ),
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c(
+                            "v-card-actions",
+                            [
+                              _c("v-spacer"),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { color: "blue darken-1", text: "" },
+                                  on: { click: _vm.closeActivate },
+                                },
+                                [_vm._v("No")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    color:
+                                      _vm.editedItem.active == 0
+                                        ? "green darken-1"
+                                        : "red darken-1",
+                                    text: "",
+                                  },
+                                  on: { click: _vm.activateVehicle },
+                                },
+                                [_vm._v("Si")]
                               ),
                               _vm._v(" "),
                               _c("v-spacer"),
@@ -37373,35 +37563,66 @@ var render = function () {
           proxy: true,
         },
         {
-          key: "item.actions",
+          key: "item.active",
           fn: function (ref) {
             var item = ref.item
             return [
               _c(
                 "v-icon",
                 {
-                  staticClass: "mr-2",
-                  attrs: { small: "" },
+                  attrs: { color: _vm.getColorActivate(item.active), dark: "" },
+                  on: {
+                    click: function ($event) {
+                      return _vm.activateItem(item)
+                    },
+                  },
+                },
+                [_vm._v("\n            mdi-check-circle-outline\n        ")]
+              ),
+            ]
+          },
+        },
+        {
+          key: "item.actions",
+          fn: function (ref) {
+            var item = ref.item
+            return [
+              _c(
+                "v-chip",
+                {
+                  attrs: { color: "orange", dark: "" },
                   on: {
                     click: function ($event) {
                       return _vm.editItem(item)
                     },
                   },
                 },
-                [_vm._v("\n            mdi-pencil\n        ")]
+                [
+                  _c("v-icon", { staticClass: "mr-2", attrs: { small: "" } }, [
+                    _vm._v(" mdi-pencil "),
+                  ]),
+                  _vm._v("\n            Editar\n        "),
+                ],
+                1
               ),
               _vm._v(" "),
               _c(
-                "v-icon",
+                "v-chip",
                 {
-                  attrs: { small: "" },
+                  attrs: { color: "orange", dark: "" },
                   on: {
                     click: function ($event) {
                       return _vm.deleteItem(item)
                     },
                   },
                 },
-                [_vm._v(" mdi-delete ")]
+                [
+                  _c("v-icon", { staticClass: "mr-2", attrs: { small: "" } }, [
+                    _vm._v(" mdi-delete "),
+                  ]),
+                  _vm._v(" Eliminar\n        "),
+                ],
+                1
               ),
             ]
           },
@@ -102437,6 +102658,35 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/api/vehicle.js":
+/*!*************************************!*\
+  !*** ./resources/js/api/vehicle.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  newVehicle: function newVehicle(data) {
+    return axios.post("/newVehicle", data);
+  },
+  updateVehicle: function updateVehicle(data) {
+    return axios.post("/updateVehicle", data);
+  },
+  deleteVehicle: function deleteVehicle(data) {
+    return axios.post("/deleteVehicle", data);
+  },
+  activateVehicle: function activateVehicle(data) {
+    return axios.post("/activateVehicle", data);
+  },
+  dataVehicle: function dataVehicle(data) {
+    return axios.post("/dataVehicle", data);
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -103894,6 +104144,120 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
+/***/ "./resources/js/modules/vehicle.js":
+/*!*****************************************!*\
+  !*** ./resources/js/modules/vehicle.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _api_vehicle_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../api/vehicle.js */ "./resources/js/api/vehicle.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  state: {
+    vehicles: [],
+    dataVehicle: []
+  },
+  getters: {
+    getDataVehicle: function getDataVehicle(state) {
+      return state.dataVehicle;
+    }
+  },
+  mutations: {
+    SET_VEHICLES: function SET_VEHICLES(state, vehicles) {
+      state.vehicles = vehicles;
+    },
+    SET_VEHICLESDATA: function SET_VEHICLESDATA(state, vehicles) {
+      state.vehicles = vehicles;
+    }
+  },
+  actions: {
+    getVehicle: function getVehicle(_ref) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                commit = _ref.commit;
+                _context.next = 3;
+                return axios.get("/getVehiclelist").then(function (response) {
+                  commit("SET_VEHICLES", response.data);
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    getDataVehicle: function getDataVehicle(_ref2, data) {
+      var commit = _ref2.commit;
+      return new Promise(function (resolve, reject) {
+        _api_vehicle_js__WEBPACK_IMPORTED_MODULE_1__["default"].dataVehicle(data).then(function (res) {
+          commit("SET_VEHICLESDATA", res.data);
+        })["catch"](function (error) {
+          reject(error);
+        });
+      });
+    },
+    newVehicle: function newVehicle(_ref3, data) {
+      var commit = _ref3.commit;
+      return new Promise(function (resolve, reject) {
+        _api_vehicle_js__WEBPACK_IMPORTED_MODULE_1__["default"].newVehicle(data).then(function (res) {
+          resolve(res);
+        })["catch"](function (error) {
+          reject(error);
+        });
+      });
+    },
+    updateVehicle: function updateVehicle(_ref4, data) {
+      var commit = _ref4.commit;
+      return new Promise(function (resolve, reject) {
+        _api_vehicle_js__WEBPACK_IMPORTED_MODULE_1__["default"].updateVehicle(data).then(function (res) {
+          resolve(res);
+        })["catch"](function (error) {
+          reject(error);
+        });
+      });
+    },
+    deleteVehicle: function deleteVehicle(_ref5, data) {
+      var commit = _ref5.commit;
+      return new Promise(function (resolve, reject) {
+        _api_vehicle_js__WEBPACK_IMPORTED_MODULE_1__["default"].deleteVehicle(data).then(function (res) {
+          resolve(res);
+        })["catch"](function (error) {
+          reject(error);
+        });
+      });
+    },
+    activateVehicle: function activateVehicle(_ref6, data) {
+      var commit = _ref6.commit;
+      return new Promise(function (resolve, reject) {
+        _api_vehicle_js__WEBPACK_IMPORTED_MODULE_1__["default"].activateVehicle(data).then(function (res) {
+          resolve(res);
+        })["catch"](function (error) {
+          reject(error);
+        });
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/router.js":
 /*!********************************!*\
   !*** ./resources/js/router.js ***!
@@ -103984,9 +104348,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_carrier_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/carrier.js */ "./resources/js/modules/carrier.js");
 /* harmony import */ var _modules_client_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/client.js */ "./resources/js/modules/client.js");
 /* harmony import */ var _modules_driver_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/driver.js */ "./resources/js/modules/driver.js");
+/* harmony import */ var _modules_vehicle_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/vehicle.js */ "./resources/js/modules/vehicle.js");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
 
 
 
@@ -104016,7 +104382,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     auth: _modules_auth_js__WEBPACK_IMPORTED_MODULE_2__["default"],
     carrier: _modules_carrier_js__WEBPACK_IMPORTED_MODULE_3__["default"],
     client: _modules_client_js__WEBPACK_IMPORTED_MODULE_4__["default"],
-    driver: _modules_driver_js__WEBPACK_IMPORTED_MODULE_5__["default"]
+    driver: _modules_driver_js__WEBPACK_IMPORTED_MODULE_5__["default"],
+    vehicle: _modules_vehicle_js__WEBPACK_IMPORTED_MODULE_6__["default"]
   }
 }));
 

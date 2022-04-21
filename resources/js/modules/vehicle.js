@@ -1,8 +1,8 @@
-import driverApi from "../api/vehicle.js";
+import vehicleApi from "../api/vehicle.js";
 
 export default {
     state: {
-        vehicle: [],
+        vehicles: [],
         dataVehicle: [],
     },
 
@@ -13,11 +13,11 @@ export default {
     },
 
     mutations: {
-        SET_VEHICLES(state, vehicle) {
-            state.vehicle = vehicle;
+        SET_VEHICLES(state, vehicles) {
+            state.vehicles = vehicles;
         },
-        SET_DRIVERSDATA(state, vehicle) {
-            state.vehicle = vehicle;
+        SET_VEHICLESDATA(state, vehicles) {
+            state.vehicles = vehicles;
         },
     },
 
@@ -30,10 +30,10 @@ export default {
 
         getDataVehicle({ commit }, data) {
             return new Promise((resolve, reject) => {
-                driverApi
+                vehicleApi
                     .dataVehicle(data)
                     .then((res) => {
-                        commit("SET_DRIVERSDATA", res.data);
+                        commit("SET_VEHICLESDATA", res.data);
                     })
                     .catch((error) => {
                         reject(error);
@@ -43,7 +43,7 @@ export default {
 
         newVehicle({ commit }, data) {
             return new Promise((resolve, reject) => {
-                driverApi
+                vehicleApi
                     .newVehicle(data)
                     .then((res) => {
                         resolve(res);
@@ -56,7 +56,7 @@ export default {
 
         updateVehicle({ commit }, data) {
             return new Promise((resolve, reject) => {
-                driverApi
+                vehicleApi
                     .updateVehicle(data)
                     .then((res) => {
                         resolve(res);
@@ -69,8 +69,21 @@ export default {
 
         deleteVehicle({ commit }, data) {
             return new Promise((resolve, reject) => {
-                driverApi
+                vehicleApi
                     .deleteVehicle(data)
+                    .then((res) => {
+                        resolve(res);
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    });
+            });
+        },
+
+        activateVehicle({ commit }, data) {
+            return new Promise((resolve, reject) => {
+                vehicleApi
+                    .activateVehicle(data)
                     .then((res) => {
                         resolve(res);
                     })

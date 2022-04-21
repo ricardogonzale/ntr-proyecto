@@ -1,25 +1,28 @@
 <template>
     <v-data-table
         :headers="headers"
-        :items="drivers"
+        :items="vehicles"
         sort-by="id"
         class="elevation-1"
     >
         <template v-slot:top>
             <v-toolbar flat>
-                <v-toolbar-title>Vehículos</v-toolbar-title>
-                <v-divider class="mx-4" inset vertical></v-divider>
-                <v-spacer></v-spacer>
+                <v-toolbar-title>Listado de Vehículos</v-toolbar-title>
+            </v-toolbar>
+            <v-toolbar flat>
                 <v-dialog v-model="dialog" max-width="400px">
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn
-                            color="primary"
+                            color="orange"
                             dark
+                            small
+                            rounded
                             class="mb-2"
                             v-bind="attrs"
                             v-on="on"
+                            style="border-radius: 30px; text-transform: none"
                         >
-                            Registrar Vehículo
+                            Nuevo Vehículo
                         </v-btn>
                     </template>
                     <v-card>
@@ -180,11 +183,11 @@
                         </v-card-actions>
                     </v-card>
                 </v-dialog>
-                <v-dialog v-model="dialogDelete" max-width="500px">
+                <v-dialog v-model="dialogDelete" max-width="300px">
                     <v-card>
-                        <v-card-title class="text-h5"
-                            >¿Deseas Eliminar este registro?</v-card-title
-                        >
+                        <h3 class="py-4 text-center">
+                            ¿Deseas Eliminar este registro?
+                        </h3>
                         <v-card-actions>
                             <v-spacer></v-spacer>
                             <v-btn
@@ -194,7 +197,7 @@
                                 >Cancel</v-btn
                             >
                             <v-btn
-                                color="blue darken-1"
+                                color="red darken-1"
                                 text
                                 @click="deleteItemConfirm"
                                 >OK</v-btn
@@ -203,13 +206,61 @@
                         </v-card-actions>
                     </v-card>
                 </v-dialog>
+                <v-dialog v-model="dialogActivate" max-width="300px">
+                    <v-card>
+                        <h3
+                            v-if="editedItem.active == 1"
+                            class="py-4 text-center"
+                        >
+                            ¿Deseas desactivar este Vehículo?
+                        </h3>
+                        <h3
+                            v-if="editedItem.active == 0"
+                            class="py-4 text-center"
+                        >
+                            ¿Deseas activar este Vehículo?
+                        </h3>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn
+                                color="blue darken-1"
+                                text
+                                @click="closeActivate"
+                                >No</v-btn
+                            >
+                            <v-btn
+                                :color="
+                                    editedItem.active == 0
+                                        ? 'green darken-1'
+                                        : 'red darken-1'
+                                "
+                                text
+                                @click="activateVehicle"
+                                >Si</v-btn
+                            >
+                            <v-spacer></v-spacer>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
             </v-toolbar>
         </template>
-        <template v-slot:[`item.actions`]="{ item }">
-            <v-icon small class="mr-2" @click="editItem(item)">
-                mdi-pencil
+        <template v-slot:item.active="{ item }">
+            <v-icon
+                :color="getColorActivate(item.active)"
+                dark
+                @click="activateItem(item)"
+            >
+                mdi-check-circle-outline
             </v-icon>
-            <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+        </template>
+        <template v-slot:[`item.actions`]="{ item }">
+            <v-chip color="orange" dark @click="editItem(item)">
+                <v-icon small class="mr-2"> mdi-pencil </v-icon>
+                Editar
+            </v-chip>
+            <v-chip color="orange" dark @click="deleteItem(item)">
+                <v-icon small class="mr-2"> mdi-delete </v-icon> Eliminar
+            </v-chip>
         </template>
         <template v-slot:no-data>
             <v-btn color="primary" @click="initialize"> Reset </v-btn>
@@ -235,6 +286,7 @@ export default {
     data: () => ({
         dialog: false,
         dialogDelete: false,
+        dialogActivate: false,
         type_vehicle: [],
         files: [],
         value: [],
@@ -248,6 +300,7 @@ export default {
             { text: "Marca", value: "mark" },
             { text: "Modelo", value: "modelo" },
             { text: "Matrícula", value: "tuition" },
+            { text: "Activo", value: "active" },
             { text: "Acciones", value: "actions", sortable: false },
         ],
         editedIndex: -1,
@@ -261,6 +314,7 @@ export default {
             tuition: "",
             year: "",
             observations: "",
+            active: "",
         },
         defaultItem: {
             id: null,
@@ -272,13 +326,14 @@ export default {
             tuition: "",
             year: "",
             observations: "",
+            active: 1,
         },
     }),
 
     computed: {
-        drivers: {
+        vehicles: {
             get() {
-                return this.$store.state.driver.drivers;
+                return this.$store.state.vehicle.vehicles;
             },
         },
         formTitle() {
@@ -344,34 +399,57 @@ export default {
 
     methods: {
         initialize() {
-            this.drivers = [];
+            this.vehicles = [];
         },
-
+        getColorActivate(active) {
+            if (active == 1) return "green";
+            else return "red";
+        },
         editItem(item) {
-            this.editedIndex = this.drivers.indexOf(item);
+            this.editedIndex = this.vehicles.indexOf(item);
             this.editedItem = Object.assign({}, item);
             this.dialog = true;
         },
 
         deleteItem(item) {
             console.log(item);
-            this.editedIndex = this.drivers.indexOf(item);
+            this.editedIndex = this.vehicles.indexOf(item);
             this.editedItem = Object.assign({}, item);
             this.dialogDelete = true;
         },
 
         deleteItemConfirm() {
-            this.drivers.splice(this.editedIndex, 1);
+            this.vehicles.splice(this.editedIndex, 1);
             this.$store
-                .dispatch("deleteDriver", this.editedItem)
+                .dispatch("deleteVehicle", this.editedItem)
                 .then((res) => {
-                    this.$store.dispatch("getDriver");
+                    this.$store.dispatch("getVehicle");
                 })
                 .catch((error) => {
                     console.log(error.response.data);
                     this.registerRequestSent = false;
                 });
             this.closeDelete();
+        },
+
+        activateItem(item) {
+            console.log(item);
+            this.editedIndex = this.vehicles.indexOf(item);
+            this.editedItem = Object.assign({}, item);
+            this.dialogActivate = true;
+        },
+
+        activateVehicle() {
+            this.$store
+                .dispatch("activateVehicle", this.editedItem)
+                .then((res) => {
+                    this.$store.dispatch("getVehicle");
+                })
+                .catch((error) => {
+                    console.log(error.response.data);
+                    this.registerRequestSent = false;
+                });
+            this.closeActivate();
         },
 
         close() {
@@ -390,6 +468,15 @@ export default {
                 this.editedIndex = -1;
             });
         },
+
+        closeActivate() {
+            this.dialogActivate = false;
+            this.$nextTick(() => {
+                this.editedItem = Object.assign({}, this.defaultItem);
+                this.editedIndex = -1;
+            });
+        },
+
         getTypeVehicle: function () {
             axios.get("/getTypeVehicle").then(
                 function (response) {
@@ -411,9 +498,9 @@ export default {
             if (this.editedIndex > -1) {
                 // Object.assign(this.drivers[this.editedIndex], this.editedItem);
                 this.$store
-                    .dispatch("updateDriver", formData)
+                    .dispatch("updateVehicle", formData)
                     .then((res) => {
-                        this.$store.dispatch("getDriver");
+                        this.$store.dispatch("getVehicle");
                     })
                     .catch((error) => {
                         console.log(error.response.data);
@@ -421,20 +508,20 @@ export default {
                     });
             } else {
                 this.$store
-                    .dispatch("newDriver", formData)
+                    .dispatch("newVehicle", formData)
                     .then((res) => {
-                        this.$store.dispatch("getDriver");
+                        this.$store.dispatch("getVehicle");
                     })
                     .catch((error) => {
                         console.log(error.response.data);
                         this.registerRequestSent = false;
                     });
             }
-            this.close();
+            // this.close();
         },
     },
     mounted() {
-        this.$store.dispatch("getDriver");
+        this.$store.dispatch("getVehicle");
         this.getTypeVehicle();
     },
 };

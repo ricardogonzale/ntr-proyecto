@@ -7,17 +7,20 @@
     >
         <template v-slot:top>
             <v-toolbar flat>
-                <v-toolbar-title>Conductores</v-toolbar-title>
-                <v-divider class="mx-4" inset vertical></v-divider>
-                <v-spacer></v-spacer>
+                <v-toolbar-title>Listado de Conductores</v-toolbar-title>
+            </v-toolbar>
+            <v-toolbar flat>
                 <v-dialog v-model="dialog" max-width="400px">
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn
-                            color="primary"
+                            color="orange"
                             dark
+                            small
+                            rounded
                             class="mb-2"
                             v-bind="attrs"
                             v-on="on"
+                            style="border-radius: 30px; text-transform: none"
                         >
                             Registrar Conductor
                         </v-btn>
@@ -239,10 +242,13 @@
             </v-toolbar>
         </template>
         <template v-slot:[`item.actions`]="{ item }">
-            <v-icon small class="mr-2" @click="editItem(item)">
-                mdi-pencil
-            </v-icon>
-            <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+            <v-chip color="orange" dark @click="editItem(item)">
+                <v-icon small class="mr-2"> mdi-pencil </v-icon>
+                Editar
+            </v-chip>
+            <v-chip color="orange" dark @click="deleteItem(item)">
+                <v-icon small class="mr-2"> mdi-delete </v-icon> Eliminar
+            </v-chip>
         </template>
         <template v-slot:no-data>
             <v-btn color="primary" @click="initialize"> Reset </v-btn>
