@@ -22,9 +22,14 @@ class VehicleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $data)
     {
-        //
+        $contact = $data->all();
+        $contact['data'] = json_decode($contact['data'],true);
+        $contact['data']['info']['id_carrier'] = Auth::user()->id;
+
+        $client = Vehicle::updateOrCreate(['id_carrier' => $contact['data']['info']['id_carrier']],$contact['data']['info']);
+        return $vehicle;
     }
 
     /**
@@ -47,6 +52,12 @@ class VehicleController extends Controller
     public function show(Vehicle $vehicle)
     {
         //
+    }
+
+    public function list(Vehicle $Vehicle)
+    {
+        $model = Vehicle::where('id_carrier', '=', Auth::user()->id)->get();
+        return response()->json($model);
     }
 
     /**
