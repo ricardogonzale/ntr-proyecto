@@ -258,9 +258,13 @@
         </v-card-text>
 
         <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn small color="warning" @click="close"> Cancel </v-btn>
-            <v-btn color="warning" small @click="save"> Guardar </v-btn>
+            <v-container>
+                <v-row>
+                    <v-col cols="12" sm="12" md="12" class="text-center">
+                        <v-btn color="warning" @click="save"> Modificar </v-btn>
+                    </v-col>
+                </v-row>
+            </v-container>
         </v-card-actions>
     </v-card>
 </template>
@@ -359,7 +363,7 @@ export default {
         },
         formTitle() {
             return this.editedIndex === -1
-                ? "Nuevo Transportista"
+                ? "DATOS DE USUARIO"
                 : "Editar Transportista";
         },
         nameErrors() {

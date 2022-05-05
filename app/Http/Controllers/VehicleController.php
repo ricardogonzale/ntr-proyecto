@@ -57,7 +57,7 @@ class VehicleController extends Controller
 
     public function list(Vehicle $Vehicle)
     {
-        $model = Vehicle::where('id_carrier', '=', Auth::user()->id)->get();
+        $model = Vehicle::with('typeVehicle')->where('id_carrier', '=', Auth::user()->id)->get();
         return response()->json($model);
     }
 

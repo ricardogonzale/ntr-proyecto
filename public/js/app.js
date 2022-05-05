@@ -2500,15 +2500,15 @@ __webpack_require__.r(__webpack_exports__);
           icon: "mdi-account-sync",
           link: "/updatedatacarrier"
         }, {
-          title: "Conductores",
+          title: "Transportista",
           icon: "mdi-card-account-details-outline",
           link: "/listdrivers"
         }, {
-          title: "Vehiculos",
+          title: "Vehículos",
           icon: "mdi-truck-cargo-container",
           link: "/listvehicles"
         }, {
-          title: "Certificaciones",
+          title: "Certificados",
           icon: "mdi-certificate-outline",
           link: "/listcertifications"
         }, {
@@ -4211,6 +4211,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -4328,7 +4332,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     formTitle: function formTitle() {
-      return this.editedIndex === -1 ? "Nuevo Transportista" : "Editar Transportista";
+      return this.editedIndex === -1 ? "DATOS DE USUARIO" : "Editar Transportista";
     },
     nameErrors: function nameErrors() {
       var errors = [];
@@ -4727,6 +4731,63 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4884,6 +4945,9 @@ __webpack_require__.r(__webpack_exports__);
         _this5.editedItem = Object.assign({}, _this5.defaultItem);
         _this5.editedIndex = -1;
       });
+    },
+    showfile: function showfile(file) {
+      window.open("'../../../storage/carriers/certitications/" + file.file_path, "_blank");
     },
     save: function save() {
       var _this6 = this;
@@ -5917,9 +5981,6 @@ __webpack_require__.r(__webpack_exports__);
       files: [],
       value: [],
       headers: [{
-        text: "Id",
-        value: "id"
-      }, {
         text: "Nombre",
         align: "start",
         value: "name"
@@ -5927,14 +5988,17 @@ __webpack_require__.r(__webpack_exports__);
         text: "Apellido",
         value: "lastaname"
       }, {
-        text: "Correo electrónico",
-        value: "email"
-      }, {
         text: "Teléfono",
         value: "telephone"
       }, {
         text: "DNI",
         value: "dni"
+      }, {
+        text: "Tipo de Carnet de Conducir",
+        value: "type_card.name"
+      }, {
+        text: "Correo electrónico",
+        value: "email"
       }, {
         text: "Activo",
         value: "active"
@@ -5981,7 +6045,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     formTitle: function formTitle() {
-      return this.editedIndex === -1 ? "Nuevo Conductor" : "Editar Conductor";
+      return this.editedIndex === -1 ? "Nuevo Transportista" : "Editar Transportista";
     },
     nameErrors: function nameErrors() {
       var errors = [];
@@ -6104,8 +6168,8 @@ __webpack_require__.r(__webpack_exports__);
         _this5.editedIndex = -1;
       });
     },
-    getCountry: function getCountry() {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/getCountry").then(function (response) {
+    getTypeCard: function getTypeCard() {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/getTypeCard").then(function (response) {
         this.type_card = response.data;
       }.bind(this));
     },
@@ -6148,7 +6212,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.$store.dispatch("getDriver");
-    this.getCountry();
+    this.getTypeCard();
   }
 });
 
@@ -7067,12 +7131,9 @@ __webpack_require__.r(__webpack_exports__);
       files: [],
       value: [],
       headers: [{
-        text: "Id",
-        value: "id"
-      }, {
         text: "Tipo Vehículo",
         align: "start",
-        value: "type_vehicle"
+        value: "type_vehicle.name"
       }, {
         text: "Marca",
         value: "mark"
@@ -34639,21 +34700,35 @@ var render = function () {
       _c(
         "v-card-actions",
         [
-          _c("v-spacer"),
-          _vm._v(" "),
           _c(
-            "v-btn",
-            {
-              attrs: { small: "", color: "warning" },
-              on: { click: _vm.close },
-            },
-            [_vm._v(" Cancel ")]
-          ),
-          _vm._v(" "),
-          _c(
-            "v-btn",
-            { attrs: { color: "warning", small: "" }, on: { click: _vm.save } },
-            [_vm._v(" Guardar ")]
+            "v-container",
+            [
+              _c(
+                "v-row",
+                [
+                  _c(
+                    "v-col",
+                    {
+                      staticClass: "text-center",
+                      attrs: { cols: "12", sm: "12", md: "12" },
+                    },
+                    [
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { color: "warning" },
+                          on: { click: _vm.save },
+                        },
+                        [_vm._v(" Modificar ")]
+                      ),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              ),
+            ],
+            1
           ),
         ],
         1
@@ -34684,579 +34759,682 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("v-data-table", {
-    staticClass: "elevation-1",
-    attrs: { headers: _vm.headers, items: _vm.certifications, "sort-by": "id" },
-    scopedSlots: _vm._u(
+  return _c("div", [
+    _c(
+      "div",
+      {
+        staticClass: "px-5 py-5",
+        staticStyle: { "background-color": "white" },
+      },
       [
-        {
-          key: "top",
-          fn: function () {
-            return [
-              _c("v-toolbar", { attrs: { flat: "" } }, [
-                _c("h2", [_vm._v("Listado de Certificaciones")]),
-              ]),
-              _vm._v(" "),
-              _c(
-                "v-toolbar",
-                { attrs: { flat: "" } },
-                [
-                  _c(
-                    "v-dialog",
-                    {
-                      attrs: { "max-width": "400px" },
-                      scopedSlots: _vm._u([
-                        {
-                          key: "activator",
-                          fn: function (ref) {
-                            var on = ref.on
-                            var attrs = ref.attrs
-                            return [
-                              _c(
-                                "v-btn",
-                                _vm._g(
-                                  _vm._b(
-                                    {
-                                      staticClass: "mb-2",
-                                      staticStyle: {
-                                        "border-radius": "30px",
-                                        "text-transform": "none",
-                                      },
-                                      attrs: {
-                                        color: "orange",
-                                        dark: "",
-                                        small: "",
-                                        rounded: "",
-                                      },
-                                    },
-                                    "v-btn",
-                                    attrs,
-                                    false
-                                  ),
-                                  on
-                                ),
-                                [
-                                  _vm._v(
-                                    "\n                        Nuevo Certificado\n                    "
-                                  ),
-                                ]
-                              ),
-                            ]
-                          },
-                        },
-                      ]),
-                      model: {
-                        value: _vm.dialog,
-                        callback: function ($$v) {
-                          _vm.dialog = $$v
-                        },
-                        expression: "dialog",
-                      },
+        _c("v-toolbar", { attrs: { flat: "" } }, [
+          _c("h2", [_vm._v("Listado de Certificaciones")]),
+        ]),
+        _vm._v(" "),
+        _c(
+          "v-toolbar",
+          { attrs: { flat: "" } },
+          [
+            _c(
+              "v-dialog",
+              {
+                attrs: { "max-width": "400px" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "activator",
+                    fn: function (ref) {
+                      var on = ref.on
+                      var attrs = ref.attrs
+                      return [
+                        _c(
+                          "v-btn",
+                          _vm._g(
+                            _vm._b(
+                              {
+                                staticClass: "mb-2",
+                                staticStyle: {
+                                  "border-radius": "30px",
+                                  "text-transform": "none",
+                                },
+                                attrs: {
+                                  color: "orange",
+                                  dark: "",
+                                  small: "",
+                                  rounded: "",
+                                },
+                              },
+                              "v-btn",
+                              attrs,
+                              false
+                            ),
+                            on
+                          ),
+                          [
+                            _vm._v(
+                              "\n                        Nuevo Certificado\n                    "
+                            ),
+                          ]
+                        ),
+                      ]
                     },
-                    [
-                      _vm._v(" "),
+                  },
+                ]),
+                model: {
+                  value: _vm.dialog,
+                  callback: function ($$v) {
+                    _vm.dialog = $$v
+                  },
+                  expression: "dialog",
+                },
+              },
+              [
+                _vm._v(" "),
+                _c(
+                  "v-card",
+                  [
+                    _c(
+                      "v-toolbar",
+                      { attrs: { color: "orange", dark: "" } },
+                      [
+                        _vm._v(
+                          _vm._s(_vm.formTitle) + "\n                        "
+                        ),
+                        _c("v-spacer"),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "v-card-text",
+                      { staticClass: "pt-8" },
+                      [
+                        _c(
+                          "v-form",
+                          {
+                            ref: "form",
+                            attrs: { method: "POST" },
+                            on: {
+                              submit: function ($event) {
+                                $event.preventDefault()
+                                return _vm.save()
+                              },
+                            },
+                          },
+                          [
+                            _c(
+                              "v-container",
+                              [
+                                _c(
+                                  "v-row",
+                                  [
+                                    _c(
+                                      "v-col",
+                                      {
+                                        attrs: {
+                                          cols: "12",
+                                          sm: "12",
+                                          md: "12",
+                                        },
+                                      },
+                                      [
+                                        _c(
+                                          "v-row",
+                                          [
+                                            _c(
+                                              "v-col",
+                                              {
+                                                attrs: {
+                                                  cols: "12",
+                                                  sm: "12",
+                                                  md: "12",
+                                                },
+                                              },
+                                              [
+                                                _c("h6", [
+                                                  _vm._v(
+                                                    "\n                                                    DATOS DEL CERTIFICADO\n                                                "
+                                                  ),
+                                                ]),
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "v-col",
+                                              {
+                                                attrs: {
+                                                  cols: "12",
+                                                  sm: "12",
+                                                  md: "12",
+                                                },
+                                              },
+                                              [
+                                                _c("v-text-field", {
+                                                  attrs: {
+                                                    label: "Titulo",
+                                                    required: "",
+                                                    "error-messages":
+                                                      _vm.titleErrors,
+                                                    outlined: "",
+                                                  },
+                                                  on: {
+                                                    input: function ($event) {
+                                                      return _vm.$v.editedItem.title.$touch()
+                                                    },
+                                                    blur: function ($event) {
+                                                      return _vm.$v.editedItem.title.$touch()
+                                                    },
+                                                  },
+                                                  model: {
+                                                    value: _vm.editedItem.title,
+                                                    callback: function ($$v) {
+                                                      _vm.$set(
+                                                        _vm.editedItem,
+                                                        "title",
+                                                        $$v
+                                                      )
+                                                    },
+                                                    expression:
+                                                      "\n                                                        editedItem.title\n                                                    ",
+                                                  },
+                                                }),
+                                              ],
+                                              1
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "v-col",
+                                              {
+                                                attrs: {
+                                                  cols: "12",
+                                                  sm: "12",
+                                                  md: "12",
+                                                },
+                                              },
+                                              [
+                                                _c("v-file-input", {
+                                                  attrs: {
+                                                    color:
+                                                      "deep-purple accent-4",
+                                                    counter: "",
+                                                    label: "Archivo",
+                                                    "prepend-icon": "",
+                                                    placeholder: "Archivo",
+                                                    "append-icon":
+                                                      "mdi-cloud-upload-outline",
+                                                    outlined: "",
+                                                    "show-size": 1000,
+                                                  },
+                                                  scopedSlots: _vm._u([
+                                                    {
+                                                      key: "selection",
+                                                      fn: function (ref) {
+                                                        var index = ref.index
+                                                        var text = ref.text
+                                                        return [
+                                                          index < 2
+                                                            ? _c(
+                                                                "v-chip",
+                                                                {
+                                                                  attrs: {
+                                                                    color:
+                                                                      "deep-purple accent-4",
+                                                                    dark: "",
+                                                                    label: "",
+                                                                    small: "",
+                                                                  },
+                                                                },
+                                                                [
+                                                                  _vm._v(
+                                                                    "\n                                                            " +
+                                                                      _vm._s(
+                                                                        text
+                                                                      ) +
+                                                                      "\n                                                        "
+                                                                  ),
+                                                                ]
+                                                              )
+                                                            : index === 2
+                                                            ? _c(
+                                                                "span",
+                                                                {
+                                                                  staticClass:
+                                                                    "text-overline grey--text text--darken-3 mx-2",
+                                                                },
+                                                                [
+                                                                  _vm._v(
+                                                                    "\n                                                            +\n                                                            " +
+                                                                      _vm._s(
+                                                                        _vm
+                                                                          .files
+                                                                          .length -
+                                                                          2
+                                                                      ) +
+                                                                      "\n                                                            Archivos(s)\n                                                        "
+                                                                  ),
+                                                                ]
+                                                              )
+                                                            : _vm._e(),
+                                                        ]
+                                                      },
+                                                    },
+                                                  ]),
+                                                  model: {
+                                                    value:
+                                                      _vm.editedItem.file_path,
+                                                    callback: function ($$v) {
+                                                      _vm.$set(
+                                                        _vm.editedItem,
+                                                        "file_path",
+                                                        $$v
+                                                      )
+                                                    },
+                                                    expression:
+                                                      "\n                                                        editedItem.file_path\n                                                    ",
+                                                  },
+                                                }),
+                                              ],
+                                              1
+                                            ),
+                                          ],
+                                          1
+                                        ),
+                                      ],
+                                      1
+                                    ),
+                                  ],
+                                  1
+                                ),
+                              ],
+                              1
+                            ),
+                          ],
+                          1
+                        ),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "v-card-actions",
+                      [
+                        _c("v-spacer"),
+                        _vm._v(" "),
+                        _c(
+                          "v-btn",
+                          {
+                            attrs: { small: "", color: "warning" },
+                            on: { click: _vm.close },
+                          },
+                          [
+                            _vm._v(
+                              "\n                            Cancel\n                        "
+                            ),
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-btn",
+                          {
+                            attrs: { small: "", color: "warning" },
+                            on: { click: _vm.save },
+                          },
+                          [
+                            _vm._v(
+                              "\n                            Guardar\n                        "
+                            ),
+                          ]
+                        ),
+                      ],
+                      1
+                    ),
+                  ],
+                  1
+                ),
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "v-dialog",
+              {
+                attrs: { "max-width": "300px" },
+                model: {
+                  value: _vm.dialogDelete,
+                  callback: function ($$v) {
+                    _vm.dialogDelete = $$v
+                  },
+                  expression: "dialogDelete",
+                },
+              },
+              [
+                _c(
+                  "v-card",
+                  [
+                    _c("h3", { staticClass: "py-4 text-center" }, [
+                      _vm._v(
+                        "\n                        ¿Deseas Eliminar este registro?\n                    "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "v-card-actions",
+                      [
+                        _c("v-spacer"),
+                        _vm._v(" "),
+                        _c(
+                          "v-btn",
+                          {
+                            attrs: { small: "", color: "warning" },
+                            on: { click: _vm.closeDelete },
+                          },
+                          [_vm._v("Cancel")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-btn",
+                          {
+                            attrs: { small: "", color: "red" },
+                            on: { click: _vm.deleteItemConfirm },
+                          },
+                          [_vm._v("OK")]
+                        ),
+                        _vm._v(" "),
+                        _c("v-spacer"),
+                      ],
+                      1
+                    ),
+                  ],
+                  1
+                ),
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "v-dialog",
+              {
+                attrs: { "max-width": "300px" },
+                model: {
+                  value: _vm.dialogActivate,
+                  callback: function ($$v) {
+                    _vm.dialogActivate = $$v
+                  },
+                  expression: "dialogActivate",
+                },
+              },
+              [
+                _c(
+                  "v-card",
+                  [
+                    _vm.editedItem.active == 1
+                      ? _c("h3", { staticClass: "py-4 text-center" }, [
+                          _vm._v(
+                            "\n                        ¿Deseas desactivar este Certificado?\n                    "
+                          ),
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.editedItem.active == 0
+                      ? _c("h3", { staticClass: "py-4 text-center" }, [
+                          _vm._v(
+                            "\n                        ¿Deseas activar este Certificado?\n                    "
+                          ),
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c(
+                      "v-card-actions",
+                      [
+                        _c("v-spacer"),
+                        _vm._v(" "),
+                        _c(
+                          "v-btn",
+                          {
+                            attrs: { small: "", color: "warning" },
+                            on: { click: _vm.closeActivate },
+                          },
+                          [_vm._v("No")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-btn",
+                          {
+                            attrs: {
+                              small: "",
+                              color:
+                                _vm.editedItem.active == 0
+                                  ? "success"
+                                  : "error",
+                            },
+                            on: { click: _vm.activateVehicle },
+                          },
+                          [_vm._v("Si")]
+                        ),
+                        _vm._v(" "),
+                        _c("v-spacer"),
+                      ],
+                      1
+                    ),
+                  ],
+                  1
+                ),
+              ],
+              1
+            ),
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "v-row",
+          _vm._l(_vm.certifications, function (k) {
+            return _c(
+              "v-col",
+              { key: k, attrs: { cols: "12", sm: "6", md: "4" } },
+              [
+                _c(
+                  "v-card",
+                  { staticClass: "pa-2" },
+                  [
+                    _c("v-container", { staticClass: "p-5" }, [
                       _c(
-                        "v-card",
+                        "div",
+                        { staticClass: "text-center py-5" },
                         [
                           _c(
-                            "v-toolbar",
-                            { attrs: { color: "orange", dark: "" } },
+                            "v-icon",
+                            {
+                              attrs: {
+                                color: _vm.getColorActivate(k.active),
+                                dark: "",
+                                "x-large": "",
+                              },
+                              on: {
+                                click: function ($event) {
+                                  return _vm.showfile(k)
+                                },
+                              },
+                            },
                             [
                               _vm._v(
-                                _vm._s(_vm.formTitle) +
-                                  "\n                        "
+                                "\n                                mdi-file-download-outline\n                            "
                               ),
-                              _c("v-spacer"),
-                            ],
-                            1
+                            ]
                           ),
                           _vm._v(" "),
-                          _c(
-                            "v-card-text",
-                            { staticClass: "pt-8" },
-                            [
-                              _c(
-                                "v-form",
-                                {
-                                  ref: "form",
-                                  attrs: { method: "POST" },
-                                  on: {
-                                    submit: function ($event) {
-                                      $event.preventDefault()
-                                      return _vm.save()
+                          _c("br"),
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(k.title) +
+                              "\n                        "
+                          ),
+                        ],
+                        1
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "v-card-actions",
+                      [
+                        _c(
+                          "v-row",
+                          [
+                            _c(
+                              "v-col",
+                              { attrs: { cols: "12", sm: "4", md: "4" } },
+                              [
+                                _c(
+                                  "v-btn",
+                                  {
+                                    staticStyle: {
+                                      "border-radius": "30px",
+                                      "text-transform": "none",
+                                    },
+                                    attrs: {
+                                      color: "orange",
+                                      dark: "",
+                                      rounded: "",
+                                      small: "",
+                                    },
+                                    on: {
+                                      click: function ($event) {
+                                        return _vm.editItem(k)
+                                      },
                                     },
                                   },
-                                },
-                                [
-                                  _c(
-                                    "v-container",
-                                    [
-                                      _c(
-                                        "v-row",
-                                        [
-                                          _c(
-                                            "v-col",
-                                            {
-                                              attrs: {
-                                                cols: "12",
-                                                sm: "12",
-                                                md: "12",
-                                              },
-                                            },
-                                            [
-                                              _c(
-                                                "v-row",
-                                                [
-                                                  _c(
-                                                    "v-col",
-                                                    {
-                                                      attrs: {
-                                                        cols: "12",
-                                                        sm: "12",
-                                                        md: "12",
-                                                      },
-                                                    },
-                                                    [
-                                                      _c("h6", [
-                                                        _vm._v(
-                                                          "\n                                                    DATOS DEL CERTIFICADO\n                                                "
-                                                        ),
-                                                      ]),
-                                                    ]
-                                                  ),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "v-col",
-                                                    {
-                                                      attrs: {
-                                                        cols: "12",
-                                                        sm: "12",
-                                                        md: "12",
-                                                      },
-                                                    },
-                                                    [
-                                                      _c("v-text-field", {
-                                                        attrs: {
-                                                          label: "Titulo",
-                                                          required: "",
-                                                          "error-messages":
-                                                            _vm.titleErrors,
-                                                          outlined: "",
-                                                        },
-                                                        on: {
-                                                          input: function (
-                                                            $event
-                                                          ) {
-                                                            return _vm.$v.editedItem.title.$touch()
-                                                          },
-                                                          blur: function (
-                                                            $event
-                                                          ) {
-                                                            return _vm.$v.editedItem.title.$touch()
-                                                          },
-                                                        },
-                                                        model: {
-                                                          value:
-                                                            _vm.editedItem
-                                                              .title,
-                                                          callback: function (
-                                                            $$v
-                                                          ) {
-                                                            _vm.$set(
-                                                              _vm.editedItem,
-                                                              "title",
-                                                              $$v
-                                                            )
-                                                          },
-                                                          expression:
-                                                            "\n                                                        editedItem.title\n                                                    ",
-                                                        },
-                                                      }),
-                                                    ],
-                                                    1
-                                                  ),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "v-col",
-                                                    {
-                                                      attrs: {
-                                                        cols: "12",
-                                                        sm: "12",
-                                                        md: "12",
-                                                      },
-                                                    },
-                                                    [
-                                                      _c("v-file-input", {
-                                                        attrs: {
-                                                          color:
-                                                            "deep-purple accent-4",
-                                                          counter: "",
-                                                          label: "Archivo",
-                                                          "prepend-icon": "",
-                                                          placeholder:
-                                                            "Archivo",
-                                                          "append-icon":
-                                                            "mdi-cloud-upload-outline",
-                                                          outlined: "",
-                                                          "show-size": 1000,
-                                                        },
-                                                        scopedSlots: _vm._u([
-                                                          {
-                                                            key: "selection",
-                                                            fn: function (ref) {
-                                                              var index =
-                                                                ref.index
-                                                              var text =
-                                                                ref.text
-                                                              return [
-                                                                index < 2
-                                                                  ? _c(
-                                                                      "v-chip",
-                                                                      {
-                                                                        attrs: {
-                                                                          color:
-                                                                            "deep-purple accent-4",
-                                                                          dark: "",
-                                                                          label:
-                                                                            "",
-                                                                          small:
-                                                                            "",
-                                                                        },
-                                                                      },
-                                                                      [
-                                                                        _vm._v(
-                                                                          "\n                                                            " +
-                                                                            _vm._s(
-                                                                              text
-                                                                            ) +
-                                                                            "\n                                                        "
-                                                                        ),
-                                                                      ]
-                                                                    )
-                                                                  : index === 2
-                                                                  ? _c(
-                                                                      "span",
-                                                                      {
-                                                                        staticClass:
-                                                                          "text-overline grey--text text--darken-3 mx-2",
-                                                                      },
-                                                                      [
-                                                                        _vm._v(
-                                                                          "\n                                                            +\n                                                            " +
-                                                                            _vm._s(
-                                                                              _vm
-                                                                                .files
-                                                                                .length -
-                                                                                2
-                                                                            ) +
-                                                                            "\n                                                            Archivos(s)\n                                                        "
-                                                                        ),
-                                                                      ]
-                                                                    )
-                                                                  : _vm._e(),
-                                                              ]
-                                                            },
-                                                          },
-                                                        ]),
-                                                        model: {
-                                                          value:
-                                                            _vm.editedItem
-                                                              .file_path,
-                                                          callback: function (
-                                                            $$v
-                                                          ) {
-                                                            _vm.$set(
-                                                              _vm.editedItem,
-                                                              "file_path",
-                                                              $$v
-                                                            )
-                                                          },
-                                                          expression:
-                                                            "\n                                                        editedItem.file_path\n                                                    ",
-                                                        },
-                                                      }),
-                                                    ],
-                                                    1
-                                                  ),
-                                                ],
-                                                1
-                                              ),
-                                            ],
-                                            1
-                                          ),
-                                        ],
-                                        1
-                                      ),
-                                    ],
-                                    1
-                                  ),
-                                ],
-                                1
-                              ),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-card-actions",
-                            [
-                              _c("v-spacer"),
-                              _vm._v(" "),
-                              _c(
-                                "v-btn",
-                                {
-                                  attrs: { small: "", color: "warning" },
-                                  on: { click: _vm.close },
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                            Cancel\n                        "
-                                  ),
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-btn",
-                                {
-                                  attrs: { small: "", color: "warning" },
-                                  on: { click: _vm.save },
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                            Guardar\n                        "
-                                  ),
-                                ]
-                              ),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-dialog",
-                    {
-                      attrs: { "max-width": "300px" },
-                      model: {
-                        value: _vm.dialogDelete,
-                        callback: function ($$v) {
-                          _vm.dialogDelete = $$v
-                        },
-                        expression: "dialogDelete",
-                      },
-                    },
-                    [
-                      _c(
-                        "v-card",
-                        [
-                          _c("h3", { staticClass: "py-4 text-center" }, [
-                            _vm._v(
-                              "\n                        ¿Deseas Eliminar este registro?\n                    "
+                                  [
+                                    _c(
+                                      "v-icon",
+                                      {
+                                        staticClass: "mr-2",
+                                        attrs: { small: "" },
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                        mdi-pencil\n                                    "
+                                        ),
+                                      ]
+                                    ),
+                                    _vm._v(
+                                      "\n                                    Editar\n                                "
+                                    ),
+                                  ],
+                                  1
+                                ),
+                              ],
+                              1
                             ),
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "v-card-actions",
-                            [
-                              _c("v-spacer"),
-                              _vm._v(" "),
-                              _c(
-                                "v-btn",
-                                {
-                                  attrs: { small: "", color: "warning" },
-                                  on: { click: _vm.closeDelete },
-                                },
-                                [_vm._v("Cancel")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-btn",
-                                {
-                                  attrs: { small: "", color: "red" },
-                                  on: { click: _vm.deleteItemConfirm },
-                                },
-                                [_vm._v("OK")]
-                              ),
-                              _vm._v(" "),
-                              _c("v-spacer"),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-dialog",
-                    {
-                      attrs: { "max-width": "300px" },
-                      model: {
-                        value: _vm.dialogActivate,
-                        callback: function ($$v) {
-                          _vm.dialogActivate = $$v
-                        },
-                        expression: "dialogActivate",
-                      },
-                    },
-                    [
-                      _c(
-                        "v-card",
-                        [
-                          _vm.editedItem.active == 1
-                            ? _c("h3", { staticClass: "py-4 text-center" }, [
-                                _vm._v(
-                                  "\n                        ¿Deseas desactivar este Certificado?\n                    "
-                                ),
-                              ])
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _vm.editedItem.active == 0
-                            ? _c("h3", { staticClass: "py-4 text-center" }, [
-                                _vm._v(
-                                  "\n                        ¿Deseas activar este Certificado?\n                    "
-                                ),
-                              ])
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _c(
-                            "v-card-actions",
-                            [
-                              _c("v-spacer"),
-                              _vm._v(" "),
-                              _c(
-                                "v-btn",
-                                {
-                                  attrs: { small: "", color: "warning" },
-                                  on: { click: _vm.closeActivate },
-                                },
-                                [_vm._v("No")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-btn",
-                                {
-                                  attrs: {
-                                    small: "",
-                                    color:
-                                      _vm.editedItem.active == 0
-                                        ? "success"
-                                        : "error",
+                            _vm._v(" "),
+                            _c(
+                              "v-col",
+                              { attrs: { cols: "12", sm: "4", md: "4" } },
+                              [
+                                _c(
+                                  "v-btn",
+                                  {
+                                    staticStyle: {
+                                      "border-radius": "30px",
+                                      "text-transform": "none",
+                                    },
+                                    attrs: {
+                                      color: "orange",
+                                      dark: "",
+                                      rounded: "",
+                                      small: "",
+                                    },
+                                    on: {
+                                      click: function ($event) {
+                                        return _vm.activateItem(k)
+                                      },
+                                    },
                                   },
-                                  on: { click: _vm.activateVehicle },
-                                },
-                                [_vm._v("Si")]
-                              ),
-                              _vm._v(" "),
-                              _c("v-spacer"),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-            ]
-          },
-          proxy: true,
-        },
-        {
-          key: "item.active",
-          fn: function (ref) {
-            var item = ref.item
-            return [
-              _c(
-                "v-icon",
-                {
-                  attrs: { color: _vm.getColorActivate(item.active), dark: "" },
-                  on: {
-                    click: function ($event) {
-                      return _vm.activateItem(item)
-                    },
-                  },
-                },
-                [_vm._v("\n            mdi-check-circle-outline\n        ")]
-              ),
-            ]
-          },
-        },
-        {
-          key: "item.actions",
-          fn: function (ref) {
-            var item = ref.item
-            return [
-              _c(
-                "v-chip",
-                {
-                  attrs: { small: "", color: "orange", dark: "" },
-                  on: {
-                    click: function ($event) {
-                      return _vm.editItem(item)
-                    },
-                  },
-                },
-                [
-                  _c("v-icon", { staticClass: "mr-2", attrs: { small: "" } }, [
-                    _vm._v(" mdi-pencil "),
-                  ]),
-                  _vm._v("\n            Editar\n        "),
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-chip",
-                {
-                  attrs: { small: "", color: "orange", dark: "" },
-                  on: {
-                    click: function ($event) {
-                      return _vm.deleteItem(item)
-                    },
-                  },
-                },
-                [
-                  _c("v-icon", { staticClass: "mr-2", attrs: { small: "" } }, [
-                    _vm._v(" mdi-delete "),
-                  ]),
-                  _vm._v(" Eliminar\n        "),
-                ],
-                1
-              ),
-            ]
-          },
-        },
-        {
-          key: "no-data",
-          fn: function () {
-            return [
-              _c(
-                "v-btn",
-                {
-                  attrs: { small: "", color: "orange" },
-                  on: { click: _vm.initialize },
-                },
-                [_vm._v(" Reset ")]
-              ),
-            ]
-          },
-          proxy: true,
-        },
+                                  [
+                                    _c(
+                                      "v-icon",
+                                      {
+                                        staticClass: "mr-2",
+                                        attrs: { small: "" },
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                        mdi-close-thick\n                                    "
+                                        ),
+                                      ]
+                                    ),
+                                    _vm._v(
+                                      "\n                                    Desactivar\n                                "
+                                    ),
+                                  ],
+                                  1
+                                ),
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-col",
+                              { attrs: { cols: "12", sm: "4", md: "4" } },
+                              [
+                                _c(
+                                  "v-btn",
+                                  {
+                                    staticStyle: {
+                                      "border-radius": "30px",
+                                      "text-transform": "none",
+                                    },
+                                    attrs: {
+                                      color: "orange",
+                                      dark: "",
+                                      rounded: "",
+                                      small: "",
+                                    },
+                                    on: {
+                                      click: function ($event) {
+                                        return _vm.deleteItem(k)
+                                      },
+                                    },
+                                  },
+                                  [
+                                    _c(
+                                      "v-icon",
+                                      {
+                                        staticClass: "mr-2",
+                                        attrs: { small: "" },
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                        mdi-delete\n                                    "
+                                        ),
+                                      ]
+                                    ),
+                                    _vm._v(
+                                      "\n                                    Eliminar\n                                "
+                                    ),
+                                  ],
+                                  1
+                                ),
+                              ],
+                              1
+                            ),
+                          ],
+                          1
+                        ),
+                      ],
+                      1
+                    ),
+                  ],
+                  1
+                ),
+              ],
+              1
+            )
+          }),
+          1
+        ),
       ],
-      null,
-      true
+      1
     ),
-  })
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -36280,7 +36458,7 @@ var render = function () {
           fn: function () {
             return [
               _c("v-toolbar", { attrs: { flat: "" } }, [
-                _c("h2", [_vm._v("Listado de Conductores")]),
+                _c("h2", [_vm._v("Transportista")]),
               ]),
               _vm._v(" "),
               _c(
@@ -36323,7 +36501,7 @@ var render = function () {
                                 ),
                                 [
                                   _vm._v(
-                                    "\n                        Registrar Conductor\n                    "
+                                    "\n                        Registrar Transportista\n                    "
                                   ),
                                 ]
                               ),
@@ -38189,7 +38367,7 @@ var render = function () {
           fn: function () {
             return [
               _c("v-toolbar", { attrs: { flat: "" } }, [
-                _c("h2", [_vm._v("Listado de Vehículos")]),
+                _c("h2", [_vm._v("Vehículos")]),
               ]),
               _vm._v(" "),
               _c(

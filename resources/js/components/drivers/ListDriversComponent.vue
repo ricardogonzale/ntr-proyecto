@@ -7,7 +7,7 @@
     >
         <template v-slot:top>
             <v-toolbar flat>
-                <h2>Listado de Conductores</h2>
+                <h2>Transportista</h2>
             </v-toolbar>
             <v-toolbar flat>
                 <v-dialog v-model="dialog" max-width="400px">
@@ -22,7 +22,7 @@
                             v-on="on"
                             style="border-radius: 30px; text-transform: none"
                         >
-                            Registrar Conductor
+                            Registrar Transportista
                         </v-btn>
                     </template>
                     <v-card>
@@ -321,16 +321,16 @@ export default {
         files: [],
         value: [],
         headers: [
-            { text: "Id", value: "id" },
             {
                 text: "Nombre",
                 align: "start",
                 value: "name",
             },
             { text: "Apellido", value: "lastaname" },
-            { text: "Correo electrónico", value: "email" },
             { text: "Teléfono", value: "telephone" },
             { text: "DNI", value: "dni" },
+            { text: "Tipo de Carnet de Conducir", value: "type_card.name" },
+            { text: "Correo electrónico", value: "email" },
             { text: "Activo", value: "active" },
             { text: "Acciones", value: "actions", sortable: false },
         ],
@@ -373,8 +373,8 @@ export default {
         },
         formTitle() {
             return this.editedIndex === -1
-                ? "Nuevo Conductor"
-                : "Editar Conductor";
+                ? "Nuevo Transportista"
+                : "Editar Transportista";
         },
         nameErrors() {
             const errors = [];
@@ -516,8 +516,8 @@ export default {
             });
         },
 
-        getCountry: function () {
-            axios.get("/getCountry").then(
+        getTypeCard: function () {
+            axios.get("/getTypeCard").then(
                 function (response) {
                     this.type_card = response.data;
                 }.bind(this)
@@ -561,7 +561,7 @@ export default {
     },
     mounted() {
         this.$store.dispatch("getDriver");
-        this.getCountry();
+        this.getTypeCard();
     },
 };
 </script>

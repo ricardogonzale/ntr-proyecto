@@ -7,7 +7,7 @@
     >
         <template v-slot:top>
             <v-toolbar flat>
-                <h2>Listado de Vehículos</h2>
+                <h2>Vehículos</h2>
             </v-toolbar>
             <v-toolbar flat>
                 <v-dialog v-model="dialog" max-width="400px">
@@ -280,11 +280,10 @@ export default {
         files: [],
         value: [],
         headers: [
-            { text: "Id", value: "id" },
             {
                 text: "Tipo Vehículo",
                 align: "start",
-                value: "type_vehicle",
+                value: "type_vehicle.name",
             },
             { text: "Marca", value: "mark" },
             { text: "Modelo", value: "modelo" },

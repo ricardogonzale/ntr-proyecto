@@ -1,11 +1,6 @@
 <template>
-    <v-data-table
-        :headers="headers"
-        :items="certifications"
-        sort-by="id"
-        class="elevation-1"
-    >
-        <template v-slot:top>
+    <div>
+        <div class="px-5 py-5" style="background-color: white">
             <v-toolbar flat>
                 <h2>Listado de Certificaciones</h2>
             </v-toolbar>
@@ -190,29 +185,91 @@
                     </v-card>
                 </v-dialog>
             </v-toolbar>
-        </template>
-        <template v-slot:[`item.active`]="{ item }">
-            <v-icon
-                :color="getColorActivate(item.active)"
-                dark
-                @click="activateItem(item)"
-            >
-                mdi-check-circle-outline
-            </v-icon>
-        </template>
-        <template v-slot:[`item.actions`]="{ item }">
-            <v-chip small color="orange" dark @click="editItem(item)">
-                <v-icon small class="mr-2"> mdi-pencil </v-icon>
-                Editar
-            </v-chip>
-            <v-chip small color="orange" dark @click="deleteItem(item)">
-                <v-icon small class="mr-2"> mdi-delete </v-icon> Eliminar
-            </v-chip>
-        </template>
-        <template v-slot:no-data>
-            <v-btn small color="orange" @click="initialize"> Reset </v-btn>
-        </template>
-    </v-data-table>
+            <v-row>
+                <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                    v-for="k in certifications"
+                    :key="k"
+                >
+                    <v-card class="pa-2">
+                        <v-container class="p-5">
+                            <div class="text-center py-5">
+                                <v-icon
+                                    :color="getColorActivate(k.active)"
+                                    dark
+                                    x-large
+                                    @click="showfile(k)"
+                                >
+                                    mdi-file-download-outline
+                                </v-icon>
+                                <br />
+                                {{ k.title }}
+                            </div>
+                        </v-container>
+                        <v-card-actions>
+                            <v-row>
+                                <v-col cols="12" sm="4" md="4">
+                                    <v-btn
+                                        color="orange"
+                                        dark
+                                        rounded
+                                        small
+                                        @click="editItem(k)"
+                                        style="
+                                            border-radius: 30px;
+                                            text-transform: none;
+                                        "
+                                    >
+                                        <v-icon small class="mr-2">
+                                            mdi-pencil
+                                        </v-icon>
+                                        Editar
+                                    </v-btn>
+                                </v-col>
+                                <v-col cols="12" sm="4" md="4">
+                                    <v-btn
+                                        color="orange"
+                                        dark
+                                        rounded
+                                        small
+                                        @click="activateItem(k)"
+                                        style="
+                                            border-radius: 30px;
+                                            text-transform: none;
+                                        "
+                                        ><v-icon small class="mr-2">
+                                            mdi-close-thick
+                                        </v-icon>
+                                        Desactivar
+                                    </v-btn>
+                                </v-col>
+                                <v-col cols="12" sm="4" md="4">
+                                    <v-btn
+                                        color="orange"
+                                        dark
+                                        rounded
+                                        small
+                                        @click="deleteItem(k)"
+                                        style="
+                                            border-radius: 30px;
+                                            text-transform: none;
+                                        "
+                                    >
+                                        <v-icon small class="mr-2">
+                                            mdi-delete
+                                        </v-icon>
+                                        Eliminar
+                                    </v-btn>
+                                </v-col>
+                            </v-row>
+                        </v-card-actions>
+                    </v-card>
+                </v-col>
+            </v-row>
+        </div>
+    </div>
 </template>
 <script>
 import { validationMixin } from "vuelidate";
@@ -374,7 +431,12 @@ export default {
                 this.editedIndex = -1;
             });
         },
-
+        showfile(file) {
+            window.open(
+                "'../../../storage/carriers/certitications/" + file.file_path,
+                "_blank"
+            );
+        },
         save() {
             this.$v.$touch();
             if (this.$v.$invalid) {

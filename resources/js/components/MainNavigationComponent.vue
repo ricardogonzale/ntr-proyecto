@@ -312,17 +312,17 @@ export default {
                             link: "/updatedatacarrier",
                         },
                         {
-                            title: "Conductores",
+                            title: "Transportista",
                             icon: "mdi-card-account-details-outline",
                             link: "/listdrivers",
                         },
                         {
-                            title: "Vehiculos",
+                            title: "Vehículos",
                             icon: "mdi-truck-cargo-container",
                             link: "/listvehicles",
                         },
                         {
-                            title: "Certificaciones",
+                            title: "Certificados",
                             icon: "mdi-certificate-outline",
                             link: "/listcertifications",
                         },

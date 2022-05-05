@@ -29,6 +29,7 @@ Route::post('/updateCarrier', 'HomeController@updateCarrier')->name('updateCarri
 Route::post('/deleteCarrier', 'HomeController@deleteCarrier')->name('deleteCarrier');
 Route::post('/dataCarrier', 'HomeController@dataCarrier')->name('dataCarrier');
 
+Route::get('getTypeCard', 'TypeCardController@list')->name('TypeCard.list');
 Route::get('getCountry', 'GeoCountryController@list')->name('Country.list');
 Route::get('getProvince', 'GeoProvinceController@list')->name('Province.list');
 Route::get('getActivity', 'TypeActivityController@list')->name('getActivity.list');

@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
+ * @property int $type_vehicle
  * @property int $id_carrier
- * @property boolean $type_vehicle
  * @property string $mark
  * @property string $modelo
  * @property string $type_load
@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property boolean $active
  * @property string $created_at
  * @property string $updated_at
+ * @property TypeVehicle $typeVehicle
  */
 class Vehicle extends Model
 {
@@ -32,5 +33,13 @@ class Vehicle extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_carrier', 'type_vehicle', 'mark', 'modelo', 'type_load', 'tuition', 'year', 'number_axes', 'observations', 'ubication', 'active', 'created_at', 'updated_at'];
+    protected $fillable = ['type_vehicle', 'id_carrier', 'mark', 'modelo', 'type_load', 'tuition', 'year', 'number_axes', 'observations', 'ubication', 'active', 'created_at', 'updated_at'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function typeVehicle()
+    {
+        return $this->belongsTo('App\TypeVehicle', 'type_vehicle');
+    }
 }

@@ -79,7 +79,7 @@ class DriverController extends Controller
 
     public function list(Driver $Carrier)
     {
-        $model = Driver::where('id_carrier', '=', Auth::user()->id)->get();
+        $model = Driver::with(['typeCard'])->where('id_carrier', '=', Auth::user()->id)->get();
         return response()->json($model);
     }
 
