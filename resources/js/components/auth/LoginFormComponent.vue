@@ -1,85 +1,64 @@
 <template>
-    <v-app
-        :class="{ 'pa-3': $vuetify.breakpoint.smAndUp }"
-        :dark="darkTheme"
-        id="inspire"
-    >
-        <v-divider></v-divider>
-        <v-container fluid>
-            <v-layout wrap style="margin-top: 20vh">
-                <v-flex sm12 md4 offset-md4>
-                    <v-card
-                        :loading="loginRequestSent"
-                        elevation="4"
-                        light
-                        tag="section"
-                    >
-                        <v-card-title class="py-9">
-                            <v-layout align-center justify-space-between>
-                                <v-img
-                                    :alt="platformName"
-                                    class="mr-3"
-                                    contain
-                                    height="48px"
-                                    src="https://unoynueve.info/dev/ntr/wp-content/uploads/2022/02/logo-ntr-black.svg"
-                                ></v-img>
-                            </v-layout>
-                        </v-card-title>
-                        <v-divider></v-divider>
-                        <v-card-text class="text-center py-9">
-                            <p>Rellena los datos para acceder</p>
-                            <v-form ref="loginForm">
-                                <v-text-field
-                                    outline
-                                    v-model="email"
-                                    type="email"
-                                    label="E-mail"
-                                    autofocus
-                                    :rules="emailRules"
-                                    :error-messages="errors.email[0]"
-                                ></v-text-field>
-                                <v-text-field
-                                    outline
-                                    hide-details
-                                    v-model="password"
-                                    type="password"
-                                    label="Password"
-                                    :rules="passwordRules"
-                                ></v-text-field>
-                            </v-form>
-                        </v-card-text>
-                        <v-divider></v-divider>
-                        <v-card-actions
-                            :class="{ 'pa-3': $vuetify.breakpoint.smAndUp }"
-                        >
-                            <v-btn class="teal--text text--darken-2" text>
-                                Olvidé mi contraseña
-                            </v-btn>
-                            <v-spacer></v-spacer>
-                            <v-btn
-                                class="white--text"
-                                color="teal darken-2"
-                                :large="$vuetify.breakpoint.smAndUp"
-                                :loading="loginRequestSent"
-                                @click="login"
-                                ><v-icon left>mdi-lock</v-icon> Entrar</v-btn
-                            >
-                        </v-card-actions>
-                    </v-card>
-                </v-flex>
-                <v-flex sm12 md4 offset-md4>
-                    <v-layout align-center justify-space-between>
-                        <p class="caption my-3 teal--text text--darken-2">
-                            <a href="#">Politicas de Privacidad</a>
-                            |
-                            <a href="#">Terminos de uso</a>
-                        </p>
-                        <!-- <p class="caption my-3">Powered by <a href="#">StaffCircle</a></p> -->
-                    </v-layout>
-                </v-flex>
-            </v-layout>
-        </v-container>
-    </v-app>
+    <div class="row">
+        <div class="col-md-3 d-none d-md-block"></div>
+        <div class="col-md-6 col-sm-12">
+            <!--Login-->
+            <div class="card card-custom card-stretch gutter-b">
+                <div class="selector-login">
+                    <v-form ref="loginForm">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <h3 class="mb-5 font-12">
+                                        DATOS DEL USUARIO
+                                    </h3>
+                                    <div class="form-group">
+                                        <input
+                                            type="email"
+                                            v-model="email"
+                                            class="form-control form-control-lg"
+                                            placeholder="Email"
+                                            style="
+                                                border-color: #072b42 !important;
+                                            "
+                                        />
+                                    </div>
+                                    <div class="form-group">
+                                        <input
+                                            type="password"
+                                            v-model="password"
+                                            class="form-control form-control-lg"
+                                            placeholder="Password"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="text-center mb-20">
+                                        <button
+                                            class="btn btn-orange"
+                                            type="button"
+                                            :large="$vuetify.breakpoint.smAndUp"
+                                            :loading="loginRequestSent"
+                                            @click="login"
+                                        >
+                                            Entrar
+                                        </button>
+                                    </div>
+                                    <div class="text-center font-14 text-gris">
+                                        <a href="#" class="linkolvido"
+                                            >Olvidé mi contraseña</a
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </v-form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 d-none d-md-block"></div>
+    </div>
 </template>
 
 <script>
@@ -149,12 +128,3 @@ export default {
     },
 };
 </script>
-<style>
-.v-btn,
-.v-card {
-    border-radius: 4px;
-}
-.v-card__title {
-    text-transform: uppercase;
-}
-</style>

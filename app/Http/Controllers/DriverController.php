@@ -41,7 +41,7 @@ class DriverController extends Controller
         $user = User::updateOrCreate(['id' => $contact['data']['info']['id']],[
             'name' => $contact['data']['info']['name'],
             'email' => $contact['data']['info']['email'],
-            'type' => 2,
+            'type' => 3,
             'password' => Hash::make($contact['data']['info']['password']),
         ]); 
         event(new Registered($user));
