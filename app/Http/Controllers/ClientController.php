@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
 {
@@ -38,6 +39,11 @@ class ClientController extends Controller
         //
     }
 
+    protected function dataClient()
+    {
+        $dataUser = Client::where('id_user', '=', Auth::user()->id)->get();
+        return response()->json($dataUser[0]);
+    }
     /**
      * Display the specified resource.
      *

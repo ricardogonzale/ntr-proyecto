@@ -287,7 +287,7 @@ export default {
                         {
                             title: "Actualizar datos",
                             icon: "mdi-account-sync",
-                            link: "/contact",
+                            link: "/updatedataclient",
                         },
                         {
                             title: "Pujas",

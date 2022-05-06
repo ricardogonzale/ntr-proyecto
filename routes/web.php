@@ -23,6 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/newClient', 'HomeController@registrarCliente')->name('newClient');
 Route::post('/updateClient', 'HomeController@updateCliente')->name('updateClient');
 Route::post('/deleteClient', 'HomeController@deleteCliente')->name('deleteClient');
+Route::post('/dataClient', 'ClientController@dataClient')->name('dataClient');
 
 Route::post('/newCarrier', 'HomeController@registrarCarrier')->name('newCarrier');
 Route::post('/updateCarrier', 'HomeController@updateCarrier')->name('updateCarrier');

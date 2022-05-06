@@ -6,6 +6,7 @@ import ListSender from "./components/sender/ListSenderComponent.vue";
 import ListClients from "./components/clients/ListClientsComponent.vue";
 import ListCarriers from "./components/carriers/ListCarriersComponent.vue";
 import UpdateDataCarriers from "./components/carriers/UpdateDataCarriersComponent.vue";
+import UpdateDataClients from "./components/clients/UpdateDataClientsComponent.vue";
 import ListDrivers from "./components/drivers/ListDriversComponent.vue";
 import ListVehicle from "./components/vehicle/ListVehicleComponent.vue";
 import ListCertification from "./components/certifications/ListCertificationComponent.vue";
@@ -49,6 +50,11 @@ const router = new VueRouter({
             path: "/listcertifications",
             name: "Certificaciones",
             component: ListCertification,
+        },
+        {
+            path: "/updatedataclient",
+            name: "Actualizar Distribudor",
+            component: UpdateDataClients,
         },
     ],
 });
