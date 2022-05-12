@@ -2433,6 +2433,93 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2479,7 +2566,7 @@ __webpack_require__.r(__webpack_exports__);
         icon: "mdi-book-account",
         type: 1,
         items: [{
-          title: "Actualizar datos",
+          title: "Datos de usuario",
           icon: "mdi-account-sync",
           link: "/updatedataclient"
         }, {
@@ -2496,9 +2583,13 @@ __webpack_require__.r(__webpack_exports__);
         icon: "mdi-account-hard-hat",
         type: 2,
         items: [{
-          title: "Actualizar datos",
+          title: "Datos de usuario",
           icon: "mdi-account-sync",
           link: "/updatedatacarrier"
+        }, {
+          title: "Certificados",
+          icon: "mdi-certificate-outline",
+          link: "/listcertifications"
         }, {
           title: "Transportista",
           icon: "mdi-card-account-details-outline",
@@ -2508,15 +2599,15 @@ __webpack_require__.r(__webpack_exports__);
           icon: "mdi-truck-cargo-container",
           link: "/listvehicles"
         }, {
-          title: "Certificados",
-          icon: "mdi-certificate-outline",
-          link: "/listcertifications"
-        }, {
-          title: "Bucar envios",
+          title: "Mis pujas",
           icon: "mdi-truck-delivery",
           link: "/listorder/8"
         }, {
-          title: "Lista de envios",
+          title: "Servicios",
+          icon: "mdi-truck-fast",
+          link: "/listorder/8"
+        }, {
+          title: "Mis Documentos",
           icon: "mdi-truck-fast",
           link: "/listorder/8"
         }]
@@ -2640,6 +2731,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -31754,524 +31846,306 @@ var render = function () {
     { attrs: { id: "main-layout" } },
     [
       _c(
-        "v-navigation-drawer",
+        "div",
         {
-          attrs: {
-            app: "",
-            color: "white grey--text",
-            "expand-on-hover": !_vm.mini,
-            "mobile-breakpoint": _vm.breakmenu,
-          },
-          scopedSlots: _vm._u([
-            {
-              key: "append",
-              fn: function () {
-                return [
-                  _c(
-                    "div",
-                    { staticClass: "pa-2" },
-                    [
-                      _c(
-                        "v-btn",
-                        { attrs: { small: "" }, on: { click: _vm.logout } },
-                        [
-                          _c(
-                            "v-icon",
-                            { attrs: { right: "", color: "orange" } },
-                            [_vm._v(" mdi-exit-to-app ")]
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                ]
-              },
-              proxy: true,
-            },
-          ]),
-          model: {
-            value: _vm.drawer,
-            callback: function ($$v) {
-              _vm.drawer = $$v
-            },
-            expression: "drawer",
-          },
+          staticClass: "header flex-column header-fixed",
+          attrs: { id: "kt_header" },
         },
         [
-          _c(
-            "v-list",
-            { staticClass: "grey--text elevation-4" },
-            [
-              _c(
-                "v-list-item",
-                { staticClass: "px-2" },
-                [
-                  _c(
-                    "v-list-item-avatar",
-                    [
-                      _c("v-img", {
-                        attrs: { src: "../../../img/ntr-logo.png" },
-                      }),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-list-item-content",
-                    [
-                      _c(
-                        "v-list-item-title",
-                        { staticClass: "text-h6 teal--text text--darken-2" },
-                        [
-                          _vm._v(
-                            "\n                        GOOD DEALS\n                    "
-                          ),
-                        ]
-                      ),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-list",
-            { staticClass: "grey--text", attrs: { nav: "", dense: "" } },
-            [
-              _c(
-                "v-list-item-title",
-                { staticClass: "text-h6 grey--text" },
-                [
-                  _c(
-                    "v-subheader",
-                    { staticClass: "blue-grey--text font-weight-bold" },
-                    [_vm._v("OPERACIONES")]
-                  ),
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _vm._l(_vm.itemsMenu, function (item) {
-                return _c(
-                  "v-list-group",
+          _c("div", { staticClass: "header-top" }, [
+            _c(
+              "div",
+              {
+                staticClass: "container",
+                staticStyle: { padding: "12px 12px 6px 12px" },
+              },
+              [
+                _c(
+                  "div",
                   {
-                    key: item.title,
-                    attrs: {
-                      "prepend-icon": item.icon,
-                      color: "grey",
-                      "no-action": "",
-                    },
-                    scopedSlots: _vm._u(
-                      [
-                        {
-                          key: "activator",
-                          fn: function () {
-                            return [
-                              _c(
-                                "v-list-item-content",
-                                [
-                                  _c(
-                                    "v-list-item-title",
-                                    { staticClass: "black--text" },
-                                    [_vm._v(_vm._s(item.text))]
-                                  ),
-                                ],
-                                1
-                              ),
-                            ]
-                          },
-                          proxy: true,
-                        },
-                      ],
-                      null,
-                      true
-                    ),
-                    model: {
-                      value: item.active,
-                      callback: function ($$v) {
-                        _vm.$set(item, "active", $$v)
-                      },
-                      expression: "item.active",
-                    },
+                    staticClass:
+                      "align-items-center header-content-logo toogle-content",
                   },
                   [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "btn btn-icon toogle btn-lg mr-3",
+                        attrs: { id: "kt_quick_panel_toggle" },
+                      },
+                      [
+                        _c(
+                          "span",
+                          {
+                            staticClass:
+                              "svg-icon svg-icon-primary svg-icon-2x",
+                          },
+                          [
+                            _c(
+                              "svg",
+                              {
+                                attrs: {
+                                  xmlns: "http://www.w3.org/2000/svg",
+                                  "xmlns:xlink": "http://www.w3.org/1999/xlink",
+                                  width: "24px",
+                                  height: "24px",
+                                  viewBox: "0 0 24 24",
+                                  version: "1.1",
+                                },
+                              },
+                              [
+                                _c(
+                                  "g",
+                                  {
+                                    attrs: {
+                                      stroke: "none",
+                                      "stroke-width": "1",
+                                      fill: "none",
+                                      "fill-rule": "evenodd",
+                                    },
+                                  },
+                                  [
+                                    _c("rect", {
+                                      attrs: {
+                                        x: "0",
+                                        y: "0",
+                                        width: "28",
+                                        height: "28",
+                                      },
+                                    }),
+                                    _vm._v(" "),
+                                    _c("rect", {
+                                      attrs: {
+                                        fill: "#000000",
+                                        x: "4",
+                                        y: "5",
+                                        width: "24",
+                                        height: "1",
+                                        rx: "1.5",
+                                      },
+                                    }),
+                                    _vm._v(" "),
+                                    _c("rect", {
+                                      attrs: {
+                                        fill: "#000000",
+                                        x: "4",
+                                        y: "13",
+                                        width: "24",
+                                        height: "1",
+                                        rx: "1.5",
+                                      },
+                                    }),
+                                    _vm._v(" "),
+                                    _c("rect", {
+                                      attrs: {
+                                        fill: "#000000",
+                                        x: "4",
+                                        y: "21",
+                                        width: "24",
+                                        height: "1",
+                                        rx: "1.5",
+                                      },
+                                    }),
+                                  ]
+                                ),
+                              ]
+                            ),
+                          ]
+                        ),
+                      ]
+                    ),
                     _vm._v(" "),
-                    _vm._l(item.items, function (subItem) {
-                      return _c(
-                        "v-list-item",
+                    _c(
+                      "div",
+                      {
+                        staticClass: "d-lg-flex nav align-self-end",
+                        attrs: { role: "logo" },
+                      },
+                      [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "py-2 px-0 d-block",
+                            attrs: { href: "../index.html" },
+                          },
+                          [
+                            _c("img", {
+                              staticClass: "max-h-35px min-w-40px",
+                              attrs: {
+                                alt: "Logo",
+                                src: "https://newtransportrevolution.com/assets/img-ntr/logo-ntr-black.svg",
+                              },
+                            }),
+                          ]
+                        ),
+                      ]
+                    ),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "topbar header-content-menu user-content" },
+                  [
+                    _c(
+                      "ul",
+                      {
+                        staticClass:
+                          "d-none d-xl-flex nav align-self-end ml-auto mr-4 font-size-lg",
+                        attrs: { role: "tablist" },
+                      },
+                      [
+                        _c("li", { staticClass: "nav-item" }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "nav-link py-3 px-4",
+                              attrs: { href: "../como-funciona-ntr.html" },
+                            },
+                            [_vm._v("¿Cómo funciona NTR?")]
+                          ),
+                        ]),
+                        _vm._v(" "),
+                        _c("li", { staticClass: "nav-item" }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "nav-link py-3 px-4",
+                              attrs: { href: "../soporte-form.html" },
+                            },
+                            [_vm._v("Soporte")]
+                          ),
+                        ]),
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "topbar-item" }, [
+                      _c(
+                        "div",
                         {
-                          key: subItem.title,
-                          attrs: { to: subItem.link, link: "" },
+                          staticClass:
+                            "btn btn-icon w-lg-auto d-flex align-items-center btn-lg px-4 user-toggle",
+                          attrs: { id: "kt_quick_user_toggle" },
                         },
                         [
-                          _c("v-list-item-title", {
-                            staticClass: "teal darken-2--text",
-                            domProps: { textContent: _vm._s(subItem.title) },
-                          }),
-                          _vm._v(" "),
                           _c(
-                            "v-list-item-icon",
+                            "div",
+                            {
+                              staticClass:
+                                "d-flex flex-column text-right pr-lg-3 nombres",
+                            },
                             [
-                              _c("v-icon", {
-                                attrs: { small: "" },
-                                domProps: { textContent: _vm._s(subItem.icon) },
-                              }),
-                            ],
-                            1
+                              _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "font-weight-bolder font-size-md d-md-inline",
+                                },
+                                [_vm._v("Nombre DISTRIUIDOR")]
+                              ),
+                            ]
                           ),
-                        ],
-                        1
-                      )
-                    }),
-                  ],
-                  2
-                )
-              }),
-            ],
-            2
-          ),
-        ],
-        1
+                          _vm._v(" "),
+                          _c("span", { staticClass: "symbol symbol-35" }, [
+                            _c(
+                              "span",
+                              {
+                                staticClass:
+                                  "symbol-label font-size-h5 font-weight-bold text-white",
+                              },
+                              [_c("MenuUser-component")],
+                              1
+                            ),
+                          ]),
+                        ]
+                      ),
+                    ]),
+                  ]
+                ),
+              ]
+            ),
+          ]),
+        ]
       ),
       _vm._v(" "),
       _c(
         "v-main",
-        { staticClass: "white", staticStyle: { padding: "0px 0px 0px 56px" } },
+        { staticClass: "white" },
         [
           _c(
             "v-container",
-            { staticClass: "grey lighten-4", attrs: { fluid: "" } },
+            {
+              staticClass: "white",
+              staticStyle: { padding: "0px 12px 12px 12px" },
+            },
             [
+              _c("div", { staticClass: "header-bottom" }, [
+                _c("div", { staticClass: "container" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "header-navs header-navs-left",
+                      attrs: { id: "kt_header_navs" },
+                    },
+                    _vm._l(_vm.itemsMenu, function (item) {
+                      return _c(
+                        "div",
+                        {
+                          key: item.title,
+                          staticClass:
+                            "header-menu header-menu-mobile header-menu-layout-default",
+                          attrs: { id: "kt_header_menu" },
+                        },
+                        [
+                          _c(
+                            "ul",
+                            { staticClass: "menu-nav" },
+                            _vm._l(item.items, function (subItem) {
+                              return _c(
+                                "li",
+                                {
+                                  key: subItem.title,
+                                  staticClass: "menu-item menu-item-active",
+                                  attrs: { "aria-haspopup": "true" },
+                                },
+                                [
+                                  _c(
+                                    "router-link",
+                                    {
+                                      staticClass: "menu-link",
+                                      attrs: {
+                                        to: subItem.link,
+                                        "active-class": "active",
+                                      },
+                                    },
+                                    [
+                                      _c("span", {
+                                        staticClass: "menu-text",
+                                        domProps: {
+                                          textContent: _vm._s(subItem.title),
+                                        },
+                                      }),
+                                    ]
+                                  ),
+                                ],
+                                1
+                              )
+                            }),
+                            0
+                          ),
+                        ]
+                      )
+                    }),
+                    0
+                  ),
+                ]),
+              ]),
+              _vm._v(" "),
               _c("v-row", { staticClass: "pa-4" }, [
                 _c(
                   "main",
                   { staticStyle: { width: "100%" } },
                   [
-                    _c(
-                      "v-toolbar",
-                      { staticStyle: { "border-radius": "5px" } },
-                      [
-                        _c("v-app-bar-nav-icon", {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.mini,
-                              expression: "mini",
-                            },
-                          ],
-                          on: {
-                            click: function ($event) {
-                              _vm.drawer = !_vm.drawer
-                            },
-                          },
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "router-link",
-                          { attrs: { to: "/" } },
-                          [
-                            _c(
-                              "v-tooltip",
-                              {
-                                attrs: { bottom: "" },
-                                scopedSlots: _vm._u([
-                                  {
-                                    key: "activator",
-                                    fn: function (ref) {
-                                      var on = ref.on
-                                      var attrs = ref.attrs
-                                      return [
-                                        _c(
-                                          "v-btn",
-                                          _vm._g(
-                                            _vm._b(
-                                              {
-                                                attrs: {
-                                                  icon: "",
-                                                  small: "",
-                                                  color: "teal darken-2",
-                                                },
-                                              },
-                                              "v-btn",
-                                              attrs,
-                                              false
-                                            ),
-                                            on
-                                          ),
-                                          [
-                                            _c(
-                                              "v-icon",
-                                              {
-                                                attrs: {
-                                                  color: "teal darken-2",
-                                                },
-                                              },
-                                              [
-                                                _vm._v(
-                                                  "\n                                            mdi-home\n                                        "
-                                                ),
-                                              ]
-                                            ),
-                                          ],
-                                          1
-                                        ),
-                                      ]
-                                    },
-                                  },
-                                ]),
-                              },
-                              [_vm._v(" "), _c("span", [_vm._v("Inicio")])]
-                            ),
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "router-link",
-                          { attrs: { to: "/calendar" } },
-                          [
-                            _c(
-                              "v-tooltip",
-                              {
-                                attrs: { bottom: "" },
-                                scopedSlots: _vm._u([
-                                  {
-                                    key: "activator",
-                                    fn: function (ref) {
-                                      var on = ref.on
-                                      var attrs = ref.attrs
-                                      return [
-                                        _c(
-                                          "v-btn",
-                                          _vm._g(
-                                            _vm._b(
-                                              {
-                                                staticClass: "mx-2",
-                                                attrs: {
-                                                  icon: "",
-                                                  small: "",
-                                                  color: "teal darken-2",
-                                                },
-                                              },
-                                              "v-btn",
-                                              attrs,
-                                              false
-                                            ),
-                                            on
-                                          ),
-                                          [
-                                            _c(
-                                              "v-icon",
-                                              {
-                                                attrs: {
-                                                  color: "teal darken-2",
-                                                },
-                                              },
-                                              [
-                                                _vm._v(
-                                                  "\n                                            mdi-calendar-blank\n                                        "
-                                                ),
-                                              ]
-                                            ),
-                                          ],
-                                          1
-                                        ),
-                                      ]
-                                    },
-                                  },
-                                ]),
-                              },
-                              [_vm._v(" "), _c("span", [_vm._v("Agenda")])]
-                            ),
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c("v-spacer"),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "text-right mr-2" },
-                          [
-                            _c("small", [
-                              _c("span", {
-                                staticClass: "font-weight-bold",
-                                domProps: {
-                                  textContent: _vm._s(_vm.currentDate),
-                                },
-                              }),
-                            ]),
-                            _vm._v(" "),
-                            _c("br"),
-                            _vm._v(" "),
-                            _vm.onLine != false
-                              ? _c(
-                                  "v-icon",
-                                  { attrs: { small: "", color: "green" } },
-                                  [_vm._v("mdi-wifi")]
-                                )
-                              : _c(
-                                  "v-icon",
-                                  { attrs: { small: "", color: "red" } },
-                                  [_vm._v("mdi-wifi-off")]
-                                ),
-                            _vm._v(" "),
-                            _c("small", [
-                              _c("span", {
-                                domProps: {
-                                  textContent: _vm._s(_vm.currentTime),
-                                },
-                              }),
-                            ]),
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c("v-divider", {
-                          staticClass: "mx-4",
-                          attrs: { vertical: "" },
-                        }),
-                        _vm._v(" "),
-                        _c("vue-internet-checker", {
-                          on: { status: _vm.status, event: _vm.event },
-                        }),
-                        _vm._v(" "),
-                        _c("v-idle", {
-                          staticStyle: { display: "none" },
-                          attrs: {
-                            reminders: [1200, 2500],
-                            wait: 3000,
-                            duration: 3000,
-                          },
-                          on: { idle: _vm.onidle, remind: _vm.onremind },
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "v-snackbar",
-                          {
-                            model: {
-                              value: _vm.ntf_wait,
-                              callback: function ($$v) {
-                                _vm.ntf_wait = $$v
-                              },
-                              expression: "ntf_wait",
-                            },
-                          },
-                          [
-                            _vm._v(
-                              "\n                            " +
-                                _vm._s(_vm.ntf_text) +
-                                "\n\n                            "
-                            ),
-                            void 0,
-                          ],
-                          2
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-dialog",
-                          {
-                            attrs: { persistent: "", "max-width": "350" },
-                            model: {
-                              value: _vm.dlg_expired,
-                              callback: function ($$v) {
-                                _vm.dlg_expired = $$v
-                              },
-                              expression: "dlg_expired",
-                            },
-                          },
-                          [
-                            _c(
-                              "v-card",
-                              [
-                                _c("v-card-title", { staticClass: "text-h5" }, [
-                                  _vm._v(
-                                    "\n                                    ¿Estas en actividad?\n                                "
-                                  ),
-                                ]),
-                                _vm._v(" "),
-                                _c(
-                                  "v-card-text",
-                                  { staticClass: "p-4 text-center" },
-                                  [
-                                    _vm._v(
-                                      "\n                                    El sistema ha detectado que llevas mucho\n                                    tiempo sin actividad, por seguridad tu\n                                    sesion sera cerrada.\n                                "
-                                    ),
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "v-card-actions",
-                                  [
-                                    _c("v-spacer"),
-                                    _vm._v(" "),
-                                    _c(
-                                      "v-btn",
-                                      {
-                                        attrs: {
-                                          color: "green darken-1",
-                                          text: "",
-                                        },
-                                        on: {
-                                          click: function ($event) {
-                                            _vm.dlg_expired = false
-                                          },
-                                        },
-                                      },
-                                      [
-                                        _vm._v(
-                                          "\n                                        Mantener la sesión\n                                    "
-                                        ),
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "v-btn",
-                                      {
-                                        attrs: { color: "green darken-1" },
-                                        on: { click: _vm.logout },
-                                      },
-                                      [
-                                        _vm._v(
-                                          "\n                                        Salir\n                                    "
-                                        ),
-                                      ]
-                                    ),
-                                  ],
-                                  1
-                                ),
-                              ],
-                              1
-                            ),
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "text-right mr-4 hidden-sm-and-down" },
-                          [
-                            _c("span", { staticClass: "font-weight-bold" }, [
-                              _vm._v("Administrador"),
-                            ]),
-                            _vm._v(" "),
-                            _c("br"),
-                            _c("small", [_vm._v("Admin")]),
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("MenuUser-component"),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
                     _c("br"),
                     _vm._v(" "),
                     _c(
@@ -32359,6 +32233,7 @@ var render = function () {
       _c(
         "v-menu",
         {
+          staticStyle: { "z-index": "9999" },
           attrs: {
             "close-on-content-click": false,
             "nudge-width": 100,

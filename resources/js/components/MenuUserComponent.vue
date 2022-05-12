@@ -5,6 +5,7 @@
             :close-on-content-click="false"
             :nudge-width="100"
             offset-y
+            style="z-index: 9999"
         >
             <template v-slot:activator="{ on, attrs }">
                 <v-avatar

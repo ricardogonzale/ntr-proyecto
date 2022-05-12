@@ -1,80 +1,166 @@
 <template>
     <v-app id="main-layout">
-        <v-navigation-drawer
-            v-model="drawer"
-            app
-            color="white grey--text"
-            :expand-on-hover="!mini"
-            :mobile-breakpoint="breakmenu"
-        >
-            <v-list class="grey--text elevation-4">
-                <v-list-item class="px-2">
-                    <v-list-item-avatar>
-                        <v-img v-bind:src="'../../../img/ntr-logo.png'"></v-img>
-                    </v-list-item-avatar>
-                    <v-list-item-content>
-                        <v-list-item-title
-                            class="text-h6 teal--text text--darken-2"
+        <div id="kt_header" class="header flex-column header-fixed">
+            <!--Header Top-->
+            <div class="header-top">
+                <div class="container" style="padding: 12px 12px 6px 12px">
+                    <div
+                        class="align-items-center header-content-logo toogle-content"
+                    >
+                        <div
+                            class="btn btn-icon toogle btn-lg mr-3"
+                            id="kt_quick_panel_toggle"
                         >
-                            GOOD DEALS
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-            </v-list>
-            <v-list nav dense class="grey--text">
-                <v-list-item-title class="text-h6 grey--text">
-                    <v-subheader class="blue-grey--text font-weight-bold"
-                        >OPERACIONES</v-subheader
-                    >
-                </v-list-item-title>
-                <v-list-group
-                    v-for="item in itemsMenu"
-                    :key="item.title"
-                    v-model="item.active"
-                    :prepend-icon="item.icon"
-                    color="grey"
-                    no-action
-                >
-                    <template v-slot:activator>
-                        <v-list-item-content>
-                            <v-list-item-title class="black--text">{{
-                                item.text
-                            }}</v-list-item-title>
-                        </v-list-item-content>
-                    </template>
-                    <v-list-item
-                        v-for="subItem in item.items"
-                        :key="subItem.title"
-                        :to="subItem.link"
-                        link
-                    >
-                        <v-list-item-title
-                            class="teal darken-2--text"
-                            v-text="subItem.title"
-                        ></v-list-item-title>
+                            <span class="svg-icon svg-icon-primary svg-icon-2x"
+                                ><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo7\dist/../src/media/svg/icons\Text\Menu.svg-->
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="24px"
+                                    height="24px"
+                                    viewBox="0 0 24 24"
+                                    version="1.1"
+                                >
+                                    <g
+                                        stroke="none"
+                                        stroke-width="1"
+                                        fill="none"
+                                        fill-rule="evenodd"
+                                    >
+                                        <rect
+                                            x="0"
+                                            y="0"
+                                            width="28"
+                                            height="28"
+                                        ></rect>
+                                        <rect
+                                            fill="#000000"
+                                            x="4"
+                                            y="5"
+                                            width="24"
+                                            height="1"
+                                            rx="1.5"
+                                        ></rect>
+                                        <rect
+                                            fill="#000000"
+                                            x="4"
+                                            y="13"
+                                            width="24"
+                                            height="1"
+                                            rx="1.5"
+                                        ></rect>
+                                        <rect
+                                            fill="#000000"
+                                            x="4"
+                                            y="21"
+                                            width="24"
+                                            height="1"
+                                            rx="1.5"
+                                        ></rect>
+                                    </g></svg
+                                ><!--end::Svg Icon-->
+                            </span>
+                        </div>
+                        <div class="d-lg-flex nav align-self-end" role="logo">
+                            <a href="../index.html" class="py-2 px-0 d-block">
+                                <img
+                                    alt="Logo"
+                                    src="https://newtransportrevolution.com/assets/img-ntr/logo-ntr-black.svg"
+                                    class="max-h-35px min-w-40px"
+                                />
+                            </a>
+                        </div>
+                    </div>
+                    <div class="topbar header-content-menu user-content">
+                        <!--Nav-->
+                        <ul
+                            class="d-none d-xl-flex nav align-self-end ml-auto mr-4 font-size-lg"
+                            role="tablist"
+                        >
+                            <li class="nav-item">
+                                <a
+                                    href="../como-funciona-ntr.html"
+                                    class="nav-link py-3 px-4"
+                                    >¿Cómo funciona NTR?</a
+                                >
+                            </li>
+                            <li class="nav-item">
+                                <a
+                                    href="../soporte-form.html"
+                                    class="nav-link py-3 px-4"
+                                    >Soporte</a
+                                >
+                            </li>
+                        </ul>
+                        <!--User-->
+                        <div class="topbar-item">
+                            <div
+                                class="btn btn-icon w-lg-auto d-flex align-items-center btn-lg px-4 user-toggle"
+                                id="kt_quick_user_toggle"
+                            >
+                                <div
+                                    class="d-flex flex-column text-right pr-lg-3 nombres"
+                                >
+                                    <span
+                                        class="font-weight-bolder font-size-md d-md-inline"
+                                        >Nombre DISTRIUIDOR</span
+                                    >
+                                </div>
 
-                        <v-list-item-icon>
-                            <v-icon small v-text="subItem.icon"></v-icon>
-                        </v-list-item-icon>
-                    </v-list-item>
-                </v-list-group>
-            </v-list>
-            <template v-slot:append>
-                <div class="pa-2">
-                    <v-btn small @click="logout">
-                        <v-icon right color="orange"> mdi-exit-to-app </v-icon>
-                    </v-btn>
+                                <span class="symbol symbol-35">
+                                    <span
+                                        class="symbol-label font-size-h5 font-weight-bold text-white"
+                                        ><MenuUser-component></MenuUser-component
+                                    ></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </template>
-        </v-navigation-drawer>
+            </div>
+        </div>
 
-        <v-main class="white" style="padding: 0px 0px 0px 56px">
-            <v-container fluid class="grey lighten-4">
+        <v-main class="white">
+            <v-container class="white" style="padding: 0px 12px 12px 12px">
+                <div class="header-bottom">
+                    <div class="container">
+                        <div
+                            class="header-navs header-navs-left"
+                            id="kt_header_navs"
+                        >
+                            <div
+                                id="kt_header_menu"
+                                class="header-menu header-menu-mobile header-menu-layout-default"
+                                v-for="item in itemsMenu"
+                                :key="item.title"
+                            >
+                                <ul class="menu-nav">
+                                    <li
+                                        class="menu-item menu-item-active"
+                                        aria-haspopup="true"
+                                        v-for="subItem in item.items"
+                                        :key="subItem.title"
+                                    >
+                                        <router-link
+                                            :to="subItem.link"
+                                            active-class="active"
+                                            class="menu-link"
+                                            ><span
+                                                class="menu-text"
+                                                v-text="subItem.title"
+                                            ></span
+                                        ></router-link>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <v-row class="pa-4">
                     <!-- Page Content -->
                     <main style="width: 100%">
-                        <!-- If using vue-router -->
-                        <v-toolbar style="border-radius: 5px">
+                        <!--
+                            <v-toolbar style="border-radius: 5px">
                             <v-app-bar-nav-icon
                                 v-show="mini"
                                 @click="drawer = !drawer"
@@ -200,6 +286,7 @@
                             </div>
                             <MenuUser-component></MenuUser-component>
                         </v-toolbar>
+                        -->
                         <br />
                         <v-overlay
                             opacity="0.7"
@@ -285,7 +372,7 @@ export default {
                     type: 1,
                     items: [
                         {
-                            title: "Actualizar datos",
+                            title: "Datos de usuario",
                             icon: "mdi-account-sync",
                             link: "/updatedataclient",
                         },
@@ -307,9 +394,14 @@ export default {
                     type: 2,
                     items: [
                         {
-                            title: "Actualizar datos",
+                            title: "Datos de usuario",
                             icon: "mdi-account-sync",
                             link: "/updatedatacarrier",
+                        },
+                        {
+                            title: "Certificados",
+                            icon: "mdi-certificate-outline",
+                            link: "/listcertifications",
                         },
                         {
                             title: "Transportista",
@@ -322,17 +414,17 @@ export default {
                             link: "/listvehicles",
                         },
                         {
-                            title: "Certificados",
-                            icon: "mdi-certificate-outline",
-                            link: "/listcertifications",
-                        },
-                        {
-                            title: "Bucar envios",
+                            title: "Mis pujas",
                             icon: "mdi-truck-delivery",
                             link: "/listorder/8",
                         },
                         {
-                            title: "Lista de envios",
+                            title: "Servicios",
+                            icon: "mdi-truck-fast",
+                            link: "/listorder/8",
+                        },
+                        {
+                            title: "Mis Documentos",
                             icon: "mdi-truck-fast",
                             link: "/listorder/8",
                         },
