@@ -21,7 +21,7 @@ Auth::routes(['verified' => true]);
 Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
 Route::get('email/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');
 Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
-// Route::view('/autentication','app')->name('autentication');
+Route::view('/autentication','app')->name('autentication');
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth', 'verified');
 Route::get('/registercli', 'HomeController@newCliente')->name('registroClient');
 Route::post('/newClientFront', 'HomeController@registrarClienteFront')->name('newClientFront');
