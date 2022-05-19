@@ -23,12 +23,16 @@ Route::get('email/verify/{id}', 'Auth\VerificationController@verify')->name('ver
 Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 // Route::view('/autentication','app')->name('autentication');
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth', 'verified');
+Route::get('/registercli', 'HomeController@newCliente')->name('registroClient');
+Route::post('/newClientFront', 'HomeController@registrarClienteFront')->name('newClientFront');
 Route::post('/newClient', 'HomeController@registrarCliente')->name('newClient');
 Route::post('/updateClient', 'HomeController@updateCliente')->name('updateClient');
 Route::post('/deleteClient', 'HomeController@deleteCliente')->name('deleteClient');
 Route::post('/dataClient', 'ClientController@dataClient')->name('dataClient');
 
 Route::post('/newCarrier', 'HomeController@registrarCarrier')->name('newCarrier');
+Route::get('/registercar', 'HomeController@newCarrier')->name('registroCarrier');
+Route::post('/newCarrierFront', 'HomeController@registrarCarrierFront')->name('newCarrierFront');
 Route::post('/updateCarrier', 'HomeController@updateCarrier')->name('updateCarrier');
 Route::post('/deleteCarrier', 'HomeController@deleteCarrier')->name('deleteCarrier');
 Route::post('/dataCarrier', 'HomeController@dataCarrier')->name('dataCarrier');

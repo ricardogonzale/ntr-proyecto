@@ -33,6 +33,19 @@ export default {
             });
         },
 
+        registerFront({ commit }, data) {
+            return new Promise((resolve, reject) => {
+                clientApi
+                    .registerFront(data)
+                    .then((res) => {
+                        resolve(res);
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    });
+            });
+        },
+
         update({ commit }, data) {
             return new Promise((resolve, reject) => {
                 clientApi

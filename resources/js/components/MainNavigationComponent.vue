@@ -543,6 +543,7 @@ a:hover {
     /* background-color: white !important; */
     text-decoration: none;
 }
+/*
 .add-on,
 textarea,
 input[type="text"],
@@ -562,4 +563,5 @@ input[type="file"],
 .uneditable-input {
     border-color: #e4e6eb00 !important;
 }
+*/
 </style>

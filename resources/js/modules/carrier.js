@@ -54,6 +54,19 @@ export default {
             });
         },
 
+        registerCarrierFront({ commit }, data) {
+            return new Promise((resolve, reject) => {
+                carrierApi
+                    .registerCarrierFront(data)
+                    .then((res) => {
+                        resolve(res);
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    });
+            });
+        },
+
         updateCarrier({ commit }, data) {
             return new Promise((resolve, reject) => {
                 carrierApi

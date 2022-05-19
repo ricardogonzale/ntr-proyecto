@@ -18,10 +18,11 @@ class HomeController extends Controller
      *
      * @return void
      */
+    /*
     public function __construct() {
         $this->middleware('auth');
     }
-
+*/
     /**
      * Show the application dashboard.
      *
@@ -31,13 +32,22 @@ class HomeController extends Controller
     {
         return view('home');
     }
+    public function newCliente()
+    {
+        return view('registerdist');
+    }
+    public function newCarrier()
+    {
+        return view('registercarr');
+    }
+
     protected function deleteCliente(Request $id){
-        $deletedUser = User::where('id', $id['id_user'])->delete();
         $user = Client::find($id['id']);
         if ($user){
             Storage::disk('public')->delete('clients/activity_memory/'.$user['activity_memory']);
         }
         $deletedClient = Client::where('id', $id['id'])->delete();
+        $deletedUser = User::where('id', $id['id_user'])->delete();
     }
     protected function updateCliente(Request $data)
     {
@@ -47,6 +57,25 @@ class HomeController extends Controller
 
         $client = Client::updateOrCreate(['id_user' => $contact['data']['info']['id_user']],$contact['data']['info']);
         return $client;
+    }
+    protected function registrarClienteFront(Request $data)
+    {
+        $data['confirmation_code'] = str_random(25);
+        $contact = $data->all();
+        $contact['data'] = json_decode($contact['data'],true);
+        $user = User::updateOrCreate(['id' => $contact['data']['info']['id']],[
+            'name' => $contact['data']['info']['name'],
+            'email' => $contact['data']['info']['email'],
+            'type' => 1,
+            'password' => Hash::make($contact['data']['info']['password']),
+            'confirmation_code' => $data['confirmation_code']
+        ]); 
+        event(new Registered($user));
+
+        // auth()->login($user);
+        $contact['data']['info']['id_user'] = $user['id'];
+        $client = Client::create($contact['data']['info']);
+        return $user;
     }
 
     protected function registrarCliente(Request $data)
@@ -77,13 +106,13 @@ class HomeController extends Controller
     }
 
     protected function deleteCarrier(Request $id){
-        $deletedUser = User::where('id', $id['id_user'])->delete();
         $user = Carrier::find($id['id']);
         if ($user){
             Storage::disk('public')->delete('carriers/logo/'.$user['logo']);
             Storage::disk('public')->delete('carriers/documents_support/'.$user['documents_support']);
         }
         $deletedClient = Carrier::where('id', $id['id'])->delete();
+        $deletedUser = User::where('id', $id['id_user'])->delete();
     }
     protected function updateCarrier(Request $data)
     {
@@ -131,5 +160,24 @@ class HomeController extends Controller
         }
         $client = Carrier::updateOrCreate(['id_user' => $contact['data']['info']['id_user']],$contact['data']['info']);
         return $user;
+    }
+    
+    protected function registrarCarrierFront(Request $data)
+    {
+        $contact = $data->all();
+        $contact['data'] = json_decode($contact['data'],true);
+        $user = User::updateOrCreate(['id' => $contact['data']['info']['id']],[
+            'name' => $contact['data']['info']['name'],
+            'email' => $contact['data']['info']['email'],
+            'type' => 2,
+            'password' => Hash::make($contact['data']['info']['password']),
+        ]); 
+        event(new Registered($user));
+
+        // auth()->login($user);
+        $contact['data']['info']['id_user'] = $user['id'];
+
+        $client = Carrier::create($contact['data']['info']);
+        return $client;
     }
 }
