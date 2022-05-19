@@ -212,7 +212,16 @@ div.popover-content ul li label b {
     height: 30px !important;
 }
 .v-application--wrap {
-    min-height: 100% !important;
+    min-height: 90vh !important;
+}
+.v-data-table > .v-data-table__wrapper > table > tbody > tr > td,
+.v-data-table > .v-data-table__wrapper > table > tfoot > tr > td,
+.v-data-table > .v-data-table__wrapper > table > thead > tr > td {
+    font-size: 1.1rem;
+    height: 48px;
+}
+.v-btn.v-size--small {
+    font-size: 1rem;
 }
 @media (min-width: 576px) {
     .container,
