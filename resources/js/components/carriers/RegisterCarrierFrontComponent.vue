@@ -97,6 +97,7 @@
                                         <input
                                             type="checkbox"
                                             name="Checkboxes15"
+                                            v-model="terms"
                                         />
                                         <span></span>Acepto los
                                         <a href="#"><u> términos de uso </u></a>

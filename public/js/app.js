@@ -4144,6 +4144,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -35243,7 +35244,41 @@ var render = function () {
                         },
                         [
                           _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.terms,
+                                expression: "terms",
+                              },
+                            ],
                             attrs: { type: "checkbox", name: "Checkboxes15" },
+                            domProps: {
+                              checked: Array.isArray(_vm.terms)
+                                ? _vm._i(_vm.terms, null) > -1
+                                : _vm.terms,
+                            },
+                            on: {
+                              change: function ($event) {
+                                var $$a = _vm.terms,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = null,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 && (_vm.terms = $$a.concat([$$v]))
+                                  } else {
+                                    $$i > -1 &&
+                                      (_vm.terms = $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1)))
+                                  }
+                                } else {
+                                  _vm.terms = $$c
+                                }
+                              },
+                            },
                           }),
                           _vm._v(" "),
                           _c("span"),
