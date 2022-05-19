@@ -51,6 +51,7 @@ class HomeController extends Controller
 
     protected function registrarCliente(Request $data)
     {
+        $data['confirmation_code'] = str_random(25);
         $contact = $data->all();
         $contact['data'] = json_decode($contact['data'],true);
         $user = User::updateOrCreate(['id' => $contact['data']['info']['id']],[
@@ -58,6 +59,7 @@ class HomeController extends Controller
             'email' => $contact['data']['info']['email'],
             'type' => 1,
             'password' => Hash::make($contact['data']['info']['password']),
+            'confirmation_code' => $data['confirmation_code']
         ]); 
         event(new Registered($user));
 

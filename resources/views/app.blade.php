@@ -92,7 +92,6 @@
 										<div class="font-24 mb-20 text-center">Rellena los datos para acceder</div>
 										
                                                 <v-app id="app">
-                                                    <!-- <main-navigation-component id="login" auth="{{ auth()->check() }}"></main-navigation-component>        -->
                                                     <login-form-component id="login" auth="{{ auth()->check() }}"></login-form-component>
                                                 </v-app>
 							</div>
